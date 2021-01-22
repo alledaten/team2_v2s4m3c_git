@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "dev.mvc.review_attachfile.Review_AttachfileDAOInter">
+
+  <!-- 첨부파일 등록  -->
+  <insert id="create" parameterType="Review_AttachfileVO">
+    INSERT INTO review_attachfile(review_attachfile_no, review_no, review_attachfile_rname, review_attachfile_upname, review_attachfile_thumb, review_attachfile_size, review_attachfile_date)
+    VALUES(review_attachfile_seq.nextval, #{review_no}, #{review_attachfile_rname}, #{review_attachfile_upname}, #{review_attachfile_thumb}, #{review_attachfile_size} ,sysdate)
+  </insert>
+  
+  <!-- 전체 목록 -->
+  <select id="list" resultType="Review_AttachfileVO">
+    SELECT review_attachfile_no, review_no, review_attachfile_rname, review_attachfile_upname, review_attachfile_thumb, review_attachfile_size, review_attachfile_date
+    FROM review_attachfile
+    ORDER BY review_no DESC,  review_attachfile_no ASC
+  </select>
+  
+  <!-- PK 기준 하나의 레코드 조회 -->
+  <select id="read" resultType="Review_AttachfileVO" parameterType="int">
+    SELECT review_attachfile_no, review_no, review_attachfile_rname, review_attachfile_upname, review_attachfile_thumb, review_attachfile_size, review_attachfile_date
+    FROM  review_attachfile
+    WHERE review_attachfile_no=#{review_attachfile_no}  
+  </select>
+
+  <!-- FK 기준 review_no가 동일한 레코드 조회, review_attachfile_rname 오름 차순 -->
+  <select id="list_by_review_no" resultType="Review_AttachfileVO" parameterType="int">
+    SELECT review_attachfile_no, review_no, review_attachfile_rname, review_attachfile_upname, review_attachfile_thumb, review_attachfile_size, review_attachfile_date
+    FROM  review_attachfile
+    WHERE review_no = #{review_no}
+  </select>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM review_attachfile
+    WHERE review_attachfile_no = #{review_attachfile_no}    
+  </delete>
+  
+  <!-- FK 부모키를 이용한 모든 레코드 삭제 -->
+  <delete id="delete_by_review_no" parameterType="int">
+    DELETE FROM review_attachfile
+    WHERE review_no = #{review_no}
+  </delete>
+  
+  <!-- 부모키(review_no)별 갯수 산출 -->
+  <select id="count_by_review_no" parameterType="int" resultType="int">
+    SELECT COUNT(*) as cnt
+    FROM review_attachfile
+    WHERE review_no = #{review_no}
+  </select>
+
+
+      
+</mapper> 

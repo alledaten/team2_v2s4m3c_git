@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.qna.QnaDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="dev.mvc.qna.QnaDAOInter"> 
+  <!-- 
+  insert: INSERT SQL 실행
+  id: Spring에서 호출시 사용
+  parameterType: 전달받는 데이터 객체의 타입
+  return: 등록한 레코드 갯수 리턴
+  SQL선언시 ';'은 삭제
+  #{}: ? 동일
+  #{name}: public String getName() 자동 호출
+   -->
+  <insert id="create" parameterType="QnaVO">
+    INSERT INTO qna(qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_check, qna_visible, file1, thumb1, size1, qna_word, grpno, indent, ansnum)
+    VALUES(qna_seq.nextval, 4, #{member_no}, #{qna_title}, #{qna_content}, #{qna_passwd}, sysdate, 0, #{qna_check}, 'N', #{file1}, #{thumb1}, #{size1}, #{qna_word}, (SELECT NVL(MAX(grpno), 0) + 1 FROM qna), 0, 0)
+  </insert>
+  
+  <select id="list_qnano_asc" resultType="QnaVO">
+    SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_check, qna_visible, file1, thumb1, size1, qna_word, grpno, indent, ansnum
+    FROM qna 
+    ORDER BY qna_no ASC
+  </select>
+  
+  <select id="read" parameterType="int" resultType="QnaVO">
+    SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_check, qna_visible, file1, thumb1, size1, qna_word, grpno, indent, ansnum
+    FROM qna
+    WHERE qna_no = #{qna_no}
+  </select>
+  
+<!--   <select id="read_member" parameterType="int" resultType="QnaMemberVO">
+    SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_visible, qna_check, qna_word, grpno, indent, ansnum, mid
+    FROM qna
+    WHERE qna_no = #{qna_no}
+  </select> -->
+  
+  <update id="update" parameterType="QnaVO">
+    UPDATE qna
+    SET community_no=4, qna_title= #{qna_title}, qna_content= #{qna_content}, qna_passwd= #{qna_passwd}
+    WHERE qna_no = #{qna_no}
+  </update>
+  
+  <select id="passwd_check" parameterType="HashMap" resultType="int">
+    SELECT COUNT(*) as passwd_cnt
+    FROM qna
+    WHERE qna_no= #{qna_no} AND qna_passwd= #{qna_passwd}
+  </select>
+  
+  <delete id= "delete" parameterType="int">
+    DELETE FROM qna
+    WHERE qna_no =#{qna_no}
+  </delete>
+  
+  <update id="update_visible" parameterType="QnaVO">
+    UPDATE qna
+    SET qna_visible= #{qna_visible}
+    WHERE qna_no=#{qna_no}
+  </update>
+  
+  <!-- 첨부 파일 메인 이미지 변경 -->
+  <update id="update_img" parameterType="QnaVO">
+    UPDATE qna
+    SET file1= #{file1}, thumb1= #{thumb1}, size1= #{size1}
+    WHERE qna_no= #{qna_no}
+  </update>
+
+  <!-- 회원 id join -->
+<!--   <select id="list_member_join" resultType="QnaMemberVO">  
+    SELECT m.member_id,
+              q.qna_no, q.community_no, q.member_no, q.qna_title, q.qna_content, q.qna_passwd, q.qna_rdate, q.qna_count, q.qna_visible, q.qna_check, q.qna_word
+    FROM member m,  qna q
+    WHERE m.member_no = q.member_no
+    ORDER BY q.qna_no DESC
+  </select> -->
+  
+   <!-- 카테고리별 검색 목록 + 페이징 -->   
+<!--    <select id="list_search_paging" 
+              resultType="QnaVO" parameterType="HashMap">
+     SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_visible, qna_check, qna_word, r
+     FROM (
+                SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_visible, qna_check, qna_word, rownum as r
+                FROM (
+                          SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_visible, qna_check, qna_word
+                          FROM qna
+                          <choose>
+                            <when test="qna_word == null or qna_word == ''"> 검색하지 않는 경우
+                              WHERE community_no=4
+                            </when>
+                            <otherwise>
+                              WHERE community_no=4 AND (qna_title LIKE '%' || #{qna_word} || '%'
+                                                                     OR qna_content LIKE '%' || #{qna_word} || '%' 
+                                                                     OR qna_word LIKE '%' || #{qna_word} || '%')
+                            </otherwise>
+                          </choose>
+                          ORDER BY qna_no DESC
+                )
+     )
+     WHERE <![CDATA[ r >= #{startNum} AND r <= #{endNum} ]]> -->
+     
+<!--  1 page: WHERE r >= 1 AND r <= 10; 
+       2 page: WHERE r >= 11 AND r <= 20;
+       3 page: WHERE r >= 21 AND r <= 30; -->
+     
+<!--    </select>  -->
+  
+   <!-- 카테고리별 검색 레코드 갯수 -->
+   <select id="search_count" resultType="int" parameterType="HashMap">
+     SELECT COUNT(*) as cnt
+     FROM qna
+     <choose>
+       <when test="qna_word == null or qna_word == ''"> <!-- 검색하지 않는 경우의 레코드 갯수 -->
+         WHERE community_no=4
+       </when>
+       <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
+         WHERE community_no=4 AND (qna_title LIKE '%' || #{qna_word} || '%' 
+                                               OR qna_content LIKE '%' || #{qna_word} || '%' 
+                                               OR qna_word LIKE '%' || #{qna_word} || '%')
+       </otherwise>
+     </choose>
+   </select>   
+  
+   <!-- 카테고리별 검색 목록 + 페이징 + 메인 이미지 + 답변형 -->
+<!--    <select id="list_search_paging" 
+              resultType="QnaVO" parameterType="HashMap">
+     SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_visible, qna_check, qna_word,
+                grpno, indent, ansnum, r
+     FROM (
+                SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_visible, qna_check, qna_word,
+                grpno, indent, ansnum, rownum as r
+                FROM (
+                          SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_visible, qna_check, qna_word,
+                                     grpno, indent, ansnum
+                          FROM qna
+                          <choose>
+                            <when test="qna_word == null or qna_word == ''"> 검색하지 않는 경우
+                              WHERE community_no=4
+                            </when>
+                            <otherwise>
+                              WHERE community_no=4 AND (qna_title LIKE '%' || #{qna_word} || '%'
+                                                                     OR qna_content LIKE '%' || #{qna_word} || '%' 
+                                                                     OR qna_word LIKE '%' || #{qna_word} || '%')
+                            </otherwise>
+                          </choose>
+                          ORDER BY grpno DESC, ansnum ASC
+                )
+     )
+     WHERE <![CDATA[ r >= #{startNum} AND r <= #{endNum} ]]>
+   </select>   --> 
+  
+     <!-- 카테고리별 검색 목록 + 페이징 + 메인 이미지 + 답변형 -->
+   <select id="list_search_paging_join" 
+              resultType="QnaMemberVO" parameterType="HashMap">
+     SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_check, qna_visible, file1, thumb1, size1, qna_word,
+                grpno, indent, ansnum, mid, r
+     FROM (
+                SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_check, qna_visible, file1, thumb1, size1, qna_word,
+                grpno, indent, ansnum, mid, rownum as r
+                FROM (
+                          SELECT q.qna_no, q.community_no, q.member_no, q.qna_title, q.qna_content, q.qna_passwd, q.qna_rdate, q.qna_count, q.qna_check, q.qna_visible, q.file1, q.thumb1, q.size1, q.qna_word,
+                                     q.grpno, q.indent, q.ansnum,
+                                     m.member_id as mid
+                          FROM qna q, member m
+                          <choose>
+                            <when test="qna_word == null or qna_word == ''"> <!-- 검색하지 않는 경우 -->
+                              WHERE community_no=4 AND q.member_no = m.member_no
+                            </when>
+                            <otherwise>
+                               WHERE community_no=4 
+                                        AND q.member_no = m.member_no 
+                                        AND (qna_title LIKE '%' || #{qna_word} || '%' 
+                                                OR qna_content LIKE '%' || #{qna_word} || '%' 
+                                                OR qna_word LIKE '%' || #{qna_word} || '%')
+                            </otherwise>
+                          </choose>
+                          ORDER BY grpno DESC, ansnum ASC
+                )
+     )
+     WHERE <![CDATA[ r >= #{startNum} AND r <= #{endNum} ]]>
+   </select> 
+  
+   <!-- 부모글 바로 아래 답변이 추가됨으로 ansnum도 부모+1이되어야함,
+         부모글의 ansnum 보다 큰 ansnum 값 1씩 증가 -->
+   <update id="increaseAnsnum" parameterType="HashMap">
+     UPDATE qna
+     SET ansnum = ansnum + 1
+     WHERE grpno = #{grpno} AND ansnum > #{ansnum}  
+   </update>
+  
+   <!-- 답변, 계산된 grpno, indent, ansnum을 추가함  -->
+   <insert id="reply" parameterType="QnaVO">
+     <selectKey keyProperty="qna_no" resultType="int" order="BEFORE">
+       SELECT qna_seq.nextval FROM dual
+     </selectKey>
+    INSERT INTO qna(qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_check, qna_visible, qna_word,
+                                 grpno, indent, ansnum)                       
+     VALUES(#{qna_no}, 4, #{member_no}, #{qna_title}, #{qna_content}, #{qna_passwd}, sysdate, 0, 'N', 'N', #{qna_word},
+                                #{grpno}, #{indent}, #{ansnum})
+   </insert>
+  
+</mapper>

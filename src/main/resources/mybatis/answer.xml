@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.answer.AnswerDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="dev.mvc.answer.AnswerDAOInter"> 
+  <!-- 
+  insert: INSERT SQL 실행
+  id: Spring에서 호출시 사용
+  parameterType: 전달받는 데이터 객체의 타입
+  return: 등록한 레코드 갯수 리턴
+  SQL선언시 ';'은 삭제
+  #{}: ? 동일
+  #{name}: public String getName() 자동 호출
+   -->
+  <insert id="create" parameterType="AnswerVO">
+    INSERT INTO answer(answer_no, member_no, qna_no, answer_content, answer_rdate, answer_passwd, file1, thumb1, size1)
+    VALUES(answer_seq.nextval, 1, #{qna_no}, #{answer_content}, sysdate, '1234', #{file1}, #{thumb1}, #{size1})
+  </insert>
+  
+  <select id="list_answer_no_asc" resultType="AnswerVO">
+    SELECT answer_no, member_no, qna_no, answer_content, answer_rdate, answer_passwd, file1, thumb1, size1
+    FROM answer 
+    ORDER BY answer_no ASC
+  </select>
+  
+  <select id="list_qnatitle_desc" resultType="AnswerVO" parameterType="int">
+    SELECT answer_no, member_no, qna_no, answer_content, answer_rdate, answer_passwd, file1, thumb1, size1
+    FROM answer
+    WHERE qna_no = #{qna_no}
+    ORDER BY answer_no DESC
+  </select>
+  
+  <select id="read" parameterType="int" resultType="AnswerVO">
+    SELECT answer_no, member_no, qna_no, answer_content, answer_rdate, answer_passwd, file1, thumb1, size1
+    FROM answer
+    WHERE answer_no = #{answer_no}
+  </select>
+  
+  <update id="update" parameterType="AnswerVO">
+    UPDATE answer
+    SET qna_no= 1, answer_content= #{answer_content} 
+    WHERE answer_no = #{answer_no}
+  </update>
+  
+  <delete id= "delete" parameterType="int">
+    DELETE answer
+    WHERE answer_no = #{answer_no}
+  </delete>
+  
+  <select id="passwd_check" parameterType="HashMap" resultType="int">
+    SELECT COUNT(*) as passwd_cnt
+    FROM answer
+    WHERE answer_no= #{answer_no} AND answer_passwd= #{answer_passwd}
+  </select>
+  
+  <!-- 첨부 파일 메인 이미지 변경 -->
+  <update id="update_img" parameterType="AnswerVO">
+    UPDATE answer
+    SET file1= #{file1}, thumb1= #{thumb1}, size1= #{size1}
+    WHERE answer_no= #{answer_no}
+  </update>
+  
+  
+</mapper>

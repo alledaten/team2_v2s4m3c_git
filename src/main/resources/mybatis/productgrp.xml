@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.cate.CateDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="dev.mvc.productgrp.ProductgrpDAOInter">
+  <!-- 
+  insert: INSERT SQL 실행
+  id: Spring에서 호출시 사용
+  parameterType: 전달받는 데이터 객체의 타입
+  return: 등록한 레코드 갯수 리턴
+  SQL선언시 ';'은 삭제
+  #{}: ? 동일
+  #{name}: public String getName() 자동 호출
+   --> 
+   <insert id="create" parameterType="ProductgrpVO">
+    INSERT INTO productgrp(productgrp_no, productgrp_name, productgrp_seqno, productgrp_visible, productgrp_rdate)
+    VALUES(productgrp_seq.nextval, #{productgrp_name}, #{productgrp_seqno}, #{productgrp_visible}, sysdate)
+  </insert> 
+  
+  <!-- 
+  레코드 갯수 만큼 CategrpVO 객체를 만들어 ArrayList에 저장하여 리턴,
+  List<ProductgrpVO> list = new ArrayList<ProductgrpVO>(); 
+  -->
+  <select id="list_productgrp_seqno_asc" resultType="ProductgrpVO">
+    SELECT productgrp_no, productgrp_name, productgrp_seqno, productgrp_visible, productgrp_rdate
+    FROM productgrp
+    ORDER BY productgrp_seqno ASC
+  </select>
+  
+  <!-- 조회, 수정폼, 삭제폼, id: read, 입력: productgrp_no, 리턴: ProductgrpVO -->
+  <select id="read" parameterType="int" resultType="ProductgrpVO">
+    SELECT productgrp_no, productgrp_name, productgrp_seqno, productgrp_visible, productgrp_rdate
+    FROM productgrp
+    WHERE productgrp_no = #{productgrp_no}
+  </select>
+  
+    <!-- 수정, id: update, 입력: ProductgrpVO, 리턴: int -->
+  <update id="update" parameterType="ProductgrpVO">
+    UPDATE productgrp
+    SET productgrp_name=#{productgrp_name}, productgrp_seqno=#{productgrp_seqno}, productgrp_visible=#{productgrp_visible}
+    WHERE productgrp_no=#{productgrp_no}
+  </update>
+  
+  <!-- 삭제, return: int -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM productgrp
+    WHERE productgrp_no = #{productgrp_no}
+  </delete> 
+  
+   <!-- 우선순위 상향 up 10 ▷ 1 -->
+   <update id="update_seqno_up" parameterType="int">
+    UPDATE productgrp
+    SET productgrp_seqno = productgrp_seqno - 1
+    WHERE productgrp_no = #{productgrp_no}
+  </update>
+  
+  <!-- 우선순위 하향 down 1 ▷ 10 -->
+  <update id="update_seqno_down" parameterType="int">
+    UPDATE productgrp
+    SET productgrp_seqno = productgrp_seqno + 1
+    WHERE productgrp_no = #{productgrp_no}
+  </update>
+  
+  <!-- 수정, id: update_visible, 입력: ProductgrpVO, 리턴: int -->
+  <update id="update_productgrp_visible" parameterType="ProductgrpVO">
+    UPDATE productgrp
+    SET productgrp_visible=#{productgrp_visible}
+    WHERE productgrp_no=#{productgrp_no}
+  </update>
+  
+    <update id="increaseCnt" parameterType="int">
+    UPDATE productgrp 
+    SET productgrp_cnt = productgrp_cnt + 1 
+    WHERE productgrp_no=#{productgrp_no}
+  </update>
+
+  <update id="decreaseCnt" parameterType="int">
+    UPDATE productgrp 
+    SET productgrp_cnt = productgrp_cnt - 1 
+    WHERE productgrp_no=#{productgrp_no}
+   </update>
+  
+  
+          
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!--
+  auth_no:
+         1 최고관리자
+         2 관리자
+         3 게시판 관리자
+         4 우수회원
+         5 일반회원
+-->
+<mapper namespace="dev.mvc.member.MemberDAOInter">
+  <select id="checkID" resultType="int" parameterType="String">
+    SELECT COUNT(member_id) as cnt
+    FROM member
+    WHERE member_id = #{member_id}
+  </select>
+  
+  <insert id="create" parameterType="MemberVO">
+    INSERT INTO member(member_no, member_id, member_passwd, member_nickname, member_name, 
+                       member_isAdult, member_tel, member_email, member_rdate, member_address1, member_address2, member_profilepic, member_profilethumb,
+                       memberlevel_no, auth_no, snslogin_no)
+    VALUES (member_no_seq.nextval, #{member_id}, #{member_passwd}, #{member_nickname}, #{member_name},
+            #{member_isAdult}, #{member_tel}, #{member_email}, sysdate, #{member_address1}, #{member_address2}, #{member_profilepic}, #{member_profilethumb},
+            #{memberlevel_no}, #{auth_no}, 1)
+  </insert> 
+  
+  <select id="list_memberno_asc" resultType="MemberVO">
+    SELECT member_no, member_id, member_name, member_nickname, member_email, member_rdate, member_profilethumb, memberlevel_no
+    FROM member
+    ORDER BY member_no ASC
+  </select>
+  
+  <select id="list_join" resultType="MemberVO">
+    SELECT l.memberlevel_no as level_no, l.memberlevel_name as level_name,
+           m.member_no, m.member_id, m.member_name, m.member_nickname, m.member_email, m.member_rdate, m.member_profilethumb, m.memberlevel_no
+    FROM memberlevel l, member m
+    WHERE m.memberlevel_no = l.memberlevel_no
+    ORDER BY l.memberlevel_no ASC, m.member_no ASC
+  </select>
+  
+  <!-- 검색 레코드 갯수 -->
+  <select id="search_count" resultType="int" parameterType="HashMap">
+   SELECT COUNT(*) as cnt
+   FROM memberlevel l, member m
+   <choose>
+     <when test="word == null or word == ''"> <!-- 검색하지 않는 경우의 레코드 갯수 -->
+       WHERE m.memberlevel_no = l.memberlevel_no
+     </when>
+     <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
+       WHERE m.memberlevel_no = l.memberlevel_no
+             AND (m.member_id LIKE '%' || #{word} || '%' 
+                  OR m.member_nickname LIKE '%' || #{word} || '%')
+     </otherwise>
+   </choose>
+  </select>    
+  
+   <!-- 검색 목록 + 페이징 -->
+  <select id="list_paging" resultType="MemberVO" parameterType="HashMap">
+     SELECT level_no, level_name, 
+            member_no, member_id, member_name, member_nickname, member_email, member_rdate, member_profilethumb, memberlevel_no,
+            r
+     FROM (
+                SELECT level_no, level_name, 
+                       member_no, member_id, member_name, member_nickname, member_email, member_rdate, member_profilethumb, memberlevel_no,
+                       rownum as r
+                FROM (
+                          SELECT l.memberlevel_no as level_no, l.memberlevel_name as level_name,
+                                 m.member_no, m.member_id, m.member_name, m.member_nickname, m.member_email, m.member_rdate, m.member_profilethumb, m.memberlevel_no
+                          FROM memberlevel l, member m
+                          <choose>
+                            <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
+                              WHERE m.memberlevel_no = l.memberlevel_no
+                            </when>
+                            <otherwise>
+                              WHERE m.memberlevel_no = l.memberlevel_no
+                                    AND (member_id LIKE '%' || #{word} || '%' 
+                                         OR member_nickname LIKE '%' || #{word} || '%')
+                            </otherwise>
+                          </choose>
+                          ORDER BY l.memberlevel_no ASC, m.member_no ASC
+                )
+     )
+     WHERE <![CDATA[ r >= #{startNum} AND r <= #{endNum} ]]>
+<!--
+       1 page: WHERE r >= 1 AND r <= 10; 
+       2 page: WHERE r >= 11 AND r <= 20;
+       3 page: WHERE r >= 21 AND r <= 30; -->
+   </select>
+  
+  <select id="read" resultType="MemberVO" parameterType="int">
+    SELECT member_no, member_id, member_passwd, member_nickname, member_name, member_isAdult, member_tel, member_email, member_rdate,
+           member_zipcode, member_address1, member_address2, member_profilepic, member_profilethumb, memberlevel_no, auth_no, snslogin_no
+    FROM member
+    WHERE member_no = #{member_no}
+  </select>
+  
+  <update id="update" parameterType="MemberVO">
+    UPDATE member
+    SET member_passwd = #{member_passwd},
+        member_name = #{member_name},
+        member_nickname = #{member_nickname},
+        member_isAdult = #{member_isAdult},
+        member_tel = #{member_tel},
+        member_email = #{member_email}, 
+        member_zipcode = #{member_zipcode},
+        member_address1 = #{member_address1},
+        member_address2 = #{member_address2},
+        member_profilepic = #{member_profilepic},
+        member_profilethumb = #{member_profilethumb}
+    WHERE member_no=#{member_no}
+  </update>
+  
+  <select id="passwd_check" parameterType="HashMap" resultType="int">
+    SELECT COUNT(*) as passwd_cnt
+    FROM member
+    WHERE member_no=#{member_no} AND member_passwd=#{member_passwd}
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM member
+    WHERE member_no=#{member_no}
+  </delete>
+  
+  
+</mapper>
+
