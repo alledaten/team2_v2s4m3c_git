@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+#header {
+  font-family:'맑은 고딕','malgun gothic','돋움',dotum,sans-serif;
+  font-size:12px;
+ }
+ 
+#main .main_visual {width:996px; margin:12px auto 0;}

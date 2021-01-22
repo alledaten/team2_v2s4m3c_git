@@ -1,0 +1,15 @@
+회원가입 <- /member/create.do
+회원등록 <- /member/list.do
+회원등급 <- /auth/list.do
+전통주 종류 <-/productgrp/list.do
+전통주 주문 <-/buy/create.do
+주문조회  <- /buy/list.do
+Q&A <- /qna/list.do
+리뷰 전체 카테고리 <- /review_categrp/list.do
+리뷰 카테고리(세부 종류: 술) <- /review_cate/list.do?review_categrp_no=1 
+리뷰 카테고리(세부 종류: 안주) <- /review_cate/list.do?review_categrp_no=2
+게시판 <- /boardgrp/list.do
+자유게시판(1번 게시판) <- /boardgrp/list.do?forum_no=1
+자유게시판 글내용(1번 게시판) <- /boardgrp/list.do?forum_no=1&fcontents_no=1
+술토크게시판(2번 게시판) <- /boardgrp/list.do?forum_no=2
+술토크게시판 글내용(2번 게시판) <- /boardgrp/list.do?forum_no=2&fcontents_no=2

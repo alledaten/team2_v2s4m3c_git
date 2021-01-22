@@ -13,16 +13,34 @@
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/" />
+  <!-- <resources mapping="/resources/**" location="/resources/" /> -->
+  <default-servlet-handler/>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="prefix" value="/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+  <context:component-scan base-package="dev" />
 	<context:component-scan base-package="dev.mvc.team2_git" />
+  <context:component-scan base-package="dev.mvc.member" /> <!-- PL -->
+  <context:component-scan base-package="dev.mvc.auth" /> <!-- PL -->
+  <context:component-scan base-package="dev.mvc.review_categrp" /> <!-- DS -->
+  <context:component-scan base-package="dev.mvc.review_cate" /> <!-- DS -->
+  <context:component-scan base-package="dev.mvc.review" /> <!-- DS -->
+  <context:component-scan base-package="dev.mvc.review_attachfile" /> <!-- DS -->
+  <context:component-scan base-package="dev.mvc.qna" /> <!-- AI -->
+  <context:component-scan base-package="dev.mvc.answer" /> <!-- AI -->
+  <context:component-scan base-package="dev.mvc.productgrp" /> <!-- DA -->
+  <context:component-scan base-package="dev.mvc.notice" /> <!-- CD -->
+  <context:component-scan base-package="dev.mvc.boardgrp" /> <!-- WP -->
+  <context:component-scan base-package="dev.mvc.forum" /> <!-- WP -->
 	
-	
-	
+	 <!-- FORM의 FILE 태그를 읽어 MultipartFile 객체로 변환 -->
+  <beans:bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+  </beans:bean>
+  
 </beans:beans>
+	
