@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.cate.CateDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="dev.mvc.product.ProductDAOInter">
+<!--   <insert id="create" parameterType="ProductVO">
+    INSERT INTO product(product_no, productgrp_no, product_name, 
+    product_brand, product_origin, product_frequency, product_description, product_cost, product_ml, product_word, 
+    product_passwd, product_file1, product_thumb1, product_size1, product_rdate,)
+    VALUES(product_seq.nextval, 1, #{product_name}, #{product_brand}, #{product_origin}, #{product_frequency}, 
+    #{product_description}, #{product_cost}, #{product_ml}, #{product_word}, #{product_passwd},
+    #{product_file1}, #{product_thumb1}, #{product_size1}, sysdate)
+  </insert>  -->
+  <select id="list_all" resultType="ProductVO">
+    SELECT product_no, member_no, productgrp_no, product_name, product_brand, product_origin, product_frequency, product_description, product_cost, product_ml, 
+    product_word, product_passwd,
+    product_file1, product_thumb1, product_size1, product_rdate
+    FROM product
+    ORDER BY product_no ASC
+  </select>
+  
+  <select id= "list_by_productgrp_no" resultType= "ProductVO">
+    SELECT product_no, member_no, productgrp_no, product_name, product_brand, product_origin, product_frequency, product_description, product_cost, product_ml, 
+    product_word, product_passwd,
+    product_file1, product_thumb1, product_size1, product_rdate
+    FROM product
+    WHERE productgrp_no=#{productgrp_no}
+    ORDER BY product_no ASC
+  </select>
+  
+  <select id="read" resultType="ProductVO" parameterType="int">
+    SELECT product_no, member_no, productgrp_no, product_name, product_brand, product_origin, product_frequency, product_description, product_cost, product_ml, 
+    product_word, product_passwd,
+    product_file1, product_thumb1, product_size1, product_rdate
+    FROM product
+    WHERE product_no = #{product_no}
+  </select>
+  <update id="update" parameterType="ProductVO">
+    UPDATE product
+    SET product_name=#{product_name}, product_brand=#{product_brand}, product_origin=#{product_origin}, product_frequency=#{product_frequency},
+    product_description=#{product_description}, product_cost= #{product_cost}, product_ml = #{product_ml}, product_word = #{product_word}
+    WHERE product_no = #{product_no}
+  </update>
+  
+  <select id="passwd_check" parameterType="HashMap" resultType="int">
+    SELECT COUNT(*) as passwd_cnt
+    FROM product
+    WHERE product_no=#{product_no} AND product_passwd=#{product_passwd}
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM product
+    WHERE product_no=#{product_no}
+  </delete>
+  
+  <update id="update_img" parameterType="ProductVO">
+    UPDATE product 
+    SET product_file1=#{product_file1}, product_thumb1=#{product_thumb1}, product_size1=#{product_size1}
+    WHERE product_no = #{product_no}
+  </update>
+  
+  <select id="total_count" resultType="int">
+    SELECT COUNT(*) as product_cnt
+    FROM product
+  </select>
+  
+  <insert id="create" parameterType="ProductVO">
+    <selectKey keyProperty="product_no" resultType="int" order="BEFORE">
+      SELECT product_seq.nextval FROM dual
+    </selectKey>
+    INSERT INTO product(product_no, member_no, productgrp_no, product_name, product_brand, product_origin, 
+                                 product_frequency, product_description, product_cost, product_ml, product_word, 
+                                 product_passwd, product_file1, product_thumb1, product_size1, product_rdate,
+                                 product_grpno, product_indent, product_ansnum)
+    VALUES(#{product_no}, #{member_no}, #{productgrp_no}, #{product_name}, #{product_brand}, #{product_origin}, #{product_frequency},
+               #{product_description}, #{product_cost}, #{product_ml}, #{product_word}, #{product_passwd},
+               #{product_file1}, #{product_thumb1}, #{product_size1}, sysdate,
+                (SELECT NVL(MAX(product_grpno), 0) + 1 FROM product), 0, 0)
+  </insert>
+  
+  <!-- 부모글 바로 아래 답변이 추가됨으로 ansnum도 부모+1이되어야함,
+         부모글의 ansnum 보다 큰 ansnum 값 1씩 증가 -->
+   <update id="increaseAnsnum" parameterType="HashMap">
+     UPDATE product
+     SET product_ansnum = product_ansnum + 1
+     WHERE product_grpno = #{product_grpno} AND product_ansnum > #{product_ansnum}  
+   </update>
+   
+   <!-- 답변, 계산된 grpno, indent, ansnum을 추가함  -->
+   <insert id="reply" parameterType="ProductVO">
+     <selectKey keyProperty="product_no" resultType="int" order="BEFORE">
+       SELECT product_seq.nextval FROM dual
+     </selectKey>
+    INSERT INTO product(product_no, member_no, productgrp_no, product_name, product_brand, product_origin, 
+                                 product_frequency, product_description, product_cost, product_ml, product_word, 
+                                 product_passwd, product_file1, product_thumb1, product_size1, product_rdate,
+                                 product_grpno, product_indent, product_ansnum)                       
+     VALUES(#{product_no}, #{member_no}, #{productgrp_no}, #{product_name}, #{product_brand}, #{product_origin}, #{product_frequency},
+               #{product_description}, #{product_cost}, #{product_ml}, #{product_word}, #{product_passwd},
+               #{product_file1}, #{product_thumb1}, #{product_size1}, sysdate,
+                                #{product_grpno}, #{product_indent}, #{product_ansnum})
+   </insert>
+   
+      <!-- 카테고리별 검색 레코드 갯수 -->
+   <select id="search_count" resultType="int" parameterType="HashMap">
+     SELECT COUNT(*) as product_cnt
+     FROM product
+     <choose>
+       <when test="word == null or word == ''"> <!-- 검색하지 않는 경우의 레코드 갯수 -->
+         WHERE productgrp_no=#{productgrp_no}
+       </when>
+       <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
+         WHERE productgrp_no=#{productgrp_no} AND (product_name LIKE '%' || #{product_word} || '%' 
+                                                        OR product_description LIKE '%' || #{product_word} || '%' 
+                                                        OR product_word LIKE '%' || #{product_word} || '%')
+       </otherwise>
+     </choose>
+   </select>    
+  
+     <!-- 카테고리별 검색 목록 + 페이징 + 메인 이미지 + 답변형 -->
+   <select id="list_by_productgrp_no_search_paging_join" 
+              resultType="Product_MemberVO" parameterType="HashMap">
+     SELECT product_no, member_no, productgrp_no, product_name, product_brand, product_origin, 
+                                 product_frequency, product_description, product_cost, product_ml, product_word,
+                                 product_recom, product_cnt, product_replycnt,
+                                 product_file1, product_thumb1, product_size1, product_rdate,
+                                 product_grpno, product_indent, product_ansnum, mid, r
+     FROM (
+                SELECT product_no, member_no,productgrp_no, product_name, product_brand, product_origin, 
+                                 product_frequency, product_description, product_cost, product_ml, product_word,
+                                 product_recom, product_cnt, product_replycnt,
+                                 product_file1, product_thumb1, product_size1, product_rdate,
+                                 product_grpno, product_indent, product_ansnum, mid, rownum as r
+                FROM (
+                          SELECT p.product_no, p.member_no, p.productgrp_no, p.product_name, p.product_brand, p.product_origin, 
+                                 p.product_frequency, p.product_description, p.product_cost, p.product_ml, p.product_word,
+                                 p.product_recom, p.product_cnt, p.product_replycnt,
+                                 p.product_file1, p.product_thumb1, p.product_size1, p.product_rdate,
+                                 p.product_grpno, p.product_indent, p.product_ansnum, m.id as mid
+                          FROM product p, member m
+                          <choose>
+                            <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->
+                              WHERE productgrp_no=#{productgrp_no} AND p.member_no = m.member_no
+                            </when>
+                            <otherwise>
+                              WHERE productgrp_no=#{productgrp_no}
+                                              AND p.member_no = m.member_no 
+                                              AND (product_name LIKE '%' || #{product_word} || '%' 
+                                                        OR product_description LIKE '%' || #{product_word} || '%' 
+                                                        OR product_word LIKE '%' || #{product_word} || '%')
+                            </otherwise>
+                          </choose>
+                          ORDER BY product_grpno DESC, product_ansnum ASC
+                )
+     )
+     WHERE <![CDATA[ r >= #{startNum} AND r <= #{endNum} ]]>
+   </select>
+   
+      <!-- 댓글 수 증가 -->
+   <update id="increaseReplycnt" parameterType="int">
+     UPDATE product
+     SET product_replycnt = product_replycnt + 1
+     WHERE product_no = #{product_no}
+   </update>
+
+   <!-- 댓글 수 감소 -->
+   <update id="decreaseReplycnt" parameterType="int">
+     UPDATE product
+     SET product_replycnt = product_replycnt + 1
+     WHERE product_no = #{product_no}
+   </update> 
+          
+</mapper>

@@ -39,7 +39,11 @@
                           dev.mvc.boardgrp,
                           dev.mvc.forum,
                           dev.mvc.review,
-                          dev.mvc.review_attachfile" />
+                          dev.mvc.review_attachfile,
+                          dev.mvc.product,
+                          dev.mvc.product_attachfile,
+                          dev.mvc.product_reply,
+                          dev.mvc.admin" />
     <property name="mapperLocations" value="classpath:mybatis/*.xml" />
   </bean>
   

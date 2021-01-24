@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "dev.mvc.product_attachfile.Product_AttachfileDAOInter">
+  <insert id="create" parameterType="Product_AttachfileVO">
+    INSERT INTO product_attachfile(product_attachfile_no, product_no, product_attachfile_fname, product_attachfile_fupname, product_attachfile_thumb, product_attachfile_fsize, product_attachfile_rdate)
+    VALUES(product_attachfile_seq.nextval, #{product_no}, #{product_attachfile_fname}, #{product_attachfile_fupname}, #{product_attachfile_thumb}, #{product_attachfile_fsize}, sysdate)
+  </insert>
+
+  <select id="list" resultType="Product_AttachfileVO">
+    SELECT product_attachfile_no, product_no, product_attachfile_fname, product_attachfile_fupname, product_attachfile_thumb, product_attachfile_fsize, product_attachfile_rdate
+    FROM product_attachfile
+    ORDER BY product_no DESC,  product_attachfile_no ASC
+  </select>
+
+  <!-- PK 기준 하나의 레코드 조회 -->
+  <select id="read" resultType="Product_AttachfileVO" parameterType="int">
+    SELECT product_attachfileno, product_no, product_attachfile_fname, product_attachfile_fupname, product_attachfile_thumb, product_attachfile_fsize, product_attachfile_rdate
+    FROM product_attachfile
+    WHERE product_attachfile_no=#{product_attachfile_no}  
+  </select>
+
+  <!-- FK 기준 contentsno가 동일한 레코드 조회, fname 오름 차순 -->
+  <select id="list_by_product_no" resultType="Product_AttachfileVO" parameterType="int">
+    SELECT product_attachfile_no, product_no, product_attachfile_fname, product_attachfile_fupname, product_attachfile_thumb, product_attachfile_fsize, product_attachfile_rdate
+    FROM product_attachfile
+    WHERE product_no=#{product_no}
+  </select>
+
+  <delete id="delete" parameterType="int">
+    DELETE FROM product_attachfile
+    WHERE product_attachfile_no = #{product_attachfile_no}    
+  </delete>
+  
+  <!-- 부모키별 갯수 산출, id="count_by_contentsno" -->
+  <select id="count_by_product_no" parameterType="int" resultType="int">
+    SELECT COUNT(*) as cnt
+    FROM product_attachfile
+    WHERE product_no=#{product_no}
+  </select>
+
+  <!-- FK 부모키를 이용한 모든 레코드 삭제, id="delete_by_contentsno" -->
+  <delete id="delete_by_product_no" parameterType="int">
+    DELETE FROM product_attachfile
+    WHERE product_no=#{product_no}
+  </delete>
+  
+      
+</mapper> 
+
+
+
+
+
+
+
+
+

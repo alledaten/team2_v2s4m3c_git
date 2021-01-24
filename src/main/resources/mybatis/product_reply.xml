@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "dev.mvc.product_reply.Product_ReplyDAOInter">
+  <insert id="create">
+    INSERT INTO reply(product_reply_no, product_no, member_no, product_reply_content, product_reply_passwd, product_reply_rdate)
+    VALUES((SELECT NVL(MAX(produt_reply_no), 0) + 1 as product_reply_no FROM product_reply),
+                 #{product_no}, #{member_no}, #{product_reply_content}, #{product_reply_passwd}, sysdate)
+  </insert>
+  
+  <select id="list" resultType="Product_ReplyVO">
+    SELECT product_reply_no, product_no, member_no, product_reply_content, product_reply_passwd, product_reply_rdate
+    FROM product_reply
+    ORDER BY product_reply_no DESC
+  </select>
+
+  <select id="list_member_join" resultType="Product_ReplyMemberVO">
+    SELECT m.id,
+              r.product_reply_no, r.product_no, r.member_no, r.product_reply_content, r.product_reply_passwd, r.product_reply_rdate
+    FROM member m,  product_reply r
+    WHERE m.member_no = r.member_no
+    ORDER BY r.product_reply_no DESC
+  </select>
+  
+  <select id="list_by_product_no" resultType="Product_ReplyVO" parameterType="int">
+    SELECT product_reply_no, product_no, member_no, product_reply_content, product_reply_passwd, product_reply_rdate
+    FROM product_reply
+    WHERE product_no=#{product_no}
+    ORDER BY product_reply_no DESC
+  </select>
+
+  <!-- 특정글에 대한 전체 댓글 목록 -->
+  <select id="list_by_product_no_join" resultType="Product_ReplyMemberVO" parameterType="int">
+    SELECT m.id,
+              r.product_reply_no, r.product_no, r.member_no, r.product_reply_content, r.product_reply_passwd, r.product_reply_rdate
+    FROM member m,  product_reply r
+    WHERE (m.member_no = r.member_no) AND r.product_no=#{product_no}
+    ORDER BY r.product_reply_no DESC
+  </select>
+  
+  <!-- <select id="checkPasswd" parameterType="HashMap" resultType="int"> -->
+  <!-- <select id="checkPasswd" parameterType="ReplyVO" resultType="int"> -->
+  <select id="checkPasswd" parameterType="Map" resultType="int">
+    SELECT COUNT(*) as cnt
+    FROM product_reply
+    WHERE product_reply_no=#{product_reply_no} AND product_reply_passwd=#{product_reply_passwd}
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM product_reply
+    WHERE prodcut_reply_no=#{product_reply_no}
+  </delete>
+
+  <!-- 더보기 버튼 페이징 구현 -->
+  <select id="list_by_product_no_join_add" resultType="Product_ReplyMemberVO" 
+             parameterType="HashMap">
+    SELECT id, product_reply_no, product_no, member_no, product_reply_content, product_reply_passwd, product_reply_rdate, r
+    FROM (
+            SELECT id, product_reply_no, product_no, member_no, product_reply_content, product_reply_passwd, product_reply_rdate, rownum as r
+            FROM (
+                    SELECT m.id,
+                               r.product_reply_no, r.product_no, r.member_no, r.product_reply_content, r.product_reply_passwd, r.product_reply_rdate
+                    FROM member m,  product_reply r
+                    WHERE (m.member_no = r.member_no) AND r.product_no=#{product_no}
+                    ORDER BY r.product_reply_no DESC
+            )
+    )
+    WHERE <![CDATA[ r >= #{startNum} AND r <= #{endNum} ]]>
+  </select>
+        
+</mapper> 
+

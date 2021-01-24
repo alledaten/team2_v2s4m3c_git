@@ -13,7 +13,7 @@
     <div class="top_header">
       <div class="top_header_inner">
         <ul class="util">
-          <li><a href="#">로그인</a></li>
+          <li><A class='top_menu_link'  href='${pageContext.request.contextPath}/member/login.do' >로그인</a></li>
           <li><a href="${pageContext.request.contextPath}/member/create.do">회원가입</a></li>
         </ul>
       </div>
@@ -34,7 +34,7 @@
         </li>
         <li><a href="#">전통주</a>
           <ul class="depth2">
-            <li><a href="#">전통주 종류</a></li>
+            <li><a href="${pageContext.request.contextPath}/productgrp/list.do">전통주 종류</a></li>
             <li><a href="#">갤러리</a></li>
             <li><a href='${pageContext.request.contextPath}/review_categrp/list.do'>리뷰 게시판</a></li>
           </ul>
