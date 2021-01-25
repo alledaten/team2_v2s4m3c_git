@@ -8,18 +8,17 @@
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>전통주</title>
  
-<!-- CSS --> 
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
 
-<!-- jQuery --> 
-<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  
-<!-- Bootstrap --> 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
  
 </head>
  
@@ -35,8 +34,10 @@
      전체 보기 
   </ASIDE>
   <ASIDE class="aside_right">
+       <c:if test="${sessionScope.id != null  or sessionScope.id_admin != null }">
       <A href="./create.do?productgrp_no=${productgrpVO.productgrp_no }">등록</A>
       <span class='menu_divide' >│</span>
+    </c:if>  
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span>
     <A href="./list_by_productgrp_no_grid1.do?productgrp_no=${productgrpVO.productgrp_no }">갤러리형</A>
@@ -102,7 +103,7 @@
                     
           <tr> 
             <td style='vertical-align: middle; text-align: center;'>${product_rdate.substring(0, 10)}</td>
-            <td style='vertical-align: middle; text-align: center;'>
+             <td style='vertical-align: middle; text-align: center;'>
               <c:choose>
                 <c:when test="${product_thumb1.endsWith('jpg') || product_thumb1.endsWith('png') || product_thumb1.endsWith('gif')}">
                   <IMG src="./storage/main_images/${product_thumb1 }" style="width: 120px; height: 80px;"> 
@@ -111,7 +112,7 @@
                   ${product_file1}
                 </c:otherwise>
               </c:choose>
-            </td>  
+            </td> 
             <td style='vertical-align: middle;'>
               <c:choose>
                   <c:when test="${product_ansnum == 0 }"> <%-- 부모글인 경우 아이콘 출력 --%>

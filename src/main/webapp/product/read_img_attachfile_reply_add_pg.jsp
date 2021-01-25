@@ -10,18 +10,17 @@
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>전통주</title>
 
-<!-- CSS --> 
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
 
-<!-- jQuery --> 
-<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  
-<!-- Bootstrap --> 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 
 <script type="text/javascript">
@@ -58,8 +57,8 @@
   function check_login() {
     var frm_product_reply = $('#frm_product_reply');
     if ($('#member_no', frm_product_reply).val().length == 0 ) {
-      $('#modal_title').html('댓글 등록'); // 제목 
-      $('#modal_content').html("로그인해야 등록 할 수 있습니다."); // 내용
+      $('#modal_product_name').html('댓글 등록'); // 제목 
+      $('#modal_product_reply_content').html("로그인해야 등록 할 수 있습니다."); // 내용
       $('#modal_panel').modal();            // 다이얼로그 출력
       return false;  // 실행 종료
     }
@@ -80,8 +79,8 @@
       // return;
       
       if ($('#product_reply_content', frm_product_reply).val().length > 300) {
-        $('#modal_title').html('댓글 등록'); // 제목 
-        $('#modal_content').html("댓글 내용은 300자이상 입력 할 수 없습니다."); // 내용
+        $('#modal_product_name').html('댓글 등록'); // 제목 
+        $('#modal_product_reply_content').html("댓글 내용은 300자이상 입력 할 수 없습니다."); // 내용
         $('#modal_panel').modal();           // 다이얼로그 출력
         return;  // 실행 종료
       }
