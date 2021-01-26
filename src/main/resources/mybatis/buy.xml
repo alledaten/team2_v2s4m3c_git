@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.qna.QnaDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="dev.mvc.buy.BuyDAOInter"> 
+  <!-- 
+  insert: INSERT SQL 실행
+  id: Spring에서 호출시 사용
+  parameterType: 전달받는 데이터 객체의 타입
+  return: 등록한 레코드 갯수 리턴
+  SQL선언시 ';'은 삭제
+  #{}: ? 동일
+  #{name}: public String getName() 자동 호출
+   -->
+  <insert id="create" parameterType="BuyVO">
+    INSERT INTO buy(buy_no, cart_no, member_no, product_no, order_check, dev_no, pay_no, pay_count, pay_rdate, buy_check)
+    VALUES (buy_seq.nextval, #{cart_no}, #{member_no}, #{product_no}, #{order_check}, #{dev_no}, #{pay_no}, #{pay_count}, sysdate, 'N')
+  </insert>
+   
+  <select id="list_buy_desc" resultType="BuyVO">
+    SELECT buy_no, cart_no, member_no, product_no, order_check, dev_no, pay_no, pay_count, pay_rdate, buy_check 
+    FROM buy
+    ORDER BY buy_no DESC
+  </select>
+  
+  <select id="list_update_desc" resultType="BuyVO" parameterType="int">
+    SELECT buy_no, cart_no, member_no, product_no, order_check, dev_no, pay_no, pay_count, pay_rdate, buy_check 
+    FROM buy
+    WHERE buy_no= #{buy_no}
+    ORDER BY buy_no DESC
+  </select>
+  
+  <select id="read" parameterType="int" resultType="BuyVO">
+    SELECT buy_no, cart_no, member_no, product_no, order_check, dev_no, pay_no, pay_count, pay_rdate, buy_check
+    FROM buy
+    WHERE buy_no = #{buy_no}
+  </select>
+  
+  <update id="update" parameterType="BuyVO">
+    UPDATE buy
+    SET order_check = #{order_check}, pay_count = #{pay_count}
+    WHERE buy_no = #{buy_no}
+  </update>
+   
+  <delete id= "delete" parameterType="int">
+    DELETE buy
+    WHERE buy_no = #{buy_no}
+  </delete>  
+   
+</mapper>

@@ -48,8 +48,8 @@
         </li>
         <li><a href="#">구매하기</a>
           <ul class="depth2">
-            <li><a href="#">주문</a></li>
-            <li><a href="#">조회</a></li>
+            <li><a href='${pageContext.request.contextPath}/buy/create.do'> 주문</a></li>
+            <li><a href='${pageContext.request.contextPath}/buy/list.do'> 조회</a></li>
           </ul> 
         </li> 
         <li><a href="#">커뮤니티</a>

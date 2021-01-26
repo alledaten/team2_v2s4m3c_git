@@ -34,6 +34,7 @@
                           dev.mvc.review_cate,
                           dev.mvc.qna,
                           dev.mvc.answer,
+                          dev.mvc.buy,
                           dev.mvc.productgrp,
                           dev.mvc.notice,
                           dev.mvc.boardgrp,

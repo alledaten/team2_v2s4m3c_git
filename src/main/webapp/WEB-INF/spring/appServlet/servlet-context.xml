@@ -32,6 +32,7 @@
   <context:component-scan base-package="dev.mvc.review_attachfile" /> <!-- DS -->
   <context:component-scan base-package="dev.mvc.qna" /> <!-- AI -->
   <context:component-scan base-package="dev.mvc.answer" /> <!-- AI -->
+    <context:component-scan base-package="dev.mvc.buy" /> <!-- AI -->
   <context:component-scan base-package="dev.mvc.productgrp" /> <!-- DA -->
   <context:component-scan base-package="dev.mvc.product" /> <!-- DA -->
   <context:component-scan base-package="dev.mvc.product_attachfile" /> <!-- DA -->
