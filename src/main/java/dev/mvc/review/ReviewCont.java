@@ -240,7 +240,7 @@ public class ReviewCont {
   
   
 
-  /**
+   /**
    * 조회 http://localhost:9090/team2/review/read.do
    * 
    * @return
@@ -251,6 +251,11 @@ public class ReviewCont {
 
     ReviewVO reviewVO = this.reviewProc.read(review_no);
     mav.addObject("reviewVO", reviewVO);
+    
+    int review_view = this.reviewProc.update_review_view(review_no);
+    mav.addObject("review_view", review_view); // request에 저장
+    
+    System.out.println("--> review_no: " + review_no);
 
     Review_CateVO review_CateVO = review_CateProc.read(reviewVO.getReview_cate_no());
     mav.addObject("review_CateVO", review_CateVO);

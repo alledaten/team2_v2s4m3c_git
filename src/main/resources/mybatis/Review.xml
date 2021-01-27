@@ -116,6 +116,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE review_no=#{review_no} 
   </update>
   
+  <!-- 리뷰 조회수 증가 -->
+  <update id="update_review_view" parameterType="int" >
+    UPDATE review
+    SET review_view = review_view + 1
+    WHERE review_no = #{review_no}
+  </update>
+  
 
 
 

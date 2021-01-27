@@ -78,5 +78,12 @@ public interface ReviewDAOInter {
    */
   public int img_update(ReviewVO reviewVO);
   
+  /**
+   * 조회수 증가
+   * @param review_no
+   * @return
+   */
+  public int update_review_view(int review_no);
+  
   
 }

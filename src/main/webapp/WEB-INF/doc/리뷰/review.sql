@@ -405,3 +405,8 @@ FROM (
            )      
 )
 WHERE r >= 1 AND r <= 10;
+
+-- 조회수 증가
+UPDATE review
+SET review_view = review_view + 1
+WHERE review_no = 23;

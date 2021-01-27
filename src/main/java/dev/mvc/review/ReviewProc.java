@@ -230,7 +230,11 @@ public class ReviewProc implements ReviewProcInter{
     return cnt;
   }
   
-  
+  @Override
+  public int update_review_view(int review_no) {
+    int cnt = this.reviewDAO.update_review_view(review_no);
+    return cnt;
+  }
 
   
   
