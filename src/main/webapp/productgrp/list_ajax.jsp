@@ -350,7 +350,7 @@
       <c:set var="productgrp_no" value="${productgrpVO.productgrp_no }" />
       <TR>
         <TD class="td_bs">${productgrpVO.productgrp_seqno }</TD>
-      <TD class="td_bs_left"><A href = "../product/list.do?productgrp_no=${productgrp_no}">${productgrpVO.productgrp_name }</A></TD>
+      <TD class="td_bs_left"><A href="../product/list_by_productgrp_no_grid1.do?productgrp_no=${productgrpVO.productgrp_no }">${productgrpVO.productgrp_name }</A></TD>
       <TD class="td_bs">${productgrpVO.productgrp_rdate.substring(0, 10) }</TD>
       
       <TD class="td_bs">

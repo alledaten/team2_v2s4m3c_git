@@ -339,10 +339,12 @@ tag += "</A>";
   <ASIDE class="aside_right">
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' > | </span> 
-    <A href="./create.do?productgrp_no=${productgrpVO.productgrp_no }">등록</A>
-    <span class='menu_divide' > | </span>
-    <A href='./reply.do?product_no=${product_no }&productgrp_no=${productgrp_no }'>답변</A>
-    <span class='menu_divide' > | </span>
+    <c:if test="${sessionScope.member_id != null  or sessionScope.member_id_admin != null }">
+      <A href="./create.do?productgrp_no=${productgrpVO.productgrp_no }">등록</A>
+      <span class='menu_divide' >│</span>
+      <A href='./reply.do?product_no=${product_no }&productgrp_no=${productgrp_no }'>답변</A>
+      <span class='menu_divide' > | </span>
+    </c:if>  
     <A href='./list.do?productgrp_no=${productgrp_no }&product_word=${param.product_word }&nowPage=${param.nowPage}'>목록</A>
 
     <%-- 글을 등록한 회원만 메뉴 출력 --%>

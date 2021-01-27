@@ -31,8 +31,10 @@
     <A href="../productgrp/list.do?productgrp_no=${productgrpVO.productgrp_no }">${productgrpVO.productgrp_name }</A> > ${productVO.product_name} > 전체 보기 
   </ASIDE>
   <ASIDE class="aside_right">
-    <A href="./create.do?productgrp_no=${productgrpVO.productgrp_no }">등록</A>
-    <span class='menu_divide' >│</span>
+    <c:if test="${sessionScope.member_id != null  or sessionScope.member_id_admin != null }">
+      <A href="./create.do?productgrp_no=${productgrpVO.productgrp_no }">등록</A>
+      <span class='menu_divide' >│</span>
+    </c:if>  
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span>
     <A href="./list.do?productgrp_no=${productgrpVO.productgrp_no }">목록형</A>    
