@@ -28,7 +28,7 @@
 <body>
 <jsp:include page="/menu/top.jsp" />
  
-  <DIV class='title_line'>
+  <DIV class='title_line' style="width: 80%; margin: 30px auto; font-size: 20px; font-weight: bold;">
     <A href="../review_categrp/list.do">상품 종류</A> > 
     <A href="./list_join.do">분류</A> > 
     ${review_CategrpVO.review_categrp_name } (${review_CategrpVO.review_categrp_date.substring(0, 10) })
@@ -54,7 +54,7 @@
     </FORM>
   </DIV>
   
-<TABLE class='table table-striped'>
+<TABLE class='table table-striped' style="width: 80%; margin: 10px auto;" >
   <colgroup>
     <col style="width: 10%;"/>
     <col style="width: 10%;"/>

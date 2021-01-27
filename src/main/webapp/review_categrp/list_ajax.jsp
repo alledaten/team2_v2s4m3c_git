@@ -295,9 +295,9 @@
 <body>
 <jsp:include page="/menu/top.jsp" />
  
-  <DIV class='title_line'>상품 종류</DIV>
+  <DIV class='title_line' style="width: 80%; margin: 30px auto; font-size: 20px; font-weight: bold;">상품 종류</DIV>
  
-  <DIV id='panel_create' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; text-align: center;'>
+  <DIV id='panel_create' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 80%; text-align: center; margin: 10px auto;'>
     <FORM name='frm' id='frm' method='POST' action=''>
       
       <input type='hidden' name='review_categrp_no' id='review_categrp_no' value='0'>
@@ -316,7 +316,7 @@
   </DIV>
   <DIV id='panel1' style="width: 40%; text-align: center; margin: 10px auto; display: none;"></DIV> 
   
-  <TABLE class='table table-striped'>
+  <TABLE class='table table-striped' style="width: 80%; margin: 10px auto;" >
     <colgroup>
       <col style='width: 10%;'/>
       <col style='width: 40%;'/>

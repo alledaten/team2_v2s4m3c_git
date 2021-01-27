@@ -22,10 +22,11 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
-  <DIV class="title_line">
+  <DIV class='title_line' style="width: 80%; margin: 30px auto; font-size: 20px; font-weight: bold;">
     ${review_CateVO.review_cate_name}
   </DIV>
 
+  <div style="width: 80%; margin: 5px auto;">
   <ASIDE class="aside_left">
     <A href="../review_categrp/list.do">상품 종류</A> >
     <A href="../review_cate/list.do?review_categrp_no=${review_CategrpVO.review_categrp_no }">${review_CategrpVO.review_categrp_name }</A> >
@@ -58,26 +59,27 @@
       </c:if>    
     </form>
   </DIV>
+  </div>
       
-  <DIV class='menu_line'></DIV>
+  <DIV class='menu_line' style="width: 80%; margin: 5px auto;" ></DIV>
 
    
-  <div style='width: 100%;'>
+  <div style='width: 80%; margin: 0 auto;'>
     <c:forEach var="review_memberVO" items="${list }" varStatus="status">
     
     <c:set var="review_no" value="${review_memberVO.review_no }" />
       <c:set var="review_thumb" value="${review_memberVO.review_thumb }" />
       <c:set var="review_title" value="${review_memberVO.review_title}" />
       <c:set var="review_reply_cnt" value="${review_memberVO.review_reply_cnt}" />
-      
-      <%-- <c:set var="review_date" value="${reviewVO.review_date}"   /> --%>  <!-- 인터넷 소스 참고한 부분 -->
-      <jsp:useBean id="today" class="java.util.Date" />
-      <fmt:formatDate var="review_date" value="${today}" pattern="yyyy-MM-dd" />
-      
       <c:set var="member_no" value="${review_memberVO.member_no}" />
       <c:set var="review_file" value="${review_memberVO.review_file}" />
       <c:set var="review_size" value="${review_memberVO.review_size}" />
       <c:set var="review_view" value="${review_memberVO.review_view}" />
+      <c:set var="member_nickname" value="${review_memberVO.member_nickname}" />
+      
+      <%-- <c:set var="review_date" value="${reviewVO.review_date}"   /> --%>  <!-- 인터넷 소스 참고한 부분 -->
+      <jsp:useBean id="today" class="java.util.Date" />
+      <fmt:formatDate var="review_date" value="${today}" pattern="yyyy-MM-dd" />
       
       
       
@@ -100,7 +102,7 @@
                 <div style="font-size: 18px; font-weight: bold; cursor: pointer;" onclick="location.href='./read.do?review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}'">
                   ${review_memberVO.review_title} (${review_memberVO.review_reply_cnt})
                 </div><br>             
-                회원명: ${review_memberVO.member_nickname }｜등록일: ${review_date }<br>
+                회원명: ${member_nickname }｜등록일: ${review_date }<br>
                 <div style='font-size: 14px; color: #b2b2b2' >조회: ${review_view } </div>
               </c:when>
               <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
@@ -112,7 +114,7 @@
                 <div style="font-size: 18px; font-weight: bold; cursor: pointer;" onclick="location.href='./read.do?review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}'">
                   ${review_memberVO.review_title} (${review_memberVO.review_reply_cnt})
                 </div><br>   
-                 회원명: ${review_memberVO.member_nickname }｜등록일: ${review_date }<br>
+                 회원명: ${member_nickname }｜등록일: ${review_date }<br>
                 <div style='font-size: 14px; color: #b2b2b2' >조회: ${review_view } </div>
               </c:otherwise>
             </c:choose>
@@ -124,7 +126,7 @@
             <div style="font-size: 18px; font-weight: bold; cursor: pointer;" onclick="location.href='./read.do?review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}'">
               ${review_memberVO.review_title} (${review_memberVO.review_reply_cnt})
             </div><br>    
-             회원명: ${review_memberVO.member_nickname }｜등록일: ${review_date }<br>
+             회원명: ${member_nickname}｜등록일: ${review_date }<br>
              <div style='font-size: 14px; color: #b2b2b2' >조회: ${review_view } </div>
           </c:otherwise>
         </c:choose>         
@@ -134,6 +136,7 @@
     <br><br>
     <DIV class='bottom_menu'>${paging }</DIV>
   </div>
+  
  
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
