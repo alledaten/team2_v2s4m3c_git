@@ -25,10 +25,13 @@
 
 <script type="text/javascript">
 // 첨부 이미지 출력, dir: ../attachfile/storage/, ./storage/main_images/
+var tag = "<A href=\"javascript: $('#product_attachfile_panel').hide();\">";
+tag +=  "  <IMG src='../product_attachfile/storage/${productVO.product_file1.toLowerCase() }' style='width: 200px; height: 200px;'>";
+tag += "</A>";
   function panel_img(dir, file) {
-    var tag = "";
+    tag = "";
     tag   = "<A href=\"javascript: $('#product_attachfile_panel').hide();\">"; // 이미지 감추기
-    tag += "  <IMG src='" + dir + file + "' style='width: 100%;'>";
+    tag += "  <IMG src='" + dir + file + "' style='width: 200px; height: 200px;'>";
     tag += "</A>";
 
     $('#product_attachfile_panel').html(tag);  // 문자열을 태그로 적용
@@ -45,11 +48,12 @@
     $('#btn_create', frm_product_reply).on('click', product_reply_create);  // 댓글 작성시 로그인 여부 확인
 
     list_by_product_no_join(); // 댓글 목록
-    // list_by_contentsno_join_add(); // 댓글 페이징 지원 목록, 동시 접속시 페이징 문제 있음.
 
-    // $("#btn_add").on("click", list_by_contentsno_join_add); // 더보기 버튼 이벤트 등록, 페이징 문제 있음.
     $("#btn_add").on("click", list_by_product_no_join_add_pg); // 더보기 버튼 이벤트 등록
     // -------------------- 댓글 관련 종료 --------------------
+    
+    $('#product_attachfile_panel').html(tag); 
+    $('#product_attachfile_panel').show(); 
     
   });
  
@@ -57,8 +61,8 @@
   function check_login() {
     var frm_product_reply = $('#frm_product_reply');
     if ($('#member_no', frm_product_reply).val().length == 0 ) {
-      $('#modal_product_name').html('댓글 등록'); // 제목 
-      $('#modal_product_reply_content').html("로그인해야 등록 할 수 있습니다."); // 내용
+      $('#modal_title').html('댓글 등록'); // 제목 
+      $('#modal_content').html("로그인해야 등록 할 수 있습니다."); // 내용
       $('#modal_panel').modal();            // 다이얼로그 출력
       return false;  // 실행 종료
     }
@@ -79,8 +83,8 @@
       // return;
       
       if ($('#product_reply_content', frm_product_reply).val().length > 300) {
-        $('#modal_product_name').html('댓글 등록'); // 제목 
-        $('#modal_product_reply_content').html("댓글 내용은 300자이상 입력 할 수 없습니다."); // 내용
+        $('#modal_title').html('댓글 등록'); // 제목 
+        $('#modal_content').html("댓글 내용은 300자이상 입력 할 수 없습니다."); // 내용
         $('#modal_panel').modal();           // 다이얼로그 출력
         return;  // 실행 종료
       }
@@ -119,8 +123,8 @@
             msg = "댓글 등록에 실패했습니다.";
           }
           
-          $('#modal_product_name').html('댓글 등록'); // 제목 
-          $('#modal_product_reply_content').html(msg);     // 내용
+          $('#modal_title').html('댓글 등록'); // 제목 
+          $('#modal_content').html(msg);     // 내용
           $('#modal_panel').modal();           // 다이얼로그 출력
         },
         // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
@@ -138,11 +142,11 @@
 
   // Reply class 선언
   // {"memberno":3,"rdate":"2020-12-17 15:16:16.0","passwd":"18","replyno":32,"id":"user1","content":"18","contentsno":53}
-  function Product_reply(member_no, product_reply_rdate, product_reply_no, id, product_reply_content, product_no) {
+  function Product_reply(member_no, product_reply_rdate, product_reply_no, member_id, product_reply_content, product_no) {
     this.member_no = member_no;
     this.product_reply_rdate = product_reply_rdate;
     this.product_reply_no = product_reply_no;
-    this.id = id;
+    this.member_id = member_id;
     this.product_reply_content = product_reply_content;
     this.product_no = product_no;
   }
@@ -373,45 +377,44 @@
       <input type="hidden" name="product_no" value="${product_no}">
       <fieldset class="fieldset">
         <ul>
-          <li class="li_none" style='border-bottom: solid 1px #AAAAAA;'>
-            <span>${productVO.product_name}</span>
-            (<span>${productVO.product_recom}</span>)
-            <span>${productVO.product_rdate.substring(0, 16)}</span>
-          </li>
-          
-          <%-- ********** 첨부 파일 이미지 목록 출력 시작 ********** --%>
-          <li class="li_none">
-            <DIV id='product_attachfile_panel' style="width: 70%; margin: 0px auto;"></DIV> <!-- 원본 이미지 출력 -->
-          </li>
-          <li class="li_none" style='text-align: center;' >
-            <c:set var="product_file1" value="${productVO.product_file1.toLowerCase() }" />
-            <c:if test="${product_file1.endsWith('jpg') || product_file1.endsWith('png') || product_file1.endsWith('gif')}">
-              <A href="javascript:panel_img('./storage/main_images/', '${productVO.product_file1 }')"><IMG src='./storage/main_images/${productVO.product_thumb1 }' style='margin-top: 2px; width: 120px; height: 80px;'></A>
-            </c:if>
-            
-            <c:forEach var="product_attachfileVO" items="${product_attachfile_list }">
-              <c:set var="product_attachfile_thumb" value="${product_attachfileVO.product_attachfile_thumb.toLowerCase() }" />
-              
-              <c:choose>
-                <c:when test="${product_attachfile_thumb.endsWith('jpg') || product_attachfile_thumb.endsWith('png') || product_attachfile_thumb.endsWith('gif')}">
-                  <A href="javascript:panel_img('../product_attachfile/storage/', '${product_attachfileVO.product_attachfile_fname }')"><IMG src='../product_attachfile/storage/${product_attachfileVO.product_attachfile_thumb }' style='margin-top: 2px; width: 120px; height: 80px;'></A>
-                </c:when>
-              </c:choose>
-            </c:forEach>
-          </li>
-          <%-- ********** 첨부 파일 이미지 목록 출력 종료 ********** --%>
+          <DIV style='width: 80%; margin: 0px auto;'>
+            <%-- ********** 첨부 파일 이미지 목록 출력 시작 ********** --%>
+            <ASIDE class="aside_left">
+                <li class="li_none">
+                  <DIV id='product_attachfile_panel' style="margin: 0px auto;"></DIV> <!-- 원본 이미지 출력 -->
+                </li>
+                <li class="li_none" style='text-align: center;' >
+                  <c:set var="product_file1" value="${productVO.product_file1.toLowerCase() }" />
+                  <c:if test="${product_file1.endsWith('jpg') || product_file1.endsWith('png') || product_file1.endsWith('gif')}">
+                    <A href="javascript:panel_img('./storage/main_images/', '${productVO.product_file1 }')"><IMG src='./storage/main_images/${productVO.product_thumb1 }' style='margin-top: 2px; width: 100px; height: 100px;'></A>
+                  </c:if>
+                  
+                  <c:forEach var="product_attachfileVO" items="${product_attachfile_list }">
+                    <c:set var="product_attachfile_thumb" value="${product_attachfileVO.product_attachfile_thumb.toLowerCase() }" />
                     
-          <li class="li_none">
-            <DIV>${productVO.product_description }</DIV>
-          </li>                    
+                    <c:choose>
+                      <c:when test="${product_attachfile_thumb.endsWith('jpg') || product_attachfile_thumb.endsWith('png') || product_attachfile_thumb.endsWith('gif')}">
+                        <A href="javascript:panel_img('../product_attachfile/storage/', '${product_attachfileVO.product_attachfile_fname }')"><IMG src='../product_attachfile/storage/${product_attachfileVO.product_attachfile_thumb }' style='margin-top: 2px; width: 100px; height: 100px;'></A>
+                      </c:when>
+                    </c:choose>
+                  </c:forEach>
+                </li>
+                <%-- ********** 첨부 파일 이미지 목록 출력 종료 ********** --%>
+            </ASIDE>    
+            <li class="li_none">
+              <h3><span>${productVO.product_name}</span></h3>
+              (<span>${productVO.product_recom}</span>)
+              <span>${productVO.product_rdate.substring(0, 16)}</span>
+              <DIV>${productVO.product_cost } 원</DIV>
+            </li>                    
+            
           
-        
-        </ul>
-      </fieldset>
-  </FORM>
+          </ul>
+        </fieldset>
+      <DIV>${productVO.product_description }</DIV>
+    </FORM>
 
   <!-- ---------- 댓글 영역 시작 ---------- -->
-  <DIV style='width: 80%; margin: 0px auto;'>
       <HR>
       <FORM name='frm_product_reply' id='frm_product_reply'> <%-- 댓글 등록 폼 --%>
           <input type='hidden' name='product_no' id='product_no' value='${product_no}'>

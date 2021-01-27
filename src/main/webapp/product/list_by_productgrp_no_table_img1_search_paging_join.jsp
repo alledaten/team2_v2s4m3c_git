@@ -34,7 +34,7 @@
      전체 보기 
   </ASIDE>
   <ASIDE class="aside_right">
-       <c:if test="${sessionScope.id != null  or sessionScope.id_admin != null }">
+       <c:if test="${sessionScope.member_id != null  or sessionScope.member_id_admin != null }">
       <A href="./create.do?productgrp_no=${productgrpVO.productgrp_no }">등록</A>
       <span class='menu_divide' >│</span>
     </c:if>  

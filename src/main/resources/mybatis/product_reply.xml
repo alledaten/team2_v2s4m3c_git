@@ -5,8 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace = "dev.mvc.product_reply.Product_ReplyDAOInter">
   <insert id="create">
-    INSERT INTO reply(product_reply_no, product_no, member_no, product_reply_content, product_reply_passwd, product_reply_rdate)
-    VALUES((SELECT NVL(MAX(produt_reply_no), 0) + 1 as product_reply_no FROM product_reply),
+    INSERT INTO product_reply(product_reply_no, product_no, member_no, product_reply_content, product_reply_passwd, product_reply_rdate)
+    VALUES((SELECT NVL(MAX(product_reply_no), 0) + 1 as product_reply_no FROM product_reply),
                  #{product_no}, #{member_no}, #{product_reply_content}, #{product_reply_passwd}, sysdate)
   </insert>
   

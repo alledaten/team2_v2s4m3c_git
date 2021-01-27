@@ -20,11 +20,11 @@ import dev.mvc.admin.AdminProcInter;
 @Controller
 public class Product_ReplyCont {
   @Autowired
-  @Qualifier("dev.mvc.product_reply.Product_ReplyProc") // �̸� ����
+  @Qualifier("dev.mvc.product_reply.Product_ReplyProc") // 占싱몌옙 占쏙옙占쏙옙
   private Product_ReplyProcInter product_replyProc;
   
   @Autowired
-  @Qualifier("dev.mvc.admin.AdminProc") // �̸� ����
+  @Qualifier("dev.mvc.admin.AdminProc") // 占싱몌옙 占쏙옙占쏙옙
   private AdminProcInter adminProc;
   
   public Product_ReplyCont(){
@@ -32,7 +32,7 @@ public class Product_ReplyCont {
   }
   
   /**
-   * ��� ��� ó��
+   * 占쏙옙占� 占쏙옙占� 처占쏙옙
    * @param replyVO
    * @return
    */
@@ -104,24 +104,24 @@ public class Product_ReplyCont {
     map.put("product_reply_no", product_reply_no);
     map.put("product_reply_passwd", product_reply_passwd);
     
-    int passwd_cnt = product_replyProc.checkPasswd(map); // �н����� ��ġ ����, 1: ��ġ, 0: ����ġ
-    int delete_cnt = 0;                                    // ������ ���
-    if (passwd_cnt == 1) { // �н����尡 ��ġ�� ���
-      delete_cnt = product_replyProc.delete(product_reply_no); // ��� ����
+    int passwd_cnt = product_replyProc.checkPasswd(map); // 占싻쏙옙占쏙옙占쏙옙 占쏙옙치 占쏙옙占쏙옙, 1: 占쏙옙치, 0: 占쏙옙占쏙옙치
+    int delete_cnt = 0;                                    // 占쏙옙占쏙옙占쏙옙 占쏙옙占�
+    if (passwd_cnt == 1) { // 占싻쏙옙占쏙옙占썲가 占쏙옙치占쏙옙 占쏙옙占�
+      delete_cnt = product_replyProc.delete(product_reply_no); // 占쏙옙占� 占쏙옙占쏙옙
     }
     
     JSONObject obj = new JSONObject();
-    obj.put("passwd_cnt", passwd_cnt); // �н����� ��ġ ����, 1: ��ġ, 0: ����ġ
-    obj.put("delete_cnt", delete_cnt); // ������ ���
+    obj.put("passwd_cnt", passwd_cnt); // 占싻쏙옙占쏙옙占쏙옙 占쏙옙치 占쏙옙占쏙옙, 1: 占쏙옙치, 0: 占쏙옙占쏙옙치
+    obj.put("delete_cnt", delete_cnt); // 占쏙옙占쏙옙占쏙옙 占쏙옙占�
     
     return obj.toString();
   }
   
   /**
-   * ������ ��ư ����¡ ���
+   * 占쏙옙占쏙옙占쏙옙 占쏙옙튼 占쏙옙占쏙옙징 占쏙옙占�
    * http://localhost:9090/resort/reply/list_by_contentsno_join_add.do?contentsno=53&replyPage=1
-   * @param contentsno ��� �θ�� ��ȣ
-   * @param replyPage ��� ������
+   * @param contentsno 占쏙옙占� 占싸몌옙占� 占쏙옙호
+   * @param replyPage 占쏙옙占� 占쏙옙占쏙옙占쏙옙
    * @return
    */
   @ResponseBody

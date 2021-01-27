@@ -140,7 +140,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                  p.product_frequency, p.product_description, p.product_cost, p.product_ml, p.product_word,
                                  p.product_recom, p.product_cnt, p.product_replycnt,
                                  p.product_file1, p.product_thumb1, p.product_size1, p.product_rdate,
-                                 p.product_grpno, p.product_indent, p.product_ansnum, m.id as mid
+                                 p.product_grpno, p.product_indent, p.product_ansnum, m.member_id as mid
                           FROM product p, member m
                           <choose>
                             <when test="word == null or word == ''"> <!-- 검색하지 않는 경우 -->

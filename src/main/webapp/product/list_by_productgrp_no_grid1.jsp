@@ -47,7 +47,7 @@
       <c:set var="product_name" value="${productVO.product_name}" />
       <c:set var="product_cnt" value="${productVO.product_cnt}" />
       <c:set var="product_rdate" value="${productVO.product_rdate}" />
-      <c:set var="memberno" value="${productVO.memberno}" />
+      <c:set var="memberno" value="${productVO.member_no}" />
       <c:set var="product_file1" value="${productVO.product_file1}" />
       <c:set var="product_size1" value="${productVO.product_size1}" />
 

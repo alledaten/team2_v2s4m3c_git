@@ -77,7 +77,7 @@
       
       <div class="form-group">   
         <div class="col-md-12">
-          <input type='text' class="form-control" name='product_frequency' value='product_frequency' placeholder="도수" style='width: 80%;'>
+          <input type='text' class="form-control" name='product_frequency' value='5.5' placeholder="도수" style='width: 80%;'>
         </div>
       </div>
       
@@ -89,13 +89,13 @@
       
       <div class="form-group">   
         <div class="col-md-12">
-          <input type='text' class="form-control" name='product_cost' value='product_cost' placeholder="가격" style='width: 80%;'>
+          <input type='text' class="form-control" name='product_cost' value='3500' placeholder="가격" style='width: 80%;'>
         </div>
       </div>
       
       <div class="form-group">   
         <div class="col-md-12">
-          <input type='text' class="form-control" name='product_ml' value='product_ml' placeholder="용량ml" style='width: 80%;'>
+          <input type='text' class="form-control" name='product_ml' value='750' placeholder="용량ml" style='width: 80%;'>
         </div>
       </div>
 
