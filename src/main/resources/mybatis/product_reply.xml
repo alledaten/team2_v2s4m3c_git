@@ -33,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
   <!-- 특정글에 대한 전체 댓글 목록 -->
   <select id="list_by_product_no_join" resultType="Product_ReplyMemberVO" parameterType="int">
-    SELECT m.id,
+    SELECT m.member_id,
               r.product_reply_no, r.product_no, r.member_no, r.product_reply_content, r.product_reply_passwd, r.product_reply_rdate
     FROM member m,  product_reply r
     WHERE (m.member_no = r.member_no) AND r.product_no=#{product_no}
@@ -56,11 +56,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 더보기 버튼 페이징 구현 -->
   <select id="list_by_product_no_join_add" resultType="Product_ReplyMemberVO" 
              parameterType="HashMap">
-    SELECT id, product_reply_no, product_no, member_no, product_reply_content, product_reply_passwd, product_reply_rdate, r
+    SELECT member_id, product_reply_no, product_no, member_no, product_reply_content, product_reply_passwd, product_reply_rdate, r
     FROM (
-            SELECT id, product_reply_no, product_no, member_no, product_reply_content, product_reply_passwd, product_reply_rdate, rownum as r
+            SELECT member_id, product_reply_no, product_no, member_no, product_reply_content, product_reply_passwd, product_reply_rdate, rownum as r
             FROM (
-                    SELECT m.id,
+                    SELECT m.member_id,
                                r.product_reply_no, r.product_no, r.member_no, r.product_reply_content, r.product_reply_passwd, r.product_reply_rdate
                     FROM member m,  product_reply r
                     WHERE (m.member_no = r.member_no) AND r.product_no=#{product_no}

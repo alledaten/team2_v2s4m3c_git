@@ -69,7 +69,7 @@
           <c:set var="product_reply_no" value="${product_replyMemberVO.product_reply_no }" />
           <c:set var="product_no" value="${product_replyMemberVO.product_no }" />
           <c:set var="member_no" value="${product_replyMemberVO.member_no }" />
-          <c:set var="id" value="${product_replyMemberVO.id }" />
+          <c:set var="member_id" value="${product_replyMemberVO.member_id }" />
           <c:set var="product_reply_content" value="${product_replyMemberVO.product_reply_content }" />
           <c:set var="product_reply_rdate" value="${product_replyMemberVO.product_reply_rdate }" />
           
