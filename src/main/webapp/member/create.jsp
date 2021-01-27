@@ -302,14 +302,14 @@
       <!-- ---------- DAUM 우편번호 API 종료 ---------- -->
     
       <div class="form-group">   
-        <label for="member_address1" class="col-md-2 control-label">주소 *</label>
+        <label for="member_address1" class="col-md-2 control-label">주소</label>
         <div class="col-md-6">
           <input type='text' class="form-control" name='member_address1' id='member_address1' value='' placeholder="주소" required="required" style='width: 80%;'>
         </div>
       </div>
 
       <div class="form-group">   
-        <label for="member_address2" class="col-md-2 control-label">상세 *</label>
+        <label for="member_address2" class="col-md-2 control-label">상세주소</label>
         <div class="col-md-6">
           <input type='text' class="form-control" name='member_address2' id='member_address2' value='' placeholder="주소" required="required" style='width: 80%;'>
         </div>
