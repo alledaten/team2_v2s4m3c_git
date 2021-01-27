@@ -26,7 +26,7 @@
 <script type="text/javascript">
 // 첨부 이미지 출력, dir: ../attachfile/storage/, ./storage/main_images/
 var tag = "<A href=\"javascript: $('#product_attachfile_panel').hide();\">";
-tag +=  "  <IMG src='../product_attachfile/storage/${productVO.product_file1.toLowerCase() }' style='width: 200px; height: 200px;'>";
+tag +=  "  <IMG src='../product/storage/main_images/${productVO.product_file1.toLowerCase() }' style='width: 200px; height: 200px;'>";
 tag += "</A>";
   function panel_img(dir, file) {
     tag = "";
@@ -171,7 +171,7 @@ tag += "</A>";
         for (i=0; i < rdata.list.length; i++) {
           var row = rdata.list[i];
           // alert(row.replyno);
-          var product_reply = new Product_reply(row.member_no, row.product_reply_rdate, row.product_reply_no, row.id, row.product_reply_content, row.product_no); // 객체 생성
+          var product_reply = new Product_reply(row.member_no, row.product_reply_rdate, row.product_reply_no, row.member_id, row.product_reply_content, row.product_no); // 객체 생성
           global_rdata.push(product_reply); // 배열에 저장
         }
 
@@ -203,7 +203,7 @@ tag += "</A>";
       var row = global_rdata[i]; // 배열에서 글 1건 산출
           
       msg += "<DIV id='"+row.product_reply_no+"' style='border-bottom: solid 1px #EEEEEE; margin-bottom: 10px;'>";
-      msg += "<span style='font-weight: bold;'>" + row.id + "</span>";
+      msg += "<span style='font-weight: bold;'>" + row.member_id + "</span>";
       msg += "  " + row.product_reply_rdate;
       if ('${sessionScope.member_no}' == row.member_no) { // 글쓴이 일치여부 확인, 본인의 글만 삭제 가능함 ★
         msg += " <A href='javascript:reply_delete("+row.product_reply_no+")'><IMG src='./images/delete.png'></A>";
@@ -346,7 +346,7 @@ tag += "</A>";
     <A href='./list.do?productgrp_no=${productgrp_no }&product_word=${param.product_word }&nowPage=${param.nowPage}'>목록</A>
 
     <%-- 글을 등록한 회원만 메뉴 출력 --%>
-    <c:if test="${sessionScope.member_no == productVO.member_no or sessionScope.id_admin ne null }">
+    <c:if test="${sessionScope.member_no == productVO.member_no or sessionScope.member_id_admin ne null }">
       <%-- 글을 등록한 회원임. ${sessionScope.memberno} / ${productVO.memberno } --%>
       <c:choose>
         <c:when test="${productVO.product_file1.trim().length() > 0 }">
