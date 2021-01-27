@@ -124,7 +124,7 @@
             <div style="font-size: 18px; font-weight: bold; cursor: pointer;" onclick="location.href='./read.do?review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}'">
               ${review_memberVO.review_title} (${review_memberVO.review_reply_cnt})
             </div><br>    
-             회원명:｜등록일: ${review_date }<br>
+             회원명: ${review_memberVO.member_nickname }｜등록일: ${review_date }<br>
              <div style='font-size: 14px; color: #b2b2b2' >조회: ${review_view } </div>
           </c:otherwise>
         </c:choose>         
