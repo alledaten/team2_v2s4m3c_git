@@ -2,6 +2,7 @@ package dev.mvc.member;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface MemberProcInter {
   
@@ -61,14 +62,21 @@ public interface MemberProcInter {
    * @return
    */
   public MemberVO read(int member_no);
-
+  
+  /**
+   * 회원 정보 조회
+   * @param id
+   * @return
+   */
+  public MemberVO readById(String member_id);
+ 
   /**
    * 수정용 조회
    * @param member_no
    * @return
    */
   public MemberVO read_update(int member_no);
-  
+
   /**
    * 수정 처리
    * @param memberVO
@@ -90,6 +98,13 @@ public interface MemberProcInter {
    */
   public int delete(int member_no);
   
+  /**
+   * 로그인 처리
+   */
+  public int login(Map<String, Object> map);
+  
 }
+
+
 
 

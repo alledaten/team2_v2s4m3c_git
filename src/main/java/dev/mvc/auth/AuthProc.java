@@ -34,12 +34,6 @@ public class AuthProc implements AuthProcInter {
   }
 
   @Override
-  public AuthVO read_update(int auth_no) {
-    AuthVO authVO = this.authDAO.read(auth_no);
-    return authVO;
-  }
-
-  @Override
   public int update(AuthVO authVO) {
     int cnt = this.authDAO.update(authVO);
     return cnt;

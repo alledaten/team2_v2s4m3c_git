@@ -23,13 +23,6 @@ public interface AuthProcInter {
    * @return
    */
   public AuthVO read(int auth_no);
-
-  /**
-   * 수정용 조회
-   * @param auth_no
-   * @return
-   */
-  public AuthVO read_update(int auth_no);
   
   /**
    * 수정 처리

@@ -2,6 +2,7 @@ package dev.mvc.member;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface MemberDAOInter {
   
@@ -53,6 +54,13 @@ public interface MemberDAOInter {
   public MemberVO read(int member_no);
 
   /**
+   * 회원 정보 조회
+   * @param id
+   * @return
+   */
+  public MemberVO readById(String member_id);
+  
+  /**
    * 수정용 조회
    * @param member_no
    * @return
@@ -79,7 +87,11 @@ public interface MemberDAOInter {
    * @return
    */
   public int delete(int member_no);
-  
+
+  /**
+   * 로그인 처리
+   */
+  public int login(Map<String, Object> map);
   
 }
 

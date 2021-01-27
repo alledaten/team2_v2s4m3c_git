@@ -1,41 +1,35 @@
+DROP TABLE AUTH;
 
-/**********************************/
-/* Table Name: 권한 */
-/**********************************/
-drop table auth;
-
-CREATE TABLE auth(
-    auth_no            NUMBER(10)		 NOT NULL,
-    auth_content       VARCHAR2(50)		 NULL,
-    PRIMARY KEY(auth_no)
+CREATE TABLE AUTH (
+    AUTH_NO           NUMBER(10,0)  PRIMARY KEY,
+	AUTH_CONTENT      VARCHAR2(50 BYTE)
 );
 
-COMMENT ON TABLE auth is '권한';
-COMMENT ON COLUMN auth.auth_no is '권한번호';
-COMMENT ON COLUMN auth.auth_content is '권한내용';
+COMMENT ON TABLE AUTH  IS '권한';
+COMMENT ON COLUMN AUTH.AUTH_NO IS '권한 번호';
+COMMENT ON COLUMN AUTH.AUTH_CONTENT IS '권한 이름';
 
 -- 등록
-INSERT INTO auth(auth_no, auth_content)
-VALUES(1, '최고관리자');
-INSERT INTO auth(auth_no, auth_content)
-VALUES(2, '관리자');
-INSERT INTO auth(auth_no, auth_content)
-VALUES(3, '게시판 관리자');
-INSERT INTO auth(auth_no, auth_content)
-VALUES(4, '우수회원');
-INSERT INTO auth(auth_no, auth_content)
-VALUES(5, '일반회원');
+Insert into AUTH (AUTH_NO,AUTH_CONTENT) values (1,'최고관리');
+Insert into AUTH (AUTH_NO,AUTH_CONTENT) values (2,'게시판 관리');
+Insert into AUTH (AUTH_NO,AUTH_CONTENT) values (3,'판매자');
+Insert into AUTH (AUTH_NO,AUTH_CONTENT) values (4,'구매');
+Insert into AUTH (AUTH_NO,AUTH_CONTENT) values (5,'글 등록');
+Insert into AUTH (AUTH_NO,AUTH_CONTENT) values (6,'글 열람');
 
 -- 목록
-SELECT * FROM auth ORDER BY auth_no ASC;
+SELECT *
+FROM auth
+ORDER BY auth_no ASC;
 
    AUTH_NO AUTH_CONTENT                                      
----------- -----------------------------------
-         1 최고관리자                                        
-         2 관리자                                            
-         3 게시판 관리자                                     
-         4 우수회원                                          
-         5 일반회원          
+---------- --------------------
+         1 최고관리                                          
+         2 게시판 관리                                       
+         3 판매자
+         4 구매                                              
+         5 글 등록                                           
+         6 글 열람      
 
 -- 조회
 SELECT auth_no, auth_content
@@ -44,9 +38,9 @@ WHERE auth_no = 3;
 
 -- 수정
 UPDATE auth
-SET auth_content = '기업회원'
-WHERE auth_no = 4;
+SET auth_content = '판매'
+WHERE auth_no = 3;
 
 -- 삭제
-DELETE auth
-WHERE auth_no = 5;
+DELETE FROM auth
+WHERE auth_no=6;

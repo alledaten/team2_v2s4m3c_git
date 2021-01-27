@@ -19,17 +19,10 @@ public interface AuthDAOInter {
 
   /**
    * 조회, 수정폼
-   * @param auth_no 멤버 번호, PK
-   * @return
-   */
-  public AuthVO read(int auth_no);
-
-  /**
-   * 수정용 조회
    * @param auth_no
    * @return
    */
-  public AuthVO read_update(int auth_no);
+  public AuthVO read(int auth_no);
   
   /**
    * 수정 처리

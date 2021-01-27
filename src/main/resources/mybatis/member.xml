@@ -21,10 +21,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <insert id="create" parameterType="MemberVO">
     INSERT INTO member(member_no, member_id, member_passwd, member_nickname, member_name, 
-                       member_isAdult, member_tel, member_email, member_rdate, member_address1, member_address2, member_profilepic, member_profilethumb,
+                       member_isAdult, member_tel, member_email, member_rdate, member_zipcode, member_address1, member_address2, member_profilepic, member_profilethumb,
                        memberlevel_no, auth_no, snslogin_no)
     VALUES (member_no_seq.nextval, #{member_id}, #{member_passwd}, #{member_nickname}, #{member_name},
-            #{member_isAdult}, #{member_tel}, #{member_email}, sysdate, #{member_address1}, #{member_address2}, #{member_profilepic}, #{member_profilethumb},
+            #{member_isAdult}, #{member_tel}, #{member_email}, sysdate, #{member_zipcode}, #{member_address1}, #{member_address2}, #{member_profilepic}, #{member_profilethumb},
             #{memberlevel_no}, #{auth_no}, 1)
   </insert> 
   
@@ -98,6 +98,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE member_no = #{member_no}
   </select>
   
+  <select id="readById" resultType="MemberVO" parameterType="String">
+    SELECT member_no, member_id, member_passwd, member_name, member_tel, member_zipcode, member_address1, member_address2
+    FROM member
+    WHERE member_id = #{member_id}
+  </select>
+  
   <update id="update" parameterType="MemberVO">
     UPDATE member
     SET member_passwd = #{member_passwd},
@@ -125,6 +131,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE member_no=#{member_no}
   </delete>
   
+  <select id="login" resultType="int" parameterType="Map">
+    SELECT COUNT(member_no) as cnt
+    FROM member
+    WHERE member_id=#{member_id} AND member_passwd=#{member_passwd}
+  </select>
   
 </mapper>
 

@@ -2,8 +2,11 @@ package dev.mvc.member;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -290,7 +293,7 @@ public class MemberCont {
   }
   
   
-  // http://localhost:9090/resort/member/update.do
+  // http://localhost:9090/team2/member/update.do
   /**
    * 삭제 폼
    * @return
@@ -306,7 +309,7 @@ public class MemberCont {
     return mav;
   }
   
-  // http://localhost:9090/resort/member/delete.do
+  // http://localhost:9090/team2/member/delete.do
   /**
    * 삭제 처리
    * @param memberVO
@@ -373,6 +376,70 @@ public class MemberCont {
     
     return mav;
   }
+  
+  
+  /**
+   * 로그인 폼
+   * @return
+   */
+  // http://localhost:9090/team2/member/login.do 
+  @RequestMapping(value = "/member/login.do", 
+                  method = RequestMethod.GET)
+  public ModelAndView login() {
+    ModelAndView mav = new ModelAndView();
+  
+    mav.setViewName("/member/login_form");
+    return mav;
+  }
+
+  /**
+   * 로그인 처리
+   * @return
+   */
+  // http://localhost:9090/team2/member/login.do 
+  @RequestMapping(value = "/member/login.do", 
+                  method = RequestMethod.POST)
+  public ModelAndView login_proc(HttpSession session,
+                                  String member_id, 
+                                  String member_passwd) {
+    ModelAndView mav = new ModelAndView();
+    Map<String, Object> map = new HashMap<String, Object>();
+    map.put("member_id", member_id);
+    map.put("member_passwd", member_passwd);
+    
+    int count = memberProc.login(map);
+    
+    if (count == 1) { // 로그인 성공
+      System.out.println(member_id + " 로그인 성공");
+      MemberVO memberVO = memberProc.readById(member_id);
+      session.setAttribute("member_no", memberVO.getMember_no());
+      session.setAttribute("member_id", member_id);
+      session.setAttribute("member_name", memberVO.getMember_name());
+      
+      mav.setViewName("redirect:/index.do");  
+    } else {
+      mav.setViewName("redirect:/member/login_fail_msg.jsp");
+    }
+        
+    return mav;
+  }
+  
+  /**
+   * 로그아웃 처리
+   * @param session
+   * @return
+   */
+  @RequestMapping(value="/member/logout.do", 
+                             method=RequestMethod.GET)
+  public ModelAndView logout(HttpSession session){
+    ModelAndView mav = new ModelAndView();
+    session.invalidate(); // 모든 session 변수 삭제
+    
+    mav.setViewName("redirect:/member/logout_msg.jsp");
+    
+    return mav;
+  }
+
   
 }
 

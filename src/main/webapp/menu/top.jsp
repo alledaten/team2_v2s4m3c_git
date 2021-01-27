@@ -1,9 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-
-<%
-  // String root = request.getContextPath(); // /resort 
-// ${pageContext.request.contextPath}
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link href="css/common.css" rel="stylesheet" type="text/css">
 <link href="css/menu.css" rel="stylesheet" type="text/css">
@@ -13,7 +9,14 @@
     <div class="top_header">
       <div class="top_header_inner">
         <ul class="util">
-          <li><A class='top_menu_link'  href='${pageContext.request.contextPath}/member/login.do' >로그인</a></li>
+          <c:choose>
+            <c:when test="${sessionScope.member_id == null}">
+              <li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a></li>
+            </c:when>
+            <c:otherwise>
+              <li>${sessionScope.member_id } <A href='${pageContext.request.contextPath}/member/logout.do' >로그아웃</A></li>
+            </c:otherwise>
+          </c:choose>
           <li><a href="${pageContext.request.contextPath}/member/create.do">회원가입</a></li>
         </ul>
       </div>
