@@ -28,15 +28,15 @@ SNSLOGIN_NO SNSLOGIN_NAME
           4 구글                                              
 
 -- 조회
-SELECT auth_no, auth_content
-FROM auth
-WHERE auth_no = 3;
+SELECT snslogin_no, snslogin_name
+FROM snslogin
+WHERE snslogin_no = 3;
 
 -- 수정
-UPDATE auth
-SET auth_content = '판매'
-WHERE auth_no = 3;
+UPDATE snslogin
+SET snslogin_name = '판매'
+WHERE snslogin_no = 3;
 
 -- 삭제
-DELETE FROM auth
-WHERE auth_no=6;
+DELETE FROM snslogin
+WHERE snslogin_no=4;
