@@ -30,6 +30,8 @@
                    value="dev.mvc.team2_git,
                           dev.mvc.member,
                           dev.mvc.auth,
+                          dev.mvc.snslogin,
+                          dev.mvc.memberlevel,
                           dev.mvc.review_categrp,
                           dev.mvc.review_cate,
                           dev.mvc.qna,

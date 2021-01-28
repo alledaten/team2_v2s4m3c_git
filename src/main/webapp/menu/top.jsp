@@ -66,7 +66,9 @@
         <li><a href="#">회원</a>
           <ul class="depth2">
             <li><a href='${pageContext.request.contextPath}/member/list.do'>회원목록</a></li>
-            <li><a href="${pageContext.request.contextPath}/auth/list.do">회원등급</a></li>
+            <li><a href="${pageContext.request.contextPath}/auth/list.do">회원권한</a></li>
+            <li><a href="${pageContext.request.contextPath}/memberlevel/list.do">회원등급</a></li>
+            <li><a href="${pageContext.request.contextPath}/snslogin/list.do">SNS연동목록</a></li>
           </ul>
         </li>
       </ul>
