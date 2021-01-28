@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <delete id="delete" parameterType="int">
     DELETE FROM product_reply
-    WHERE prodcut_reply_no=#{product_reply_no}
+    WHERE product_reply_no=#{product_reply_no}
   </delete>
 
   <!-- 더보기 버튼 페이징 구현 -->

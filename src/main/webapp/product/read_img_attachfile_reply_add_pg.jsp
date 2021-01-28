@@ -206,7 +206,7 @@ tag += "</A>";
       msg += "<span style='font-weight: bold;'>" + row.member_id + "</span>";
       msg += "  " + row.product_reply_rdate;
       if ('${sessionScope.member_no}' == row.member_no) { // 글쓴이 일치여부 확인, 본인의 글만 삭제 가능함 ★
-        msg += " <A href='javascript:reply_delete("+row.product_reply_no+")'><IMG src='./images/delete.png'></A>";
+        msg += " <A href='javascript:product_reply_delete("+row.product_reply_no+")'><IMG src='./images/delete.png'></A>";
       }
       msg += "  " + "<br>";
       msg += row.product_reply_content;

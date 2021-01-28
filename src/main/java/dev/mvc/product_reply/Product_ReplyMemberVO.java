@@ -1,29 +1,30 @@
 package dev.mvc.product_reply;
 
 public class Product_ReplyMemberVO {
-  /** ���̵� */
-  private String id = "";
+  /** 占쏙옙占싱듸옙 */
+  private String member_id = "";
   
-  /** ��� ��ȣ */
+  /** 占쏙옙占� 占쏙옙호 */
   private int product_reply_no;
-  /** ���� �� ��ȣ */
+  /** 占쏙옙占쏙옙 占쏙옙 占쏙옙호 */
   private int product_no;
-  /** ȸ�� ��ȣ */
+  /** 회占쏙옙 占쏙옙호 */
   private int member_no;
-  /** ���� */
+  /** 占쏙옙占쏙옙 */
   private String product_reply_content;
-  /** �н����� */
+  /** 占싻쏙옙占쏙옙占쏙옙 */
   private String product_reply_passwd;
-  /** ����� */
+  /** 占쏙옙占쏙옙占� */
   private String product_reply_rdate;
   
-  public String getId() {
-    return id;
-  }
-  public void setId(String id) {
-    this.id = id;
-  }
 
+
+  public String getMember_id() {
+    return member_id;
+  }
+  public void setMember_id(String member_id) {
+    this.member_id = member_id;
+  }
   public int getProduct_no() {
     return product_no;
   }
