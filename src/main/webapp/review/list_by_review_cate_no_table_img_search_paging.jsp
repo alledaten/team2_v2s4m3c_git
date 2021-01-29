@@ -35,7 +35,7 @@
   </ASIDE>
   
   <ASIDE class="aside_right">
-    <c:if test="${sessionScope.meber_id != null  or sessionScope.id_admin != null }">
+    <c:if test="${sessionScope.member_id != null  or sessionScope.id_admin != null }">
       <A href="./create.do?review_cate_no=${review_CateVO.review_cate_no }">리뷰 등록</A>
       <span class='menu_divide' >│</span>
     </c:if>
