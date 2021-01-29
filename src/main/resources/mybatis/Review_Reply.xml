@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.review_reply.Review_ReplyDAOInter">
+
+<!-- 댓글 등록 -->
+<insert id="create">
+    INSERT INTO review_reply(review_reply_no, review_no, member_no, review_reply_content, review_reply_passwd, review_reply_date)
+    VALUES((SELECT NVL(MAX(review_reply_no), 0) + 1 as review_reply_no FROM review_reply),
+                 #{review_no}, #{member_no}, #{review_reply_content}, #{review_reply_passwd}, sysdate)
+</insert>
+
+<!-- 댓글 목록 -->
+<select id="list" resultType="Review_ReplyVO">
+    SELECT review_reply_no, review_no, member_no, review_reply_content, review_reply_passwd, review_reply_date
+    FROM review_reply
+    ORDER BY review_reply_no DESC
+</select>
+
+<!-- 댓글 + 회원의 댓글 목록-->
+<select id="list_member_join" resultType="Review_Reply_MemberVO">
+    SELECT m.member_id,
+              r.review_reply_no, r.review_no, r.member_no, r.review_reply_content, r.review_reply_passwd, r.review_reply_date
+    FROM member m,  review_reply r
+    WHERE m.member_no = r.member_no
+    ORDER BY r.review_reply_no DESC
+</select>
+
+<!-- 리뷰별 댓글 목록 -->
+<select id="list_by_review_no" resultType="Review_ReplyVO" parameterType="int">
+    SELECT review_reply_no, review_no, member_no, review_reply_content, review_reply_passwd, review_reply_date
+    FROM review_reply
+    WHERE review_no=#{review_no}
+    ORDER BY review_reply_no DESC
+</select>
+
+<!-- 특정 글에 대한 전체 댓글 목록  -->
+  <select id="list_by_review_no_join" resultType="Review_Reply_MemberVO" parameterType="int">
+    SELECT m.member_id,
+               r.review_reply_no, r.review_no, r.member_no, r.review_reply_content, r.review_reply_passwd, r.review_reply_date
+    FROM member m,  review_reply r
+    WHERE (m.member_no = r.member_no) AND r.review_no=#{review_no}
+    ORDER BY r.review_reply_no DESC
+  </select>
+  
+  <!-- 패스워드 검사 -->
+  <!-- <select id="checkPasswd" parameterType="HashMap" resultType="int"> -->
+  <!-- <select id="checkPasswd" parameterType="ReplyVO" resultType="int"> -->
+  <select id="checkPasswd" parameterType="Map" resultType="int">
+    SELECT COUNT(*) as cnt
+    FROM review_reply
+    WHERE review_reply_no=#{review_reply_no} AND review_reply_passwd=#{review_reply_passwd}
+  </select>
+  
+  <!-- 더보기 버튼 페이징 구현 -->
+  <select id="list_by_review_no_join_add" resultType="Review_Reply_MemberVO" 
+             parameterType="HashMap">
+    SELECT member_id, review_reply_no, review_no, member_no, review_reply_content, review_reply_passwd, review_reply_date, r
+    FROM (
+            SELECT member_id, review_reply_no, review_no, member_no, review_reply_content, review_reply_passwd, review_reply_date, rownum as r
+            FROM (
+                    SELECT m.member_id,
+                              r.review_reply_no, r.review_no, r.member_no, r.review_reply_content, r.review_reply_passwd, r.review_reply_date
+                    FROM member m,  review_reply r
+                    WHERE (m.member_no = r.member_no) AND r.review_no=#{review_no}
+                    ORDER BY r.review_reply_no DESC
+            )
+    )
+    WHERE <![CDATA[ r >= #{startNum} AND r <= #{endNum} ]]>
+  </select>
+  
+
+</mapper>
