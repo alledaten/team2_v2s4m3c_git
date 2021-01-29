@@ -33,9 +33,12 @@
     <A href="../review/list.do?review_cate_no=${param.review_cate_no }&review_word=${param.review_word }&nowPage=${param.nowPage}">${review_CateVO.review_cate_name}</A> >
     전체보기
   </ASIDE>
+  
   <ASIDE class="aside_right">
-    <A href="./create.do?review_cate_no=${review_CateVO.review_cate_no }">리뷰 등록</A>
-    <span class='menu_divide' >│</span>
+    <c:if test="${sessionScope.meber_id != null  or sessionScope.id_admin != null }">
+      <A href="./create.do?review_cate_no=${review_CateVO.review_cate_no }">리뷰 등록</A>
+      <span class='menu_divide' >│</span>
+    </c:if>
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE>  
   
