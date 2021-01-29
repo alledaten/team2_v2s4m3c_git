@@ -42,6 +42,7 @@
                           dev.mvc.boardgrp,
                           dev.mvc.forum,
                           dev.mvc.review,
+                          dev.mvc.review_reply,
                           dev.mvc.review_attachfile,
                           dev.mvc.product,
                           dev.mvc.product_attachfile,
