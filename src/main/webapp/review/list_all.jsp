@@ -79,7 +79,7 @@
             <td style='vertical-align: middle; text-align: center;'>
               <a href="./read.do?review_no=${review_no}">${review_title}</a> 
             </td> 
-            <td style='vertical-align: middle; text-align: center;'>${review_view}</td>
+            <td style='vertical-align: middle; text-align: center;'>${reviewVO.review_view}</td>
             <td style='vertical-align: middle; text-align: center;'>${member_no}</td>
             <td style='vertical-align: middle; text-align: center;'>${reviewVO.review_date.substring(0, 10)}</td>
           </tr>

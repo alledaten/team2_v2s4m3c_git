@@ -33,24 +33,33 @@
 
 
 <script type="text/javascript">  
+
+  $(function() {                                                                               //  자동 실행 
+
   //-------------------- 댓글 관련 시작 --------------------
   
-  var frm_review_reply = $('#frm_review_reply');
-  $('#review_no', frm_review_reply).on('click', check_login);             // 댓글 작성시 로그인 여부 확인
-  $('#btn_create', frm_review_reply).on('click', review_reply_create);  // 댓글 작성시 로그인 여부 확인
+    var frm_review_reply = $('#frm_review_reply');
+    $('#review_reply_content', frm_review_reply).on('click', check_login);             // 댓글 작성시 로그인 여부 확인
+    $('#btn_create', frm_review_reply).on('click', review_reply_create);                // 댓글 작성시 로그인 여부 확인
+    
+    list_by_review_no_join();                                                                   // 댓글 목록
   
-  list_by_review_no_join(); // 댓글 목록
-  // list_by_review_no_join_add(); // 댓글 페이징 지원 목록, 동시 접속시 페이징 문제 있음.
-  
-  // $("#btn_add").on("click", list_by_review_no_join_add); // 더보기 버튼 이벤트 등록, 페이징 문제 있음.
-  $("#btn_add").on("click", list_by_review_no_join_add_pg); // 더보기 버튼 이벤트 등록
+    $("#btn_add").on("click", list_by_review_no_join_add_pg);                           // 더보기 버튼 이벤트 등록
+    
+    //-------------------- 댓글 관련 종료 --------------------
+    
+    $('#review_attachfile_panel').html(tag); 
+    $('#review_attachfile_panel').show();      
 
+  });  
+
+  
   // 댓글 작성시 로그인 여부 확인
   function check_login() {
     var frm_review_reply = $('#frm_review_reply');
     if ($('#member_no', frm_review_reply).val().length == 0 ) {
       $('#modal_review_title').html('댓글 등록');                                  // 제목 
-      $('#modal_review_reply_content').html("로그인해야 등록 할 수 있습니다."); // 내용
+      $('#modal_review_reply_content').html("댓글을 작성하려면 로그인 해주세요."); // 내용
       $('#modal_panel').modal();                                           // 다이얼로그 출력
       return false;                                                            // 실행 종료
     }
@@ -189,7 +198,7 @@
           
       msg += "<DIV member_id='"+row.review_reply_no+"' style='border-bottom: solid 1px #EEEEEE; margin-bottom: 10px;'>";
       msg += "<span style='font-weight: bold;'>" + row.member_id + "</span>";
-      msg += "  " + row.rdate;
+      msg += "  " + row.review_reply_date.substring(0, 16);
       if ('${sessionScope.member_no}' == row.member_no) { // 글쓴이 일치여부 확인, 본인의 글만 삭제 가능함 ★
         msg += " <A href='javascript:review_reply_delete("+row.review_reply_no+")'><IMG src='./images/delete.png'></A>";
       }
@@ -330,29 +339,34 @@
     ${review_CategrpVO.review_categrp_name } > ${review_CateVO.review_cate_name }
   </ASIDE>
   <ASIDE class="aside_right">
+    <A href="javascript:location.reload();">새로고침</A>
+      <span class='menu_divide' > | </span> 
+    <A href='./list.do?cateno=${cateno }'>목록</A>
    
+   <%-- 글을 등록한 회원만 메뉴 출력 --%>
+   
+   <c:if test="${sessionScope.member_no == reviewVO.member_no or sessionScope.id_admin ne null }">
     <c:choose>
-      <c:when test="${reviewVO.review_file.trim().length() > 0 }">
-        <A href='./img_update.do?review_cate_no=${review_cate_no }&review_no=${review_no}'>메인 이미지 변경/삭제</A>     
+      <c:when test="${reviewVO.review_file.trim().length() > 0 }"> 
+        <span class='menu_divide' > | </span> 
+          <A href='./img_update.do?review_cate_no=${review_cate_no }&review_no=${review_no}'>메인 이미지 변경 및 삭제</A>     
       </c:when>
       <c:otherwise>
-        <A href='./img_create.do?review_cate_no=${review_cate_no }&review_no=${review_no}'>메인 이미지 등록</A>     
+        <span class='menu_divide' > | </span> 
+          <A href='./img_create.do?review_cate_no=${review_cate_no }&review_no=${review_no}'>메인 이미지 등록</A>     
       </c:otherwise>
     </c:choose>  
-    <span class='menu_divide' > | </span>
-    <A href='../review_attachfile/create.do?review_no=${review_no }&review_cate_no=${review_cate_no }'>첨부 파일 등록</A>
-    <span class='menu_divide' > | </span>
-    <A href='../review_attachfile/list_by_review_no.do?review_no=${review_no }&review_cate_no=${review_cate_no }'>첨부 파일 삭제</A>
     
     <span class='menu_divide' > | </span>
-    <A href="javascript:location.reload();">새로고침</A>
+      <A href='../review_attachfile/create.do?review_no=${review_no }&review_cate_no=${review_cate_no }'>첨부 파일 등록</A>
+    <span class='menu_divide' > | </span>
+      <A href='../review_attachfile/list_by_review_no.do?review_no=${review_no }&review_cate_no=${review_cate_no }'>첨부 파일 삭제</A>
     <span class='menu_divide' > | </span> 
-    <A href='./list.do?cateno=${cateno }'>목록</A>
+     <A href='./update.do?review_cate_no=${review_cate_no }&review_no=${review_no}&nowPage=${param.nowPage}'>수정</A>
     <span class='menu_divide' > | </span> 
-    <A href='./update.do?review_cate_no=${review_cate_no }&review_no=${review_no}&nowPage=${param.nowPage}'>수정</A>
-    <span class='menu_divide' > | </span> 
-    <A href='./delete.do?review_cate_no=${review_cate_no }&review_no=${review_no}&nowPage=${param.nowPage}'>삭제</A>
+     <A href='./delete.do?review_cate_no=${review_cate_no }&review_no=${review_no}&nowPage=${param.nowPage}'>삭제</A>
     
+    </c:if>
   </ASIDE> 
   
   <div class='menu_line'></div>
@@ -361,9 +375,8 @@
       <input type="hidden" name="review_no" value="${review_no}">
       <fieldset class="fieldset">
         <ul>
-          <li class="li_none" style='border-bottom: solid 1px #AAAAAA;'>
-            <span>${reviewVO.review_title}</span>
-            (<span>${reviewVO.review_good}</span>)
+          <li class="li_none" style='border-bottom: solid 1px #AAAAAA; width: 100%; margin: 30px auto;'>
+            <span style="font-weight: bold; font-size: 20px;">${reviewVO.review_title}</span> || 
             <span>${reviewVO.review_date.substring(0, 16)}</span>
           </li>
           
@@ -416,7 +429,7 @@
           <input type='hidden' name='review_no' id='review_no' value='${review_no}'>
           <input type='hidden' name='member_no' id='member_no' value='${sessionScope.member_no}'>
           
-          <textarea name='review_reply_content' id='review_reply_content' style='width: 100%; height: 60px;' placeholder="댓글 작성, 로그인해야 등록 할 수 있습니다."></textarea>
+          <textarea name='review_reply_content' id='review_reply_content' style='width: 100%; height: 60px;' placeholder="댓글을 작성하려면 로그인 해주세요."></textarea>
           <input type='password' name='review_reply_passwd' id='review_reply_passwd' placeholder="비밀번호">
           <button type='button' id='btn_create'>등록</button>
       </FORM>

@@ -55,7 +55,7 @@
                 enctype="multipart/form-data" >
                
       <!-- FK memberno 지정 -->
-      <input type='hidden' name='member_no' id='member_no' value=1>
+      <input type='hidden' name='member_no' id='member_no' value='${sessionScope.member_no}' >
       <!-- FK categrpno 지정 -->
       <input type='hidden' name='review_cate_no' id='review_cate_no' value='${param.review_cate_no}' > 
       
