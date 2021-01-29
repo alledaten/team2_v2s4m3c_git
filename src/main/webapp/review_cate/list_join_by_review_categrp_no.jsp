@@ -70,7 +70,7 @@
     <TH class="th_bs">상품 종류</TH>
     <TH class="th_bs">분류</TH>
     <TH class="th_bs">등록일</TH>
-    <TH class="th_bs">글수</TH>
+    <TH class="th_bs">리뷰 갯수</TH>
     <TH class="th_bs">기타</TH>
   </TR>
   </thead>
