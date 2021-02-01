@@ -339,10 +339,16 @@ tag += "</A>";
   <ASIDE class="aside_right">
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' > | </span> 
+    <A href='../review/list.do?product_no=${product_no }&review_word=${review_word}&nowPage=${nowPage}'>리뷰 목록</A>
+      <span class='menu_divide' > | </span>
     <c:if test="${sessionScope.member_id != null  or sessionScope.member_id_admin != null }">
       <A href="./create.do?productgrp_no=${productgrpVO.productgrp_no }">등록</A>
       <span class='menu_divide' >│</span>
       <A href='./reply.do?product_no=${product_no }&productgrp_no=${productgrp_no }'>답변</A>
+      <span class='menu_divide' > | </span>
+      <A href='../cart/list.do?product_no=${product_no }&productgrp_no=${productgrp_no }'>카트</A>
+      <span class='menu_divide' > | </span>
+      <A href='../review/create.do?productgrp_no=${productgrp_no }&product_no=${product_no}'>리뷰 등록</A>
       <span class='menu_divide' > | </span>
     </c:if>  
     <A href='./list.do?productgrp_no=${productgrp_no }&product_word=${param.product_word }&nowPage=${param.nowPage}'>목록</A>
@@ -370,6 +376,7 @@ tag += "</A>";
               
       <span class='menu_divide' > | </span> 
       <A href='./delete.do?productgrp_no=${productgrp_no }&product_no=${product_no}&nowPage=${param.nowPage}'>삭제</A>
+      
     </c:if>
   </ASIDE> 
   
@@ -408,13 +415,24 @@ tag += "</A>";
               (<span>${productVO.product_recom}</span>)
               <span>${productVO.product_rdate.substring(0, 16)}</span>
               <DIV>${productVO.product_cost } 원</DIV>
-            </li>                    
-            
-          
+            </li>    
           </ul>
         </fieldset>
       <DIV>${productVO.product_description }</DIV>
     </FORM>
+    <tr align="center" >
+      <td colspan="2">
+        <form name "form1" method="post" action= "../cart/insert.do">
+          <input type="hidden" name="product_no" value="${productVO.product_no }">
+          <select name="cart_cnt">
+            <c:forEach begin="1" end= "100" var="i">
+              <option value = "${i }">${i }</option>
+            </c:forEach>
+          </select>&nbsp; 개
+          <input type="submit" value="장바구니 담기">
+          </form>
+        </td>
+      </tr>
 
   <!-- ---------- 댓글 영역 시작 ---------- -->
       <HR>
