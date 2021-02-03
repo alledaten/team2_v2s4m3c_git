@@ -1,54 +1,75 @@
 package dev.mvc.admin;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("dev.mvc.admin.AdminProc")
 public class AdminProc implements AdminProcInter {
-  @Value("${admin1}")  // properties 접근
-  private String admin1;
-
-  @Value("${admin2}")
-  private String admin2;
+  @Autowired
+  private AdminDAOInter adminDAO;
   
-  @Value("${admin3}")
-  private String admin3;
-  
-  /**
-   * 관리자 인지 검사
-   * @param info
-   * @param id
-   * @return
-   */
-  public boolean admin_check(String id_admin, String passwd_admin) {
-    boolean sw = false;
-    String[] admins = {admin1, admin2, admin3};
-    
-    for (String admin:admins) {
-      String[] tokens = admin.split("/");   // admin1/1234/\uAD00\uB9AC\uC7901
-      if (tokens[0].equals(id_admin) && tokens[1].equals(passwd_admin)) {
-        sw = true;
-      }
-    }
-    
-    return sw;
+  public AdminProc() {
+    System.out.println("--> AdminProc created");
   }
   
-  /**
-   * 관리자 로그인 처리
-   */
   @Override
-  public boolean login(String id_admin, String passwd_admin){
-    System.out.println(admin1);
-    System.out.println(admin2);
-    System.out.println(admin3);
-   
-    // 관리자 아이디, 패스워드 검사
-    boolean sw = admin_check(id_admin, passwd_admin); 
-    
-    return sw;
+  public int checkID(String admin_id) {
+    int cnt = this.adminDAO.checkID(admin_id);
+    return cnt;
+  }
+
+  @Override
+  public int create(AdminVO adminVO) {
+    int cnt = this.adminDAO.create(adminVO);
+    return cnt;
+  }
+
+  @Override
+  public List<AdminVO> list() {
+    List<AdminVO> list = this.adminDAO.list();
+    return list;
+  }
+
+  @Override
+  public AdminVO read(int admin_no) {
+    AdminVO adminVO = this.adminDAO.read(admin_no);
+    return adminVO;
+  }
+
+  @Override
+  public int update(AdminVO adminVO) {
+    int cnt = this.adminDAO.update(adminVO);
+    return cnt;
+  }
+  
+  @Override
+  public int passwd_check(HashMap hashMap) {
+    int passwd_cnt = this.adminDAO.passwd_check(hashMap);
+    return passwd_cnt;
+  }
+
+  @Override
+  public int delete(int admin_no) {
+    int cnt = this.adminDAO.delete(admin_no);
+    return cnt;
+  }
+
+  @Override
+  public AdminVO readById(String admin_id) {
+    AdminVO adminVO = this.adminDAO.readById(admin_id);
+    return adminVO;
+  }
+  
+  @Override
+  public int login(Map<String, Object> map) {
+    int cnt = this.adminDAO.login(map);
+    return cnt;
   }
   
   /**
@@ -58,25 +79,12 @@ public class AdminProc implements AdminProcInter {
   public boolean isAdmin(HttpSession session){
     boolean sw = false;
     
-    String id_admin = (String)session.getAttribute("id_admin");
+    String admin_id = (String)session.getAttribute("admin_id");
     
-    if (id_admin != null){
+    if (admin_id != null){
       sw = true;
     }
     return sw;
   }
-  
-  /**
-   * 관리자 목록
-   */
-  @Override
-  public String list() {
-    String admins = "";
-    admins = admin1 + "\n" + admin2 + "\n" + admin3;  
-    
-    return admins;
-  }
-  
+
 }
-
-

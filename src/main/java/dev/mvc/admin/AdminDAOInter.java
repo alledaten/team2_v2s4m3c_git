@@ -4,11 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import dev.mvc.member.MemberVO;
 
-public interface AdminProcInter {
+public interface AdminDAOInter {
   
   /**
    * 중복 아이디 검사
@@ -57,7 +55,7 @@ public interface AdminProcInter {
    * @return
    */
   public int delete(int admin_no);
-
+  
   /**
    * 회원 정보 조회
    * @param id
@@ -69,12 +67,4 @@ public interface AdminProcInter {
    * 로그인 처리
    */
   public int login(Map<String, Object> map);
-
-  /**
-   * 관리자인지 검사
-   * @param session
-   * @return
-   */
-  public boolean isAdmin(HttpSession session);
-  
 }

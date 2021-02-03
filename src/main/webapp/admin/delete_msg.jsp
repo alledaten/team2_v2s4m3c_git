@@ -24,12 +24,12 @@
 <jsp:include page="/menu/top.jsp" flush='false' />
  
   <DIV class='title_line'>
-    회원
+    관리자
   </DIV>
 
   <ASIDE class="aside_left">
-    <A href=''>회원</A> > 
-    <A href=''>회원 정보</A> > 탈퇴
+    <A href=''>관리자</A> > 
+    삭제
   </ASIDE>
   <ASIDE class="aside_right">
     <A href=''>목록</A>
@@ -46,12 +46,12 @@
           <c:choose>
             <c:when test="${cnt == 1}"> <!-- 글 삭제 성공 -->
               <LI class='li_none'>
-                <span class='span_success'>『${member_name}』 탈퇴했습니다.</span>
+                <span class='span_success'>『${admin_name}』 삭제했습니다.</span>
               </LI>
             </c:when>
             <c:otherwise>    <!-- 글 삭제 실패 -->
               <LI class='li_none'>
-                <span class='span_fail'>『${member_name}』 탈퇴에 실패했습니다.</span>
+                <span class='span_fail'>『${admin_name}』 삭제에 실패했습니다.</span>
               </LI>
               <LI class='li_none'>
                 <span class='span_fail'>다시 시도해주세요.</span>
@@ -70,7 +70,7 @@
         <c:when test="${cnt == 1 && passwd_cnt == 1}">
           <LI class='li_none'>
             <button type='button' 
-                        onclick="location.href='./list.do?cateno=${param.cateno}'"
+                        onclick="location.href='./list.do'"
                         class="btn btn-info">목록</button>                        
           </LI>
         </c:when>
@@ -80,7 +80,7 @@
                         onclick="history.back();"
                         class="btn btn-info">재시도</button>
             <button type='button' 
-                        onclick="location.href='./list.do?cateno=${param.cateno}'"
+                        onclick="location.href='./list.do'"
                         class="btn btn-info">목록</button>                        
           </LI>
         </c:otherwise> 

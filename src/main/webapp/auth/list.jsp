@@ -273,7 +273,7 @@
       <!-- <input type='hidden' name='lang' id='lang' value='en'> --> <!-- ko, en -->
         
       <label>번호</label>
-      <input type='number' name='auth_no' id='auth_no' required="required" style='width: 5%;'>
+      <input type='number' name='auth_no' id='auth_no' min="0" required="required" style='width: 5%;'>
          
       <label>권한</label>
       <input type='text' name='auth_content' id='auth_content' value='' required="required" style='width: 25%;'>

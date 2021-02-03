@@ -61,44 +61,48 @@ CREATE SEQUENCE member_no_SEQ
 -- 등록
 INSERT INTO member(member_no, member_id, member_passwd, member_nickname, member_name, 
                    member_isAdult, member_tel, member_email, member_rdate,
-                   member_zipcode, member_address1, member_address2, member_profilepic, 
+                   member_zipcode, member_address1, member_address2, member_profilepic, member_profilethumb,
                    memberlevel_no, auth_no, snslogin_no)
 VALUES (member_no_seq.nextval, 'test1', 1234, '의적', '홍길동',
         '9001011234567', '01012345678', 'test@gmail.com', sysdate,
-        '01234', '서울특별시', '중랑구', '01.jpg',
+        '01234', '서울특별시', '중랑구', '01.jpg', '01_t.jpg',
         1, 1, 1);
 
 INSERT INTO member(member_no, member_id, member_passwd, member_nickname, member_name, 
                    member_isAdult, member_tel, member_email, member_rdate,
-                   member_zipcode, member_address1, member_address2, member_profilepic, 
+                   member_zipcode, member_address1, member_address2, member_profilepic, member_profilethumb,
                    memberlevel_no, auth_no, snslogin_no)
 VALUES (member_no_seq.nextval, 'test2', 1234, '세종', '이도',
         '9001011234567', '01012345678', 'korea@gmail.com', sysdate,
-        '01234', '서울특별시', '경복궁', '02.jpg',
+        '01234', '서울특별시', '경복궁', '02.jpg', '02_t.jpg',
         1, 1, 1);
 
 INSERT INTO member(member_no, member_id, member_passwd, member_nickname, member_name, 
                    member_isAdult, member_tel, member_email, member_rdate,
-                   member_zipcode, member_address1, member_address2, member_profilepic, 
+                   member_zipcode, member_address1, member_address2, member_profilepic, member_profilethumb,
                    memberlevel_no, auth_no, snslogin_no)
 VALUES (member_no_seq.nextval, 'test3', 1234, '슈퍼맨', '클락 켄트',
         '9001011234567', '01012345678', 'test@gmail.com', sysdate,
-        '01234', '서울특별시', '중랑구', '03.jpg',
+        '01234', '서울특별시', '중랑구', '03.jpg', '03_t.jpg',
         1, 1, 1);
 
 INSERT INTO member(member_no, member_id, member_passwd, member_nickname, member_name, 
                    member_isAdult, member_tel, member_email, member_rdate,
-                   member_zipcode, member_address1, member_address2, member_profilepic, 
+                   member_zipcode, member_address1, member_address2, member_profilepic, member_profilethumb,
                    memberlevel_no, auth_no, snslogin_no)
 VALUES (member_no_seq.nextval, 'user1', 1234, '배트맨', '브루스 웨인',
         '9001011234567', '01012345678', 'test@gmail.com', sysdate,
-        '01234', '서울특별시', '중랑구', '03.jpg',
+        '01234', '서울특별시', '중랑구', '04.jpg', '04_t.jpg',
         1, 1, 1);
         
 commit;
 
 -- 목록
 SELECT member_no, member_id, member_nickname, member_isAdult, member_rdate, auth_no, member_profilepic
+FROM member
+ORDER BY member_no ASC;
+
+SELECT member_profilethumb
 FROM member
 ORDER BY member_no ASC;
 
@@ -120,18 +124,43 @@ WHERE m.memberlevel_no = l.memberlevel_no
 ORDER BY l.memberlevel_no ASC, m.member_no ASC;
 
 -- 페이징
-SELECT member_id, member_name, r
-FROM(
-         SELECT member_no, member_id, member_name, rownum as r
-         FROM (
-                   SELECT *
-                   FROM member
-                   ORDER BY member_no ASC
-         )
+SELECT level_no, level_name, 
+        member_no, member_id, member_name, member_nickname, member_email, member_rdate, member_profilethumb, memberlevel_no,
+        r
+FROM (
+    SELECT level_no, level_name, 
+           member_no, member_id, member_name, member_nickname, member_email, member_rdate, member_profilethumb, memberlevel_no,
+           rownum as r
+    FROM (
+              SELECT l.memberlevel_no as level_no, l.memberlevel_name as level_name,
+                     m.member_no, m.member_id, m.member_name, m.member_nickname, m.member_email, m.member_rdate, m.member_profilethumb, m.memberlevel_no
+              FROM memberlevel l, member m
+              WHERE m.memberlevel_no = l.memberlevel_no
+              ORDER BY l.memberlevel_no ASC, m.member_no ASC
+    )
 )
 WHERE r>=1 AND r <=3;
 
-
+-- 페이징 & 검색
+SELECT level_no, level_name, 
+    member_no, member_id, member_name, member_nickname, member_email, member_rdate, member_profilethumb, memberlevel_no,
+    r
+FROM (
+        SELECT level_no, level_name, 
+               member_no, member_id, member_name, member_nickname, member_email, member_rdate, member_profilethumb, memberlevel_no,
+               rownum as r
+        FROM (
+                  SELECT l.memberlevel_no as level_no, l.memberlevel_name as level_name,
+                         m.member_no, m.member_id, m.member_name, m.member_nickname, m.member_email, m.member_rdate, m.member_profilethumb, m.memberlevel_no
+                  FROM memberlevel l, member m
+                  WHERE m.memberlevel_no = l.memberlevel_no
+                        AND (member_id LIKE '%user%' 
+                        OR member_nickname LIKE '%user%')
+                  ORDER BY l.memberlevel_no ASC, m.member_no ASC
+        )
+)
+WHERE r>=1 AND r <=3;
+ 
 -- 조회
 SELECT member_no, member_id, member_passwd, member_nickname, member_name, 
        member_isAdult, member_tel, member_email, member_rdate, member_address, auth_no, snslogin_no
@@ -162,6 +191,10 @@ SET member_passwd = '1234',
     memberlevel_no = 1,
     auth_no = 1
 WHERE member_no=1;
+
+UPDATE member
+SET member_profilethumb = '04_t.jpg'
+WHERE member_no=4;
 
 
 -- 패스워드 변경

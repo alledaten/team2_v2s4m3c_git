@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
@@ -19,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.login_log.Login_logCont;
+import dev.mvc.login_log.Login_logProcInter;
+import dev.mvc.login_log.Login_logVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -27,6 +29,10 @@ public class MemberCont {
   @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.login_log.Login_logProc")
+  private Login_logProcInter login_logProc;
 
   public MemberCont() {
     System.out.println("--> MemberCont created.");
@@ -110,22 +116,6 @@ public class MemberCont {
   }
   
   /**
-   * 목록 http://localhost:9090/team2/member/list.do
-   * 
-   * @return
-   */
-//  @RequestMapping(value = "/member/list.do", method = RequestMethod.GET)
-//  public ModelAndView list() {
-//    ModelAndView mav = new ModelAndView();
-//    mav.setViewName("/member/list"); // /webapp/member/list.jsp
-//
-//    List<MemberVO> list = this.memberProc.list_join();
-//    mav.addObject("list", list);
-//
-//    return mav; // forward
-//  }
-
-  /**
    * 목록 + 검색 + 페이징 지원
    * http://localhost:9090/resort/contents/list.do
    * http://localhost:9090/resort/contents/list.do?cateno=1&word=스위스&nowPage=1
@@ -138,7 +128,7 @@ public class MemberCont {
   public ModelAndView list_by_cateno_search_paging(@RequestParam(value="word", defaultValue="") String word,
                                                    @RequestParam(value="nowPage", defaultValue="1") int nowPage
                                                    ) { 
-    System.out.println("--> nowPage: " + nowPage);
+    // System.out.println("--> nowPage: " + nowPage);
     
     ModelAndView mav = new ModelAndView();
     
@@ -371,6 +361,7 @@ public class MemberCont {
     
     mav.addObject("cnt", cnt); // request에 저장
     mav.addObject("passwd_cnt", passwd_cnt); // request에 저장
+    mav.addObject("admin_name", vo.getMember_name());
     
     mav.setViewName("/member/delete_msg"); // webapp/member/update_msg.jsp
     
@@ -400,8 +391,8 @@ public class MemberCont {
   @RequestMapping(value = "/member/login.do", 
                   method = RequestMethod.POST)
   public ModelAndView login_proc(HttpSession session,
-                                  String member_id, 
-                                  String member_passwd) {
+                                 String member_id, String member_passwd,
+                                 HttpServletRequest request) {
     ModelAndView mav = new ModelAndView();
     Map<String, Object> map = new HashMap<String, Object>();
     map.put("member_id", member_id);
@@ -415,7 +406,25 @@ public class MemberCont {
       session.setAttribute("member_no", memberVO.getMember_no());
       session.setAttribute("member_id", member_id);
       session.setAttribute("member_name", memberVO.getMember_name());
+
+      /************* 로그인 로그 등록 *******/
+      // Login_logCont login_logCont = new Login_logCont();
+      // System.out.println("request : " +request);
       
+      Login_logVO login_logVO = new Login_logVO();
+      
+      login_logVO.setMember_no(memberVO.getMember_no());  // 회원 번호
+      login_logVO.setLogin_log_ip(request.getRemoteAddr()); // IP주소
+
+      int cnt = this.login_logProc.create(login_logVO);
+      
+      if(cnt == 1) {
+        System.out.println("--> " + member_id +" 회원 로그인 등록 성공");
+      } else {
+        System.out.println("--> 등록실패");
+      }
+      /**************************************/
+
       mav.setViewName("redirect:/index.do");  
     } else {
       mav.setViewName("redirect:/member/login_fail_msg.jsp");

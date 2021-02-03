@@ -37,7 +37,5 @@ public interface AuthDAOInter {
    * @return
    */
   public int delete(int auth_no);
-  
-  
 
 }

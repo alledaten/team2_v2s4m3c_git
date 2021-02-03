@@ -9,6 +9,7 @@
     <div class="top_header">
       <div class="top_header_inner">
         <ul class="util">
+          <li><a href="${pageContext.request.contextPath}/member/create.do">회원가입</a></li>
           <c:choose>
             <c:when test="${sessionScope.member_id == null}">
               <li><a href="${pageContext.request.contextPath}/member/login.do">로그인</a></li>
@@ -17,7 +18,14 @@
               <li>${sessionScope.member_id } <A href='${pageContext.request.contextPath}/member/logout.do' >로그아웃</A></li>
             </c:otherwise>
           </c:choose>
-          <li><a href="${pageContext.request.contextPath}/member/create.do">회원가입</a></li>
+          <c:choose>
+            <c:when test="${sessionScope.admin_id == null}">
+              <li><a href="${pageContext.request.contextPath}/admin/login.do">관리자 로그인</a></li>
+            </c:when>
+            <c:otherwise>
+              <li>${sessionScope.admin_id } <A href='${pageContext.request.contextPath}/admin/logout.do' >로그아웃</A></li>
+            </c:otherwise>
+          </c:choose>
         </ul>
       </div>
     </div>
@@ -66,7 +74,21 @@
         <li><a href="#">회원</a>
           <ul class="depth2">
             <li><a href='${pageContext.request.contextPath}/member/list.do'>회원목록</a></li>
-            <li><a href="${pageContext.request.contextPath}/auth/list.do">회원등급</a></li>
+            <li><a href="${pageContext.request.contextPath}/auth/list.do">회원권한</a></li>
+            <li><a href="${pageContext.request.contextPath}/memberlevel/list.do">회원등급</a></li>
+            <li><a href="${pageContext.request.contextPath}/snslogin/list.do">SNS로그인</a></li>
+            <c:choose>
+              <c:when test="${sessionScope.member_id != null}"> <!-- 회원 로그인된 상태라면 로그인기록이 보임 -->
+                <li><a href="${pageContext.request.contextPath}/login_log/list.do">로그인 기록</a></li>
+              </c:when>
+              <c:when test="${sessionScope.admin_id != null}"> <!-- 관리자 로그인된 상태라면 로그인기록이 보임 -->
+                <li><a href="${pageContext.request.contextPath}/admin/list.do">관리자 목록</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin_log/list.do">로그인 기록</a></li>
+              </c:when>
+              <c:otherwise>
+                <!-- 로그인하지 않은 상태라면 빈칸 -->
+              </c:otherwise>
+            </c:choose>
           </ul>
         </li>
       </ul>

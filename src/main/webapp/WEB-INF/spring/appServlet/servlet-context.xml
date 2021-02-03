@@ -28,6 +28,9 @@
   <context:component-scan base-package="dev.mvc.auth" /> <!-- PL -->
   <context:component-scan base-package="dev.mvc.snslogin" /> <!-- PL -->
   <context:component-scan base-package="dev.mvc.memberlevel" /> <!-- PL -->
+  <context:component-scan base-package="dev.mvc.admin" /> <!-- PL -->
+  <context:component-scan base-package="dev.mvc.admin_log" /> <!-- PL -->
+  <context:component-scan base-package="dev.mvc.login_log" /> <!-- PL -->
   <context:component-scan base-package="dev.mvc.review" /> <!-- DS -->
   <context:component-scan base-package="dev.mvc.review_attachfile" /> <!-- DS -->
   <context:component-scan base-package="dev.mvc.review_reply" /> <!-- DS -->
@@ -38,7 +41,6 @@
   <context:component-scan base-package="dev.mvc.product" /> <!-- DA -->
   <context:component-scan base-package="dev.mvc.product_attachfile" /> <!-- DA -->
   <context:component-scan base-package="dev.mvc.product_reply" /> <!-- DA -->
-  <context:component-scan base-package="dev.mvc.admin" /> <!-- DA -->
   <context:component-scan base-package="dev.mvc.notice" /> <!-- CD -->
   <context:component-scan base-package="dev.mvc.boardgrp" /> <!-- WP -->
   <context:component-scan base-package="dev.mvc.forum" /> <!-- WP -->

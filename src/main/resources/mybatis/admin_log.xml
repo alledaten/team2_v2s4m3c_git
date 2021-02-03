@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.admin_log.Admin_logDAOInter">
+  <insert id="create" parameterType="Admin_logVO">
+    INSERT INTO admin_log (admin_log_no, admin_no, admin_log_date, admin_log_ip)
+    VALUES (ADMIN_LOG_NO_SEQ.nextval, #{admin_no}, sysdate, #{admin_log_ip})
+  </insert>
+
+  <select id="read" parameterType="int" resultType="Admin_logVO">
+    SELECT admin_log_no, admin_no, admin_log_date, admin_log_ip
+    FROM admin_log
+    WHERE admin_log_no = #{admin_log_no}
+  </select>
+  
+  <select id="list" parameterType="int" resultType="Admin_logVO">
+    SELECT admin_log_no, admin_no, admin_log_date, admin_log_ip
+    FROM admin_log
+    WHERE admin_no = #{admin_no}  
+  </select>
+  
+  <delete id="delete" parameterType="int">
+    DELETE FROM admin_log
+    WHERE admin_log_no = #{admin_log_no}
+  </delete>
+</mapper>

@@ -32,6 +32,9 @@
                           dev.mvc.auth,
                           dev.mvc.snslogin,
                           dev.mvc.memberlevel,
+                          dev.mvc.admin,
+                          dev.mvc.admin_log,
+                          dev.mvc.login_log,
                           dev.mvc.qna,
                           dev.mvc.answer,
                           dev.mvc.buy,
@@ -44,8 +47,7 @@
                           dev.mvc.review_attachfile,
                           dev.mvc.product,
                           dev.mvc.product_attachfile,
-                          dev.mvc.product_reply,
-                          dev.mvc.admin" />
+                          dev.mvc.product_reply" />
     <property name="mapperLocations" value="classpath:mybatis/*.xml" />
   </bean>
   
