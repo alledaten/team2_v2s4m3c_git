@@ -10,7 +10,7 @@
  
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
-<link href="../css/style.css" rel="stylesheet" type="text/css">
+<link href="./review_css/style.css" rel="stylesheet" type="text/css">
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -20,6 +20,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+ 
+ <script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
  
 <script type="text/JavaScript">
 
@@ -34,7 +36,7 @@
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
 
-  <DIV class="review_title_line">
+  <DIV class=" review_title_line">
     <strong class ="review_title">리뷰 등록</strong>
   </DIV>
   
