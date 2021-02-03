@@ -1,6 +1,8 @@
-@charset "utf-8";
+<link href="../css/common.css" rel="stylesheet" type="text/css">
+<link href="../css/menu.css" rel="stylesheet" type="text/css">
+<link href="./review_css/style.css" rel="stylesheet" type="text/css">@charset "utf-8";
 
-/*ì—ë¦­ë§ˆì´ì–´ reset css*/
+/*¿¡¸¯¸¶ÀÌ¾î reset css*/
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -52,5 +54,5 @@ table {
 
 a {text-decoration:none;}
 
-/*legendë¥¼ í¬ì§€ì…˜ìœ¼ë¡œ ë„ì›Œ ìœ„ë¡œ ë³´ë‚´ì„œ ì•ˆë³´ì´ê²Œ í•¨*/
+/*legend¸¦ Æ÷Áö¼ÇÀ¸·Î ¶ç¿ö À§·Î º¸³»¼­ ¾Èº¸ÀÌ°Ô ÇÔ*/
 legend {position:absolute; top:-9999px;}

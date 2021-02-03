@@ -9,7 +9,7 @@
  
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
-<link href="../css/style.css" rel="Stylesheet" type="text/css">/css">
+<link href="./review_css/style.css" rel="stylesheet" type="text/css">
  
 <script type="text/JavaScript"
           src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

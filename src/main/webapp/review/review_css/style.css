@@ -378,7 +378,7 @@ h1 {
   
   .review_menu_line {
     width: 80%;
-    border-bottom: dotted 1px #777777;
+    border-bottom: dotted 5px #777777;
     margin: 5px auto; /* top -> right -> bottom -> left */
     clear: both;
   }

@@ -9,9 +9,9 @@
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>리뷰 조회</title>
 
-<link href="../css/common.css" rel="Stylesheet" type="text/css">
-<link href="../css/menu.css" rel="Stylesheet" type="text/css">
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
+<link href="../css/common.css" rel="stylesheet" type="text/css">
+<link href="../css/menu.css" rel="stylesheet" type="text/css">
+<link href="./review_css/style.css" rel="stylesheet" type="text/css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
