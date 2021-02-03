@@ -3,11 +3,6 @@ package dev.mvc.review;
 import java.util.HashMap;
 
 
-
-
-
-
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import dev.mvc.product.ProductProcInter;
+import dev.mvc.product.ProductVO;
+import dev.mvc.productgrp.ProductgrpProcInter;
+import dev.mvc.productgrp.ProductgrpVO;
 import dev.mvc.review_attachfile.Review_AttachfileProcInter;
 import dev.mvc.review_attachfile.Review_AttachfileVO;
-import dev.mvc.review_cate.Review_CateProcInter;
-import dev.mvc.review_cate.Review_CateVO;
-import dev.mvc.review_categrp.Review_CategrpProcInter;
-import dev.mvc.review_categrp.Review_CategrpVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -39,14 +34,15 @@ public class ReviewCont {
   @Autowired
   @Qualifier("dev.mvc.review.ReviewProc")
   private ReviewProcInter reviewProc;
-
+  
   @Autowired
-  @Qualifier("dev.mvc.review_cate.Review_CateProc")
-  private Review_CateProcInter review_CateProc;
-
+  @Qualifier("dev.mvc.productgrp.ProductgrpProc")
+  private ProductgrpProcInter productgrpProc;
+  
   @Autowired
-  @Qualifier("dev.mvc.review_categrp.Review_CategrpProc")
-  private Review_CategrpProcInter review_CategrpProc;
+  @Qualifier("dev.mvc.product.ProductProc")
+  private ProductProcInter productProc;
+
 
   /**
    * 등록폼 http://localhost:9090/team2/review/create.do
@@ -54,14 +50,14 @@ public class ReviewCont {
    * @return
    */
   @RequestMapping(value = "/review/create.do", method = RequestMethod.GET)
-  public ModelAndView create(int review_cate_no) {
+  public ModelAndView create(int product_no) {
     ModelAndView mav = new ModelAndView();
 
-    Review_CateVO review_CateVO = this.review_CateProc.read(review_cate_no);
-    Review_CategrpVO review_CategrpVO = this.review_CategrpProc.read(review_CateVO.getReview_categrp_no());
+    ProductVO productVO = this.productProc.read(product_no);
+    ProductgrpVO productgrpVO = this.productgrpProc.read(productVO.getProductgrp_no());
 
-    mav.addObject("review_CateVO", review_CateVO);
-    mav.addObject("review_CategrpVO", review_CategrpVO);
+    mav.addObject("productVO", productVO);
+    mav.addObject("productgrpVO", productgrpVO);
     mav.setViewName("/review/create");
 
     return mav; // forward
@@ -76,10 +72,10 @@ public class ReviewCont {
   public ModelAndView create(HttpServletRequest request, ReviewVO reviewVO) {
     ModelAndView mav = new ModelAndView();
     
-    Review_CateVO review_CateVO = review_CateProc.read(reviewVO.getReview_cate_no());
+    ProductVO productVO = this.productProc.read(reviewVO.getProduct_no());
+    ProductgrpVO productgrpVO = this.productgrpProc.read(productVO.getProductgrp_no());
     
-    Review_CategrpVO review_CategrpVO = this.review_CategrpProc.read(review_CateVO.getReview_categrp_no());
-    mav.addObject("review_CategrpVO", review_CategrpVO);
+    mav.addObject("productgrpVO", productgrpVO);
     
     // -------------------------------------------------------------------
     // 파일 전송 코드 시작
@@ -119,12 +115,12 @@ public class ReviewCont {
     // -------------------------------------------------------------------
     // PK의 return
     // -------------------------------------------------------------------
-    System.out.println("--> review_no: " + reviewVO.getReview_no());
+    System.out.println("--> review_no: " + reviewVO.getProduct_no());
     mav.addObject("review_no", reviewVO.getReview_no()); // redirect parameter 적용
     // -------------------------------------------------------------------
 
     if (cnt == 1) {
-      review_CateProc.increaseCnt(reviewVO.getReview_cate_no());
+      productProc.increaseReplycnt(reviewVO.getProduct_no());
     }
     mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
 
@@ -133,8 +129,8 @@ public class ReviewCont {
 
     // System.out.println("--> cateno: " + contentsVO.getCateno());
     // redirect시에 hidden tag로 보낸것들이 전달이 안됨으로 request에 다시 저장
-    mav.addObject("review_cate_no", reviewVO.getReview_cate_no()); // redirect parameter 적용
-    mav.setViewName("redirect:/review/list.do?review_cate_no=" + reviewVO.getReview_cate_no() + "&review_categrp_no=" + review_CategrpVO.getReview_categrp_no());
+    mav.addObject("product_no", reviewVO.getProduct_no()); // redirect parameter 적용
+    mav.setViewName("redirect:/review/list.do?product_no=" + reviewVO.getProduct_no());
     
     return mav; // forward
   }
@@ -181,16 +177,16 @@ public class ReviewCont {
    /**
    * 목록 + 검색 + 페이징 지원
    * http://localhost:9090/team2/review/list.do
-   * http://localhost:9090/team2/review/list.do?review_cate_no=1&review_word=스위스&nowPage=1
-   * @param review_cate_no
+   * http://localhost:9090/team2/review/list.do?product_no=1&review_word=&nowPage=
+   * @param product_no
    * @param review_word
    * @param nowPage
    * @return
    */
   @RequestMapping(value = "/review/list.do", 
                                        method = RequestMethod.GET)
-  public ModelAndView list_by_review_cate_no_search_paging(
-      @RequestParam(value="review_cate_no", defaultValue="1") int review_cate_no,
+  public ModelAndView list_by_product_no_search_paging(
+      @RequestParam(value="product_no", defaultValue="1") int product_no,
       @RequestParam(value="review_word", defaultValue="") String review_word,
       @RequestParam(value="nowPage", defaultValue="1") int nowPage
       ) { 
@@ -199,25 +195,26 @@ public class ReviewCont {
     
     // 숫자와 문자열 타입을 저장해야함으로 Obejct 사용
     HashMap<String, Object> map = new HashMap<String, Object>();
-    map.put("review_cate_no", review_cate_no); // #{cateno}
+    map.put("product_no", product_no); // #{cateno}
     map.put("review_word", review_word);     // #{word}
     map.put("nowPage", nowPage);  // 페이지에 출력할 레코드의 범위를 산출하기위해 사용     
     //System.out.println("--> nowPage: " + nowPage);
     
     // 검색 목록
-    List<Review_MemberVO> list = reviewProc.list_by_review_cate_no_search_paging(map);
+    List<Review_Member_ProductVO> list = reviewProc.list_by_product_no_search_paging(map);
     mav.addObject("list", list);
     
     // 검색된 레코드 갯수
     int search_count = reviewProc.search_count(map);
     mav.addObject("search_count", search_count);
   
-    Review_CateVO review_CateVO = review_CateProc.read(review_cate_no);
-    mav.addObject("review_CateVO", review_CateVO);
+    ProductVO productVO= this.productProc.read(product_no);
+    ProductgrpVO productgrpVO = this.productgrpProc.read(productVO.getProductgrp_no());
     
-    Review_CategrpVO review_CategrpVO = review_CategrpProc.read(review_CateVO.getReview_categrp_no());
-    mav.addObject("review_CategrpVO", review_CategrpVO);
+    mav.addObject("productVO", productVO);
+    mav.addObject("productgrpVO", productgrpVO);
 
+    
     /*
      * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 
      * 현재 페이지: 11 / 22   [이전] 11 12 13 14 15 16 17 18 19 20 [다음] 
@@ -229,11 +226,11 @@ public class ReviewCont {
      * @param review_word 검색어
      * @return 페이징 생성 문자열
      */ 
-    String paging = reviewProc.pagingBox("list.do", review_cate_no, search_count, nowPage, review_word);
+    String paging = reviewProc.pagingBox("list.do", product_no, search_count, nowPage, review_word);
     
     mav.addObject("paging", paging);
     mav.addObject("nowPage", nowPage);
-    mav.setViewName("/review/list_by_review_cate_no_table_img_search_paging");   
+    mav.setViewName("/review/list_by_product_no_search_paging");   
     
     return mav;
   }    
@@ -241,8 +238,8 @@ public class ReviewCont {
   
 
    /**
-   * 조회 http://localhost:9090/team2/review/read.do
-   * 
+   * 조회
+   * http://localhost:9090/team2/review/read.do?review_no=3&review_word=&nowPage=
    * @return
    */
   @RequestMapping(value = "/review/read.do", method = RequestMethod.GET)
@@ -257,11 +254,11 @@ public class ReviewCont {
     
     System.out.println("--> review_no: " + review_no);
 
-    Review_CateVO review_CateVO = review_CateProc.read(reviewVO.getReview_cate_no());
-    mav.addObject("review_CateVO", review_CateVO);
+    ProductVO productVO = productProc.read(reviewVO.getProduct_no());
+    mav.addObject("productVO", productVO);
 
-    Review_CategrpVO review_CategrpVO = review_CategrpProc.read(review_CateVO.getReview_categrp_no());
-    mav.addObject("review_CategrpVO", review_CategrpVO);
+    ProductgrpVO productgrpVO = productgrpProc.read(productVO.getProductgrp_no());
+    mav.addObject("productgrpVO", productgrpVO);
 
     // 첨부 파일 목록
     List<Review_AttachfileVO> review_attachfile_list = this.review_attachfileProc.list_by_review_no(review_no);
@@ -290,12 +287,12 @@ public class ReviewCont {
     ReviewVO reviewVO = this.reviewProc.read_update(review_no); // 수정용 읽기
     mav.addObject("reviewVO", reviewVO); // request.setAttribute("contentsVO", contentsVO);
     
-    Review_CateVO review_CateVO = review_CateProc.read(reviewVO.getReview_cate_no());
-    mav.addObject("review_CateVO", review_CateVO);
-    
-    Review_CategrpVO review_CategrpVO = review_CategrpProc.read(review_CateVO.getReview_categrp_no());
-    mav.addObject("review_CategrpVO", review_CategrpVO);
-    
+    ProductVO productVO = productProc.read(reviewVO.getProduct_no());
+    mav.addObject("productVO", productVO);
+
+    ProductgrpVO productgrpVO = productgrpProc.read(productVO.getProductgrp_no());
+    mav.addObject("productgrpVO", productgrpVO);
+
     mav.setViewName("/review/update"); // webapp/contents/update.jsp
     
     return mav;
@@ -310,14 +307,14 @@ public class ReviewCont {
   public ModelAndView update(ReviewVO reviewVO) {
     ModelAndView mav = new ModelAndView();
     
-    Review_CateVO review_CateVO = this.review_CateProc.read(reviewVO.getReview_cate_no()); 
+    ProductVO productVO = this.productProc.read(reviewVO.getProduct_no()); 
     // mav.addObject("cateVO", cateVO); // 전달안됨.
-    mav.addObject("review_cate_name", review_CateVO.getReview_cate_name());
-    mav.addObject("review_cate_no", review_CateVO.getReview_cate_no());
+    mav.addObject("product_name", productVO.getProduct_name());
+    mav.addObject("product_no", productVO.getProduct_no());
 
-    Review_CategrpVO review_CategrpVO = this.review_CategrpProc.read(review_CateVO.getReview_categrp_no());
+    ProductgrpVO productgrpVO = this.productgrpProc.read(productVO.getProductgrp_no());
     // mav.addObject("categrpVO", categrpVO); // 전달안됨.
-    mav.addObject("review_categrp_name", review_CategrpVO.getReview_categrp_name());
+    mav.addObject("productgrp_name", productgrpVO.getProductgrp_name());
     
     mav.addObject("review_no", reviewVO.getReview_no());
     
@@ -342,7 +339,7 @@ public class ReviewCont {
     return mav;
   }
   
- /** 
+   /** 
    * 삭제폼
    * @param review_no
    * @return
@@ -369,7 +366,7 @@ public class ReviewCont {
    * @return
    */
   @RequestMapping(value = "/review/delete.do", method = RequestMethod.POST)
-  public ModelAndView delete(HttpServletRequest request, int review_no, int review_cate_no, String review_passwd, 
+  public ModelAndView delete(HttpServletRequest request, int review_no, int product_no, String review_passwd, 
       @RequestParam(value = "review_word", defaultValue = "") String review_word,
       @RequestParam(value = "nowPage", defaultValue = "1") int nowPage) {
     ModelAndView mav = new ModelAndView();
@@ -391,12 +388,12 @@ public class ReviewCont {
     if (passwd_cnt == 1) { // 패스워드가 일치할 경우 글 수정
       cnt = this.reviewProc.delete(review_no);
       if (cnt == 1) {
-        review_CateProc.decreaseCnt(review_cate_no);
+        productProc.decreaseReplycnt(product_no);
 
         // -------------------------------------------------------------------------------------
         // 마지막 페이지의 레코드 삭제시의 페이지 번호 -1 처리
         HashMap<String, Object> map = new HashMap<String, Object>();
-        map.put("review_cate_no", review_cate_no);
+        map.put("product_no", product_no);
         map.put("review_word", review_word);
         // 하나의 페이지가 3개의 레코드로 구성되는 경우 현재 9개의 레코드가 남아 있으면
         if (reviewProc.search_count(map) % Review.RECORD_PER_PAGE == 0) {
@@ -419,7 +416,7 @@ public class ReviewCont {
     mav.addObject("nowPage", nowPage); // request에 저장
     // System.out.println("--> ContentsCont.java nowPage: " + nowPage);
 
-    mav.addObject("review_cate_no", reviewVO.getReview_cate_no()); // redirect parameter 적용
+    mav.addObject("product_no", reviewVO.getProduct_no()); // redirect parameter 적용
     mav.addObject("url", "delete_msg"); // delete_msg.jsp, redirect parameter 적용
 
     // mav.setViewName("/contents/delete_msg"); // webapp/contents/delete_msg.jsp
@@ -434,9 +431,9 @@ public class ReviewCont {
   /////////// ------------ 이미지 관련 시작  ------------- ///////////////
   /////////////////////////////////////////////////////////////////////////////////
   
-  /**
-   * 메인 이미지 등록 폼 http://localhost:9090/team2/review/img_create.do
-   * 
+   /**
+   * 메인 이미지 등록 폼 
+   * http://localhost:9090/team2/review/img_create.do
    * @return
    */
   @RequestMapping(value = "/review/img_create.do", method = RequestMethod.GET)
@@ -447,17 +444,18 @@ public class ReviewCont {
     ReviewVO reviewVO = this.reviewProc.read(review_no);
     mav.addObject("reviewVO", reviewVO);
     
-    Review_CateVO review_CateVO = this.review_CateProc.read(reviewVO.getReview_cate_no());
-    mav.addObject("review_CateVO", review_CateVO); 
+    ProductVO productVO = this.productProc.read(reviewVO.getProduct_no());
+    mav.addObject("productVO", productVO); 
     
-    Review_CategrpVO review_CategrpVO = this.review_CategrpProc.read(review_CateVO.getReview_categrp_no());
-    mav.addObject("review_CategrpVO", review_CategrpVO); 
-    
+    ProductgrpVO productgrpVO = this.productgrpProc.read(productVO.getProductgrp_no());
+    mav.addObject("productgrpVO", productgrpVO); 
+
     return mav; // forward
   }
 
    /**
-   * 메인 이미지 등록 처리 http://localhost:9090/team2/review/img_create.do
+   * 메인 이미지 등록 처리 
+   * http://localhost:9090/team2/review/img_create.do
    * @return
    */
   @RequestMapping(value = "/review/img_create.do", method = RequestMethod.POST)
@@ -531,12 +529,12 @@ public class ReviewCont {
 
     ReviewVO reviewVO = this.reviewProc.read(review_no);
     mav.addObject("reviewVO", reviewVO);
+     
+    ProductVO productVO = this.productProc.read(reviewVO.getProduct_no());
+    mav.addObject("productVO", productVO); 
     
-    Review_CateVO review_CateVO = this.review_CateProc.read(reviewVO.getReview_cate_no());
-    mav.addObject("review_CateVO", review_CateVO); 
-    
-    Review_CategrpVO review_CategrpVO = this.review_CategrpProc.read(review_CateVO.getReview_categrp_no());
-    mav.addObject("review_CategrpVO", review_CategrpVO); 
+    ProductgrpVO productgrpVO = this.productgrpProc.read(productVO.getProductgrp_no());
+    mav.addObject("productgrpVO", productgrpVO); 
     
     return mav; // forward
   }
@@ -548,7 +546,7 @@ public class ReviewCont {
    */
   @RequestMapping(value = "/review/img_delete.do", method = RequestMethod.POST)
   public ModelAndView img_delete(HttpServletRequest request,
-                                                 int review_no, int review_cate_no, String review_passwd) {
+                                                 int review_no, int product_no, String review_passwd) {
     ModelAndView mav = new ModelAndView();
     
     HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -604,7 +602,8 @@ public class ReviewCont {
   }
   
    /**
-   * 메인 이미지 수정 처리 http://localhost:9090/team2/review/img_update.do
+   * 메인 이미지 수정 처리 
+   * http://localhost:9090/team2/review/img_update.do
    * 기존 이미지 삭제후 새로운 이미지 등록(수정 처리)
    * @return
    */

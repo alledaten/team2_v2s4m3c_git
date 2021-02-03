@@ -29,7 +29,7 @@
     신규 등록
   </ASIDE>
   <ASIDE class="aside_right">
-    <A href='./list.do?review_cate_no=${param.review_cate_no }'>목록</A>
+    <A href='./list.do?product_no=${param.product_no }'>목록</A>
     <!-- <span class='menu_divide' >│</span> --> 
   </ASIDE> 
  
@@ -59,7 +59,7 @@
                     onclick="location.href='../review/read.do?review_no=${param.review_no }'"
                     class="btn btn-info">업로드된 파일 확인</button>
         <button type='button' 
-                    onclick="location.href='../review/list.do?review_cate_no=${param.review_cate_no}'"
+                    onclick="location.href='../review/list.do?product_no=${param.product_no}'"
                     class="btn btn-info">목록</button>
       </LI>
      </UL>

@@ -29,7 +29,7 @@
     신규 등록
   </ASIDE>
   <ASIDE class="aside_right">
-    <A href='./list.do?review_cate_no=${param.review_cate_no }'>목록</A>
+    <A href='./list.do?product_no=${param.product_no }'>목록</A>
     <!-- <span class='menu_divide' >│</span> --> 
   </ASIDE> 
  
@@ -40,7 +40,7 @@
                 enctype="multipart/form-data" class="form-horizontal">
                
       <!-- FK cateno 지정 -->
-      <input type='hidden' name='review_cate_no' id='review_cate_no' value="${param.review_cate_no }">
+      <input type='hidden' name='product_no' id='product_no' value="${param.product_no }">
       <input type='hidden' name='review_no' id='review_no' value="${param.review_no }">
       
       <div class="form-group">   

@@ -56,9 +56,9 @@
     <FORM name='frm' method='POST' action='./update.do'
                enctype="multipart/form-data" class="form-horizontal">
       <!-- FK memberno 지정 -->
-      <input type='hidden' name='member_no' id='member_no' value='1'>
+      <input type='hidden' name='member_no' id='member_no' value='${reviewVO.member_no }'>
       <!-- FK categrpno 지정 -->
-      <input type='hidden' name='review_cate_no' id='review_cate_no' value='${param.review_cate_no }'>
+      <input type='hidden' name='product_no' id='product_no' value='${param.product_no }'>
       <input type='hidden' name='nowPage' id='nowPage' value='${param.nowPage }'>
       <input type='hidden' name='review_no' id='review_no' value='${reviewVO.review_no }'>
       

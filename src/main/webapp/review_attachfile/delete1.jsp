@@ -141,7 +141,7 @@
     <A href=''>카테고리</A> > 수정
   </ASIDE>
   <ASIDE class="aside_right">
-    <A href='./list.do?review_cate_no=${param.review_cate_no }'>목록</A>
+    <A href='./list.do?product_no=${param.product_no }'>목록</A>
     <!-- <span class='menu_divide' >│</span> --> 
   </ASIDE> 
   
@@ -149,7 +149,7 @@
  
   <FORM name='frm' method='POST' action='./delete.do'>
       <input type='hidden' name='review_no' value='${param.review_no}'>
-      <input type="hidden" name="review_cate_no" value="${param.review_cate_no }">
+      <input type="hidden" name="product_no" value="${param.product_no }">
       <%-- <input type="hidden" name="nowPage" value="${param.nowPage }"> --%>
       
       <DIV id='panel1' style="width: 40%; text-align: center; margin: 10px auto;"></DIV>

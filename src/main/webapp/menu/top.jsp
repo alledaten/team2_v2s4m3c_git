@@ -39,7 +39,7 @@
           <ul class="depth2">
             <li><a href="${pageContext.request.contextPath}/productgrp/list.do">전통주 종류</a></li>
             <li><a href="#">갤러리</a></li>
-            <li><a href='${pageContext.request.contextPath}/review_categrp/list.do'>리뷰 게시판</a></li>
+            <li><a href='${pageContext.request.contextPath}/review/list_all.do'>리뷰 게시판</a></li>
           </ul>
         </li>
         <li><a href="#">랭킹</a>
@@ -66,9 +66,7 @@
         <li><a href="#">회원</a>
           <ul class="depth2">
             <li><a href='${pageContext.request.contextPath}/member/list.do'>회원목록</a></li>
-            <li><a href="${pageContext.request.contextPath}/auth/list.do">회원권한</a></li>
-            <li><a href="${pageContext.request.contextPath}/memberlevel/list.do">회원등급</a></li>
-            <li><a href="${pageContext.request.contextPath}/snslogin/list.do">SNS연동목록</a></li>
+            <li><a href="${pageContext.request.contextPath}/auth/list.do">회원등급</a></li>
           </ul>
         </li>
       </ul>

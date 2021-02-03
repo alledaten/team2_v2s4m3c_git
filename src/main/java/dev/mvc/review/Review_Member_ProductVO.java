@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 /*
 review_no                         NUMBER(10)     NOT NULL    PRIMARY KEY,
 member_no                         NUMBER(10)     NOT NULL,
-review_cate_no                    NUMBER(10)     NOT NULL,
+product_no                        NUMBER(10)     NOT NULL,
 review_title                      VARCHAR2(100)     NOT NULL,
 review_content                    CLOB                   NOT NULL,
 review_score                      NUMBER(2)        NOT NULL,
@@ -13,19 +13,17 @@ review_good                       NUMBER(10)     DEFAULT 0     NOT NULL,
 review_view                       NUMBER(10)     DEFAULT 0     NOT NULL,
 review_reply_cnt                  NUMBER(10)     DEFAULT 0      NOT NULL,
 review_passwd                     VARCHAR2(20)     NOT NULL,
-review_grpno                      NUMBER(10)     DEFAULT 0      NOT NULL,
-review_indent                     NUMBER(3)        DEFAULT 0      NOT NULL,
-review_answer_no                  NUMBER(3)        DEFAULT 0      NOT NULL,
 review_word                       VARCHAR2(300)     NULL,
 review_date                       DATE                 NOT NULL,
 review_file                           VARCHAR2(100)     NULL,
 review_thumb                      VARCHAR2(100)  NULL,
 review_size                       NUMBER(10)     DEFAULT 0      NULL,
-FOREIGN KEY (review_cate_no) REFERENCES review_cate (review_cate_no),
-FOREIGN KEY (member_no) REFERENCES member (member_no)
+FOREIGN KEY (member_no) REFERENCES member (member_no),
+FOREIGN KEY (product_no) REFERENCES product (product_no)
 */
 
-public class Review_MemberVO {
+
+public class Review_Member_ProductVO {
   
   /** 리뷰 번호 */
   private int review_no;
@@ -33,11 +31,8 @@ public class Review_MemberVO {
   /** 회원 번호 */
   private int member_no;
   
-  /** 회원 닉네임 */
-  private String member_nickname = "";
-  
-  /** 리뷰 카테고리 번호 */
-  private int review_cate_no;
+  /** 상품 번호 */
+  private int product_no;
   
   /** 리뷰 제목 */
   private String review_title = "";
@@ -52,22 +47,13 @@ public class Review_MemberVO {
   private int review_good;
   
   /** 리뷰 조회수 */
-  private int review_view = 0;
+  private int review_view;
   
   /** 리뷰 댓글수 */
   private int review_reply_cnt;
  
   /** 리뷰 비밀번호 */
   private String review_passwd = "";
-  
-  /** 리뷰 그룹번호 */
-  private int review_grpno;
-  
-  /** 리뷰 들여쓰기 및 답변차수 */
-  private int review_indent;
-  
-  /** 리뷰 답변순서 */
-  private int review_answer_no;
   
   /** 리뷰 검색어 */
   private String review_word = "";
@@ -83,6 +69,30 @@ public class Review_MemberVO {
   
   /** 리뷰 메인 이미지 크기 */
   private long review_size;
+  
+  /** 리뷰 메인 이미지 크기 용량 레이블 */
+  private String review_size_label;
+  
+  private MultipartFile review_fileMF;
+  
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Product & Member 추가 컬럼 // 
+
+  /** 회원 닉네임 */
+  private String member_nickname = "";
+  
+  /** 회원 id */
+  private String member_id = "";
+  
+  /** 상품명 */
+  private String product_name = "";
+  
+  /** 상품 가격 */
+  private String product_cost = "";
+  
+  /** 상품 섬네일 */
+  private String product_thumb1 = "";
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
   public String getReview_size_label() {
     return review_size_label;
@@ -100,22 +110,6 @@ public class Review_MemberVO {
     this.review_fileMF = review_fileMF;
   }
 
-  /** 리뷰 메인 이미지 크기 용량 레이블 */
-  private String review_size_label;
-  
-  private MultipartFile review_fileMF;
-  
-  // member table -> id
-  private String mid;
-
-  public String getMid() {
-    return mid;
-  }
-
-  public void setMid(String mid) {
-    this.mid = mid;
-  }
-
   public int getReview_no() {
     return review_no;
   }
@@ -131,15 +125,7 @@ public class Review_MemberVO {
   public void setMember_no(int member_no) {
     this.member_no = member_no;
   }
-
-  public int getReview_cate_no() {
-    return review_cate_no;
-  }
-
-  public void setReview_cate_no(int review_cate_no) {
-    this.review_cate_no = review_cate_no;
-  }
-
+  
   public String getReview_title() {
     return review_title;
   }
@@ -196,29 +182,6 @@ public class Review_MemberVO {
     this.review_passwd = review_passwd;
   }
 
-  public int getReview_grpno() {
-    return review_grpno;
-  }
-
-  public void setReview_grpno(int review_grpno) {
-    this.review_grpno = review_grpno;
-  }
-
-  public int getReview_indent() {
-    return review_indent;
-  }
-
-  public void setReview_indent(int review_indent) {
-    this.review_indent = review_indent;
-  }
-
-  public int getReview_answer_no() {
-    return review_answer_no;
-  }
-
-  public void setReview_answer_no(int review_answer_no) {
-    this.review_answer_no = review_answer_no;
-  }
 
   public String getReview_word() {
     return review_word;
@@ -266,6 +229,46 @@ public class Review_MemberVO {
 
   public void setMember_nickname(String member_nickname) {
     this.member_nickname = member_nickname;
+  }
+
+  public String getMember_id() {
+    return member_id;
+  }
+
+  public void setMember_id(String member_id) {
+    this.member_id = member_id;
+  }
+
+  public String getProduct_name() {
+    return product_name;
+  }
+
+  public void setProduct_name(String product_name) {
+    this.product_name = product_name;
+  }
+
+  public String getProduct_cost() {
+    return product_cost;
+  }
+
+  public void setProduct_cost(String product_cost) {
+    this.product_cost = product_cost;
+  }
+
+  public String getProduct_thumb1() {
+    return product_thumb1;
+  }
+
+  public void setProduct_thumb1(String product_thumb1) {
+    this.product_thumb1 = product_thumb1;
+  }
+
+  public int getProduct_no() {
+    return product_no;
+  }
+
+  public void setProduct_no(int product_no) {
+    this.product_no = product_no;
   }
 
 

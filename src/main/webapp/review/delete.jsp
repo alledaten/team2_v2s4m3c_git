@@ -149,7 +149,7 @@
  
   <FORM name='frm' method='POST' action='./delete.do'>
       <input type='hidden' name='review_no' value='${param.review_no}'>
-      <input type="hidden" name="review_cate_no" value="${param.review_cate_no }">
+      <input type="hidden" name="product_no" value="${param.product_no }">
       <input type='hidden' name='nowPage' id='nowPage' value='${param.nowPage }'>
       
       <DIV id='panel1' style="width: 40%; text-align: center; margin: 10px auto;"></DIV>

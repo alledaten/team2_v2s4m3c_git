@@ -28,8 +28,6 @@
   <context:component-scan base-package="dev.mvc.auth" /> <!-- PL -->
   <context:component-scan base-package="dev.mvc.snslogin" /> <!-- PL -->
   <context:component-scan base-package="dev.mvc.memberlevel" /> <!-- PL -->
-  <context:component-scan base-package="dev.mvc.review_categrp" /> <!-- DS -->
-  <context:component-scan base-package="dev.mvc.review_cate" /> <!-- DS -->
   <context:component-scan base-package="dev.mvc.review" /> <!-- DS -->
   <context:component-scan base-package="dev.mvc.review_attachfile" /> <!-- DS -->
   <context:component-scan base-package="dev.mvc.review_reply" /> <!-- DS -->

@@ -27,9 +27,9 @@
   </DIV>
   
   <ASIDE class="aside_left">
-    <A href="../review_categrp/list.do">카테고리 그룹</A> > 
-    <A href="../review_cate/list.do?review_categrp_no=${review_CategrpVO.review_categrp_no }">${review_CategrpVO.review_categrp_name }</A> > 
-    <A href="../contents/list.do?review_cate_no=${reviewVO.review_cate_no }">${review_CateVO.review_cate_name}</A>  
+    <!-- <A href="../review_categrp/list.do">카테고리 그룹</A> >  -->
+    <%-- <A href="../review_cate/list.do?review_categrp_no=${review_CategrpVO.review_categrp_no }">${review_CategrpVO.review_categrp_name }</A> >  --%>
+   <%--  <A href="../contents/list.do?review_cate_no=${reviewVO.review_cate_no }">${review_CateVO.review_cate_name}</A>   --%>
   </ASIDE>
   <ASIDE class="aside_right">
     <A href=''>목록</A>
@@ -45,7 +45,7 @@
       <!-- FK memberno 지정 -->
       <input type='hidden' name='member_no' id='member_no' value='1'>
       <!-- FK categrpno 지정 -->
-      <input type='hidden' name='review_cate_no' id='review_cate_no' value="${param.review_cate_no }">
+      <input type='hidden' name='product_no' id='product_no' value="${param.product_no }">
       <input type='hidden' name='review_no' id='review_no' value="${param.review_no }">
       
 
@@ -59,7 +59,7 @@
       
       <div class="form-group">   
         <div class="col-md-12">
-          <input type='password' class="form-control" name='review_passwd'  value='123' placeholder="패스워드" style='width: 20%;'>
+          <input type='password' class="form-control" name='review_passwd'  value='1234' placeholder="패스워드" style='width: 20%;'>
         </div>
       </div>
       

@@ -72,5 +72,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE <![CDATA[ r >= #{startNum} AND r <= #{endNum} ]]>
   </select>
   
+  <delete id="delete" parameterType="int">
+    DELETE FROM review_reply
+    WHERE review_reply_no=#{review_reply_no}
+  </delete>
+  
 
 </mapper>

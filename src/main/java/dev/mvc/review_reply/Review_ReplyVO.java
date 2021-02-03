@@ -12,13 +12,13 @@ package dev.mvc.review_reply;
 public class Review_ReplyVO {
   
   /** ¸®ºä ´ñ±Û ¹øÈ£ */
-  private int review_reply_no = 0;
+  private int review_reply_no;
   
   /** ¸®ºä ¹øÈ£(FK) */
-  private int review_no = 0;
+  private int review_no;
   
   /** È¸¿ø ¹øÈ£(FK) */
-  private int member_no = 0;
+  private int member_no;
   
   /** ´ñ±Û ³»¿ë */
   private String review_reply_content = "";

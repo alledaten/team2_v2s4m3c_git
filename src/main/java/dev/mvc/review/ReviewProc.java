@@ -31,8 +31,8 @@ public class ReviewProc implements ReviewProcInter{
   }
   
   @Override
-  public List<ReviewVO> list_by_review_cate_no(int review_cate_no) {
-    List<ReviewVO> list = this.reviewDAO.list_by_review_cate_no(review_cate_no);
+  public List<Review_Member_ProductVO> list_by_product_no(int product_no) {
+    List<Review_Member_ProductVO> list = this.reviewDAO.list_by_product_no(product_no);
     return list;
   }
   
@@ -43,7 +43,7 @@ public class ReviewProc implements ReviewProcInter{
   }
   
   @Override
-  public List<Review_MemberVO> list_by_review_cate_no_search_paging(HashMap<String, Object> map) {
+  public List<Review_Member_ProductVO> list_by_product_no_search_paging(HashMap<String, Object> map) {
     /* 
     페이지에서 출력할 시작 레코드 번호 계산 기준값, nowPage는 1부터 시작
     1 페이지 시작 rownum: nowPage = 1, (1 - 1) * 10 --> 0 
@@ -67,16 +67,14 @@ public class ReviewProc implements ReviewProcInter{
     map.put("startNum", startNum);
     map.put("endNum", endNum);
    
-    List<Review_MemberVO> list = this.reviewDAO.list_by_review_cate_no_search_paging(map);
+    List<Review_Member_ProductVO> list = this.reviewDAO.list_by_product_no_search_paging(map);
     
     return list;
   }
   
-  /**
-   * 
-   */
+
   @Override
-  public String pagingBox(String listFile, int review_cate_no, int search_count, int nowPage, String review_word) { 
+  public String pagingBox(String listFile, int product_no, int search_count, int nowPage, String review_word) { 
     int totalPage = (int)(Math.ceil((double)search_count/Review.RECORD_PER_PAGE)); // 전체 페이지  
     
     int totalGrp = (int)(Math.ceil((double)totalPage/Review.PAGE_PER_BLOCK));// 전체 그룹 
@@ -126,7 +124,7 @@ public class ReviewProc implements ReviewProcInter{
     // 현재 3그룹일 경우: (3 - 1) * 10 = 2그룹의 마지막 페이지 20
     int _nowPage = (nowGrp-1) * Review.PAGE_PER_BLOCK;  
     if (nowGrp >= 2){ 
-      str.append("<span class='span_box_1'><A href='"+listFile+"?&review_word="+review_word+"&nowPage="+_nowPage+"&review_cate_no="+review_cate_no+"'>이전</A></span>"); 
+      str.append("<span class='span_box_1'><A href='"+listFile+"?&review_word="+review_word+"&nowPage="+_nowPage+"&product_no="+product_no+"'>이전</A></span>"); 
     } 
  
     // 중앙의 페이지 목록
@@ -139,7 +137,7 @@ public class ReviewProc implements ReviewProcInter{
         str.append("<span class='span_box_2'>"+i+"</span>"); // 현재 페이지, 강조 
       }else{
         // 현재 페이지가 아닌 페이지는 이동이 가능하도록 링크를 설정
-        str.append("<span class='span_box_1'><A href='"+listFile+"?review_word="+review_word+"&nowPage="+i+"&review_cate_no="+review_cate_no+"'>"+i+"</A></span>");   
+        str.append("<span class='span_box_1'><A href='"+listFile+"?review_word="+review_word+"&nowPage="+i+"&product_no="+product_no+"'>"+i+"</A></span>");   
       } 
     } 
  
@@ -149,7 +147,7 @@ public class ReviewProc implements ReviewProcInter{
     // 현재 2그룹일 경우: (2 * 10) + 1 = 3그룹의 시작페이지 21
     _nowPage = (nowGrp * Review.PAGE_PER_BLOCK)+1;  
     if (nowGrp < totalGrp){ 
-      str.append("<span class='span_box_1'><A href='"+listFile+"?&review_word="+review_word+"&nowPage="+_nowPage+"&review_cate_no="+review_cate_no+"'>다음</A></span>"); 
+      str.append("<span class='span_box_1'><A href='"+listFile+"?&review_word="+review_word+"&nowPage="+_nowPage+"&product_no="+product_no+"'>다음</A></span>"); 
     } 
     str.append("</DIV>"); 
      
@@ -164,7 +162,7 @@ public class ReviewProc implements ReviewProcInter{
     ReviewVO reviewVO = this.reviewDAO.read(review_no);
     
     String review_title = reviewVO.getReview_title();
-    String review_content = reviewVO.getReview_content();
+    // String review_content = reviewVO.getReview_content(); -> Ckeditor 사용하기 때문에 주석처리 하였음
 
     review_title = Tool.convertChar(review_title);  // 특수 문자 처리
     // content = Tool.convertChar(content); // Ckeditor 사용시 사용하지 말 것.

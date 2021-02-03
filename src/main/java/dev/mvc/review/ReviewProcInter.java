@@ -16,41 +16,43 @@ public interface ReviewProcInter {
   public int create(ReviewVO reviewVO);
   
    /**
-   * 모든 카테고리에 등록된 리뷰 목록
+   * 모든 상품에 등록된 리뷰 목록
    * @return
    */
   public List<ReviewVO> list_all();
   
    /**
-   * 특정 카테고리에 등록된 리뷰 목록
+   * 특정 상품에 등록된 리뷰 목록
    * @return
    */
-  public List<ReviewVO> list_by_review_cate_no(int review_cate_no);
+  public List<Review_Member_ProductVO> list_by_product_no(int product_no);
+  
+  
+   /**
+   * 상품별 검색 레코드 갯수
+   * @param hashMap
+   * @return
+   */
+  public int search_count(HashMap<String, Object> hashMap);
   
   /**
    * 검색 + 페이징 목록
    * @param map
    * @return
    */
-  public List<Review_MemberVO> list_by_review_cate_no_search_paging(HashMap<String, Object> map);
+  public List<Review_Member_ProductVO> list_by_product_no_search_paging(HashMap<String, Object> map);
   
-  /**
-   * 카테고리별 검색 레코드 갯수
-   * @param hashMap
-   * @return
-   */
-  public int search_count(HashMap<String, Object> hashMap);
   
    /**
    * 페이지 목록 문자열 생성, Box 형태
    * @param listFile
-   * @param review_cate_no
+   * @param product_no
    * @param search_count
    * @param nowPage
    * @param review_word
    * @return
    */
-  public String pagingBox(String listFile, int review_cate_no, int search_count, int nowPage, String review_word);
+  public String pagingBox(String listFile, int product_no, int search_count, int nowPage, String review_word);
   
   /**
    * 조회
@@ -66,12 +68,19 @@ public interface ReviewProcInter {
    */
   public ReviewVO read_update(int review_no);
   
-  /**
+   /**
    * 수정 처리
-   * @param reviewVO
+   * @param review_member_productVO
    * @return
    */
   public int update(ReviewVO reviewVO);
+  
+   /**
+   * 패스워드 검사
+   * @param hashMap
+   * @return
+   */
+  public int passwd_check(HashMap<String, Object> hashMap);
   
   /**
    * 삭제
@@ -80,34 +89,25 @@ public interface ReviewProcInter {
    */
   public int delete(int review_no);
   
-  /**
-   * 패스워드 검사
-   * @param hashMap
-   * @return
-   */
-  public int passwd_check(HashMap<String, Object> hashMap);
-  
-  
-  
   /////////////////////////////////////// 이미지 관련 등록, 수정, 삭제 시작 ////////////////////////////////////////////////////
   
   /**
    * 이미지 등록
-   * @param reviewVO
+   * @param review_member_productVO
    * @return
    */
   public int img_create(ReviewVO reviewVO);
   
   /**
    * 이미지 변경
-   * @param reviewVO
+   * @param review_member_productVO
    * @return
    */
   public int img_update(ReviewVO reviewVO);
   
    /**
    * 이미지 삭제
-   * @param reviewVO
+   * @param review_member_productVO
    * @return
    */
   public int img_delete(ReviewVO reviewVO);
@@ -120,5 +120,7 @@ public interface ReviewProcInter {
    * @return
    */
   public int update_review_view(int review_no);
+
+
   
 }

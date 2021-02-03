@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -254,7 +255,7 @@
           msg = "패스워드가 일치하지 않습니다.";
           $('#modal_panel_delete_msg').html(msg);
 
-          $('#passwd', '#frm_review_reply_delete').focus();
+          $('#review_reply_passwd', '#frm_review_reply_delete').focus();
           
         }
       },
@@ -271,7 +272,7 @@
 </head>
 
 <body>
-<c:set var="review_cate_no" value="${review_CateVO.review_cate_no}" />
+<c:set var="product_no" value="${reviewVO.product_no}" />
 <c:set var="review_no" value="${reviewVO.review_no }" />
 
 <jsp:include page="/menu/top.jsp" flush='false' />
@@ -331,17 +332,17 @@
 
 
   <DIV class='title_line' style="width: 80%; margin: 30px auto; font-size: 20px; font-weight: bold;">
-    ${review_CateVO.review_cate_name }
+    ${productVO.product_name } 리뷰
   </DIV>
   
   <div style="width: 80%; margin: 5px auto;">
   <ASIDE class="aside_left">
-    ${review_CategrpVO.review_categrp_name } > ${review_CateVO.review_cate_name }
+    ${reviewVO.review_title } <span>${reviewVO.review_date.substring(0, 16)}</span>
   </ASIDE>
   <ASIDE class="aside_right">
     <A href="javascript:location.reload();">새로고침</A>
       <span class='menu_divide' > | </span> 
-    <A href='./list.do?cateno=${cateno }'>목록</A>
+    <A href='./list.do?product_no=${product_no }'>목록</A>
    
    <%-- 글을 등록한 회원만 메뉴 출력 --%>
    
@@ -349,37 +350,47 @@
     <c:choose>
       <c:when test="${reviewVO.review_file.trim().length() > 0 }"> 
         <span class='menu_divide' > | </span> 
-          <A href='./img_update.do?review_cate_no=${review_cate_no }&review_no=${review_no}'>메인 이미지 변경 및 삭제</A>     
+          <A href='./img_update.do?product_no=${product_no }&review_no=${review_no}'>메인 이미지 변경 및 삭제</A>     
       </c:when>
       <c:otherwise>
         <span class='menu_divide' > | </span> 
-          <A href='./img_create.do?review_cate_no=${review_cate_no }&review_no=${review_no}'>메인 이미지 등록</A>     
+          <A href='./img_create.do?product_no=${product_no }&review_no=${review_no}'>메인 이미지 등록</A>     
       </c:otherwise>
     </c:choose>  
     
     <span class='menu_divide' > | </span>
-      <A href='../review_attachfile/create.do?review_no=${review_no }&review_cate_no=${review_cate_no }'>첨부 파일 등록</A>
+      <A href='../review_attachfile/create.do?review_no=${review_no }&product_no=${product_no }'>첨부 파일 등록</A>
     <span class='menu_divide' > | </span>
-      <A href='../review_attachfile/list_by_review_no.do?review_no=${review_no }&review_cate_no=${review_cate_no }'>첨부 파일 삭제</A>
+      <A href='../review_attachfile/list_by_review_no.do?review_no=${review_no }&product_no=${product_no }'>첨부 파일 삭제</A>
     <span class='menu_divide' > | </span> 
-     <A href='./update.do?review_cate_no=${review_cate_no }&review_no=${review_no}&nowPage=${param.nowPage}'>수정</A>
+     <A href='./update.do?product_no=${product_no }&review_no=${review_no}&nowPage=${param.nowPage}'>수정</A>
     <span class='menu_divide' > | </span> 
-     <A href='./delete.do?review_cate_no=${review_cate_no }&review_no=${review_no}&nowPage=${param.nowPage}'>삭제</A>
+     <A href='./delete.do?product_no=${product_no }&review_no=${review_no}&nowPage=${param.nowPage}'>삭제</A>
     
     </c:if>
   </ASIDE> 
-  
-  <div class='menu_line'></div>
 
+  <div class='menu_line'></div>
+  
+  <div class = "product_total">   
+       <span class = "product_img">
+          <a href="../product/read.do?product_no=${param.product_no}&product_word=${param.product_word }&nowPage=${param.nowPage}">
+            <IMG src='../product/storage/main_images/${productVO.product_thumb1 }' style='margin: 5px auto; width: 150px; height: 150px;'>
+         </a>
+       </span>
+       <span class = "product_info">  
+         <em style="font-weight: bold; font-size: 16px;">상품명: ${productVO.product_name}</em><br>                                                                                                       
+         <strong style="font-size: 14px; color: #189fdb;">판매 금액: <fmt:formatNumber value="${productVO.product_cost}" pattern="#,###,###"></fmt:formatNumber>원</strong>
+       </span>
+     </div>
+     
+     
   <FORM name='frm' method="get" action='./update.do'>
       <input type="hidden" name="review_no" value="${review_no}">
+      
+
       <fieldset class="fieldset">
         <ul>
-          <li class="li_none" style='border-bottom: solid 1px #AAAAAA; width: 100%; margin: 30px auto;'>
-            <span style="font-weight: bold; font-size: 20px;">${reviewVO.review_title}</span> || 
-            <span>${reviewVO.review_date.substring(0, 16)}</span>
-          </li>
-          
           <%-- ********** 첨부 파일 이미지 목록 출력 시작 ********** --%>
           <li class="li_none">
             <DIV id='review_attachfile_panel' style="width: 70%; margin: 0px auto;"></DIV> <!-- 원본 이미지 출력 -->
@@ -406,9 +417,28 @@
             <DIV>${reviewVO.review_content }</DIV>
           </li>
           
-          <li class="li_none">
+          <li class="li_none">     
             <DIV style='text-decoration: none;'>
-              평점: ${reviewVO.review_score }점
+            <c:choose>
+              <c:when test="${reviewVO.review_score == 1}">
+                 <span>평점: ★☆☆☆☆</span>
+              </c:when>
+              <c:when test="${reviewVO.review_score == 2}">
+                 <span>평점: ★★☆☆☆</span>
+              </c:when>
+              <c:when test="${reviewVO.review_score == 3}">
+                 <span>평점: ★★★☆☆</span>
+              </c:when>
+              <c:when test="${reviewVO.review_score == 4}">
+                 <span>평점: ★★★★☆</span>
+              </c:when>
+              <c:when test="${reviewVO.review_score == 5}">
+                 <span>평점: ★★★★★</span>
+              </c:when>
+              <c:otherwise> 
+                 <span>평점: ☆☆☆☆☆</span>
+              </c:otherwise>
+            </c:choose>
             </DIV>
           </li>
           
@@ -422,14 +452,15 @@
   </FORM>
   </div>
   
-  <!-- ---------- 댓글 영역 시작 ---------- -->
+  <!------------ 댓글 영역 시작 ---------- -->
+   
   <DIV style='width: 80%; margin: 5px auto;'>
       <HR>
       <FORM name='frm_review_reply' id='frm_review_reply'> <%-- 댓글 등록 폼 --%>
           <input type='hidden' name='review_no' id='review_no' value='${review_no}'>
           <input type='hidden' name='member_no' id='member_no' value='${sessionScope.member_no}'>
           
-          <textarea name='review_reply_content' id='review_reply_content' style='width: 100%; height: 60px;' placeholder="댓글을 작성하려면 로그인 해주세요."></textarea>
+          <textarea name='review_reply_content' id='review_reply_content' style='width: 100%; height: 60px;' placeholder="비정상적인 댓글은 무삭제 통보될 수 있습니다."></textarea>
           <input type='password' name='review_reply_passwd' id='review_reply_passwd' placeholder="비밀번호">
           <button type='button' id='btn_create'>등록</button>
       </FORM>

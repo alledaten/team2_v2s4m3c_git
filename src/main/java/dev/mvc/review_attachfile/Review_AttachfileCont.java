@@ -3,6 +3,7 @@ package dev.mvc.review_attachfile;
 import java.util.List;
 
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONObject;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.review.ReviewProcInter;
 import dev.mvc.review.ReviewVO;
+import dev.mvc.review.Review_Member_ProductVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -56,7 +58,7 @@ public class Review_AttachfileCont {
    * @return
    */
   @RequestMapping(value = "/review_attachfile/create.do", method = RequestMethod.POST)
-  public ModelAndView create(HttpServletRequest request, Review_AttachfileVO review_AttachfileVO, int review_cate_no) {
+  public ModelAndView create(HttpServletRequest request, Review_AttachfileVO review_AttachfileVO, int product_no) {
 
     ModelAndView mav = new ModelAndView();
     // ---------------------------------------------------------------
@@ -102,7 +104,7 @@ public class Review_AttachfileCont {
     // -----------------------------------------------------
 
     mav.addObject("review_no", review_no); // redirect parameter 적용
-    mav.addObject("review_cate_no", review_cate_no); // redirect parameter 적용
+    mav.addObject("product_no", product_no); // redirect parameter 적용
     mav.addObject("upload_count", upload_count); // redirect parameter 적용
     mav.addObject("url", "create_msg"); // create_msg.jsp, redirect parameter 적용
     // ★ 목록 생성 후 여기 수정해야한다

@@ -16,20 +16,20 @@ public interface ReviewDAOInter {
   public int create(ReviewVO reviewVO);
   
    /**
-   * 모든 카테고리에 등록된 리뷰 목록
+   * 모든 상품에 등록된 리뷰 목록
    * @return
    */
   public List<ReviewVO> list_all();
   
    /**
-   * 특정 카테고리에 등록된 리뷰 목록
+   * 특정 상품에 등록된 리뷰 목록
    * @return
    */
-  public List<ReviewVO> list_by_review_cate_no(int review_cate_no);
+  public List<Review_Member_ProductVO> list_by_product_no(int product_no);
   
   
-  /**
-   * 카테고리별 검색 레코드 갯수
+   /**
+   * 상품별 검색 레코드 갯수
    * @param hashMap
    * @return
    */
@@ -40,7 +40,7 @@ public interface ReviewDAOInter {
    * @param map
    * @return
    */
-  public List<Review_MemberVO> list_by_review_cate_no_search_paging(HashMap<String, Object> map);
+  public List<Review_Member_ProductVO> list_by_product_no_search_paging(HashMap<String, Object> map);
   
    /**
    * 조회

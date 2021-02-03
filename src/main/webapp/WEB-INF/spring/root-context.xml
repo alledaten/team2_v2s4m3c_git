@@ -32,8 +32,6 @@
                           dev.mvc.auth,
                           dev.mvc.snslogin,
                           dev.mvc.memberlevel,
-                          dev.mvc.review_categrp,
-                          dev.mvc.review_cate,
                           dev.mvc.qna,
                           dev.mvc.answer,
                           dev.mvc.buy,

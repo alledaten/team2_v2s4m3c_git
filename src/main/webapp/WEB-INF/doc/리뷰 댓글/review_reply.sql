@@ -25,28 +25,28 @@ COMMENT ON COLUMN review_reply.review_reply_date is '등록일';
 1) 등록
 INSERT INTO review_reply(review_reply_no, review_no, member_no, review_reply_content, review_reply_passwd, review_reply_date)
 VALUES((SELECT NVL(MAX(review_reply_no), 0) + 1 as review_reply_no FROM review_reply),
-             24, 1, '댓글1', '1234', sysdate);
+             9, 1, '댓글1', '1234', sysdate);
 INSERT INTO review_reply(review_reply_no, review_no, member_no, review_reply_content, review_reply_passwd, review_reply_date)
 VALUES((SELECT NVL(MAX(review_reply_no), 0) + 1 as review_reply_no FROM review_reply),
-             24, 1, '댓글2', '1234', sysdate);
+             9, 1, '댓글2', '1234', sysdate);
 INSERT INTO review_reply(review_reply_no, review_no, member_no, review_reply_content, review_reply_passwd, review_reply_date)
 VALUES((SELECT NVL(MAX(review_reply_no), 0) + 1 as review_reply_no FROM review_reply),
-             24, 1, '댓글3', '1234', sysdate);
+             9, 1, '댓글3', '1234', sysdate);
              
 2) 전체 목록           
-SELECT review_reply_no, review_no, member_no, review_reply_content, review_reply_passwd, review_reply_date
+SELECT *
 FROM review_reply
 ORDER BY review_reply_no DESC;
 
 3) review_no 별 조회
 SELECT review_reply_no, review_no, member_no, review_reply_content, review_reply_passwd, review_reply_date
 FROM review_reply
-WHERE review_no = 24
+WHERE review_no = 1
 ORDER BY review_reply_no DESC;
 
 4) 삭제
 DELETE FROM review_reply
-WHERE review_reply_no = 5;
+WHERE review_reply_no = 4;
 
 5) 댓글의 패스워드 검사
 SELECT count(review_reply_passwd) as cnt
@@ -56,7 +56,7 @@ WHERE review_reply_no = 2 AND review_reply_passwd='1234';
 7) review_no 해당하는 댓글 수 확인
 SELECT COUNT(*) as cnt
 FROM review_reply
-WHERE review_no = 24;
+WHERE review_no =1;
 
 8) member_no 해당하는 댓글 수 확인
 SELECT COUNT(*) as cnt
@@ -79,7 +79,7 @@ ORDER BY r.review_reply_no DESC;
 SELECT m.member_id,
            r.review_reply_no, r.review_no, r.member_no, r.review_reply_content, r.review_reply_passwd, r.review_reply_date
 FROM member m, review_reply r
-WHERE (m.member_no = r.member_no) AND r.review_no= 24
+WHERE (m.member_no = r.member_no) AND r.review_no= 1
 ORDER BY r.review_reply_no DESC;
 
 5-3) 더보기 버튼 페이징, review_no 별 목록
@@ -90,7 +90,7 @@ FROM (
                 SELECT m.member_id,
                            r.review_reply_no, r.review_no, r.member_no, r.review_reply_content, r.review_reply_passwd, r.review_reply_date
                 FROM member m, review_reply r
-                WHERE (m.member_no = r.member_no) AND r.review_no=24
+                WHERE (m.member_no = r.member_no) AND r.review_no=1
                 ORDER BY r.review_reply_no DESC
         )
 )

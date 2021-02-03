@@ -83,7 +83,7 @@
 
   <ASIDE class='aside_left'>
     <A href='../review/read.do?review_no=${reviewVO.review_no }'>관련글</A> >
-    <A href='./create.do?review_no=${reviewVO.review_no }&review_cate_no=${reviewVO.review_cate_no }'>첨부 파일 등록</A>
+    <A href='./create.do?review_no=${reviewVO.review_no }&product_no=${reviewVO.product_no }'>첨부 파일 등록</A>
   </ASIDE>
   <ASIDE class='aside_right'>
     <A href="javascript:location.reload();">새로고침</A>
