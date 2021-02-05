@@ -9,9 +9,9 @@
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>리뷰 조회</title>
 
-<link href="../css/common.css" rel="stylesheet" type="text/css">
-<link href="../css/menu.css" rel="stylesheet" type="text/css">
-<link href="./review_css/style.css" rel="stylesheet" type="text/css">
+<link href="../css/common.css" rel="Stylesheet" type="text/css">
+<link href="../css/menu.css" rel="Stylesheet" type="text/css">
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -48,9 +48,6 @@
     $("#btn_add").on("click", list_by_review_no_join_add_pg);                           // 더보기 버튼 이벤트 등록
     
     //-------------------- 댓글 관련 종료 --------------------
-    
-    $('#review_attachfile_panel').html(tag); 
-    $('#review_attachfile_panel').show();      
 
   });  
 
@@ -255,7 +252,7 @@
           msg = "패스워드가 일치하지 않습니다.";
           $('#modal_panel_delete_msg').html(msg);
 
-          $('#review_reply_passwd', '#frm_review_reply_delete').focus();
+          $('#passwd', '#frm_review_reply_delete').focus();
           
         }
       },
@@ -329,10 +326,8 @@
   <!-- -------------------- 댓글 삭제폼 종료 -------------------- -->
 
 
-
-
   <DIV class='title_line' style="width: 80%; margin: 30px auto; font-size: 20px; font-weight: bold;">
-    ${productVO.product_name } 리뷰
+    <strong class ="review_title">『${productVO.product_name}』 리뷰</strong>
   </DIV>
   
   <div style="width: 80%; margin: 5px auto;">
@@ -340,13 +335,14 @@
     ${reviewVO.review_title } <span>${reviewVO.review_date.substring(0, 16)}</span>
   </ASIDE>
   <ASIDE class="aside_right">
-    <A href="javascript:location.reload();">새로고침</A>
-      <span class='menu_divide' > | </span> 
-    <A href='./list.do?product_no=${product_no }'>목록</A>
-   
+    
    <%-- 글을 등록한 회원만 메뉴 출력 --%>
    
    <c:if test="${sessionScope.member_no == reviewVO.member_no or sessionScope.id_admin ne null }">
+     <A href='./update.do?product_no=${product_no }&review_no=${review_no}&nowPage=${param.nowPage}'>수정</A>
+       <span class='menu_divide' > | </span> 
+     <A href='./delete.do?product_no=${product_no }&review_no=${review_no}&nowPage=${param.nowPage}'>삭제</A>
+   
     <c:choose>
       <c:when test="${reviewVO.review_file.trim().length() > 0 }"> 
         <span class='menu_divide' > | </span> 
@@ -363,23 +359,24 @@
     <span class='menu_divide' > | </span>
       <A href='../review_attachfile/list_by_review_no.do?review_no=${review_no }&product_no=${product_no }'>첨부 파일 삭제</A>
     <span class='menu_divide' > | </span> 
-     <A href='./update.do?product_no=${product_no }&review_no=${review_no}&nowPage=${param.nowPage}'>수정</A>
-    <span class='menu_divide' > | </span> 
-     <A href='./delete.do?product_no=${product_no }&review_no=${review_no}&nowPage=${param.nowPage}'>삭제</A>
-    
     </c:if>
+       
+    <A href='./list.do?product_no=${product_no }'>관련된 리뷰 목록</A>
+      <span class='menu_divide' > | </span>
+    <A href="javascript:location.reload();">새로고침</A>  
+      
   </ASIDE> 
 
   <div class='menu_line'></div>
   
   <div class = "product_total">   
        <span class = "product_img">
-          <a href="../product/read.do?product_no=${param.product_no}&product_word=${param.product_word }&nowPage=${param.nowPage}">
+          <a href="../product/read.do?product_no=${productVO.product_no}">
             <IMG src='../product/storage/main_images/${productVO.product_thumb1 }' style='margin: 5px auto; width: 150px; height: 150px;'>
          </a>
        </span>
        <span class = "product_info">  
-         <em style="font-weight: bold; font-size: 16px;">상품명: ${productVO.product_name}</em><br>                                                                                                       
+         <strong style="font-weight: bold; font-size: 16px;">상품명: ${productVO.product_name} 11</strong><br>                                                                                                       
          <strong style="font-size: 14px; color: #189fdb;">판매 금액: <fmt:formatNumber value="${productVO.product_cost}" pattern="#,###,###"></fmt:formatNumber>원</strong>
        </span>
      </div>

@@ -10,7 +10,7 @@
  
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
-<link href="./review_css/style.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -132,18 +132,19 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
-  <DIV class='title_line'>
-    카테고리 이름
+  
+  <DIV class='title_line' style="width: 80%; margin: 30px auto; font-size: 20px; font-weight: bold;">
+    <strong class ="review_title">『${reviewVO.review_title}』 삭제</strong>
   </DIV>
 
-  <ASIDE class="aside_left">
-    <A href=''>카테고리 그룹</A> > 
-    <A href=''>카테고리</A> > 수정
-  </ASIDE>
-  <ASIDE class="aside_right">
-    <A href='./list.do?review_cate_no=${param.review_cate_no }'>목록</A>
-    <!-- <span class='menu_divide' >│</span> --> 
-  </ASIDE> 
+  <div style="width: 80%; margin: 5px auto;">
+    <A href="../product/list.do?productgrp_no=${productgrpVO.productgrp_no }">${productgrpVO.productgrp_name }</A> > 
+    <A href="../product/read.do?product_no=${productVO.product_no }">${productVO.product_name }</A> > 
+    ${reviewVO.review_title}
+    
+    <ASIDE class="aside_right">
+      <A href="javascript:location.reload();">새로고침</A>
+    </ASIDE>
   
   <div class='menu_line'></div>
  
@@ -170,6 +171,7 @@
         </div>
       </div>   
   </FORM>
+  </div>
  
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>

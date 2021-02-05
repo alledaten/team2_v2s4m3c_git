@@ -21,25 +21,20 @@
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
 
-  <DIV class='title_line'>
-    첨부 파일
+  <DIV class='review_title_line'>
+    <strong class ="review_title">첨부파일 등록</strong>
   </DIV>
 
-  <ASIDE class="aside_left">
-    신규 등록
-  </ASIDE>
-  <ASIDE class="aside_right">
-    <A href='./list.do?product_no=${param.product_no }'>목록</A>
-    <!-- <span class='menu_divide' >│</span> --> 
-  </ASIDE> 
- 
-  <div class='menu_line'></div>
+  <DIV style="width: 80%; margin: 10px auto;">
+    <ASIDE class="aside_right">
+      <A href='./list_by_review_no.do?review_no=${param.review_no }'>첨부파일 목록</A>
+    </ASIDE> 
+  </DIV>
 
-  <DIV style='width: 100%;'>
+  <DIV style='width: 80%; margin: 10px auto;'>
     <FORM name='frm' method='POST' action='./create.do' 
                 enctype="multipart/form-data" class="form-horizontal">
                
-      <!-- FK cateno 지정 -->
       <input type='hidden' name='product_no' id='product_no' value="${param.product_no }">
       <input type='hidden' name='review_no' id='review_no' value="${param.review_no }">
       
@@ -54,7 +49,7 @@
         <button type="submit" class="btn btn-info">파일 전송</button>
         <button type="button" 
                     onclick="location.href='../review/read.do?review_no=${param.review_no}'" 
-                    class="btn btn-info" >취소[목록]</button>
+                    class="btn btn-info" >취소[조회]</button>
       </DIV>
        
     </FORM>

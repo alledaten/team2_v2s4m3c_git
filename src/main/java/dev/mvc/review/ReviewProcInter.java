@@ -15,11 +15,11 @@ public interface ReviewProcInter {
    */
   public int create(ReviewVO reviewVO);
   
-   /**
+  /**
    * 모든 상품에 등록된 리뷰 목록
    * @return
    */
-  public List<ReviewVO> list_all();
+  public List<Review_Member_ProductVO> list_all(HashMap<String, Object> map);
   
    /**
    * 특정 상품에 등록된 리뷰 목록
@@ -34,6 +34,13 @@ public interface ReviewProcInter {
    * @return
    */
   public int search_count(HashMap<String, Object> hashMap);
+  
+  /**
+   * 모든 리뷰 검색 레코드 갯수
+   * @param hashMap
+   * @return
+   */
+  public int search_count_all(HashMap<String, Object> hashMap);
   
   /**
    * 검색 + 페이징 목록
@@ -53,6 +60,17 @@ public interface ReviewProcInter {
    * @return
    */
   public String pagingBox(String listFile, int product_no, int search_count, int nowPage, String review_word);
+  
+  /**
+   * 페이지 목록 문자열 생성, Box 형태
+   * @param listFile
+   * @param product_no
+   * @param search_count
+   * @param nowPage
+   * @param review_word
+   * @return
+   */
+  public String pagingBox_all(String listFile, int search_count, int nowPage, String review_word);
   
   /**
    * 조회

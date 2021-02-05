@@ -141,14 +141,47 @@ public class ReviewCont {
    * @return
    */
   @RequestMapping(value = "/review/list_all.do", method = RequestMethod.GET)
-  public ModelAndView list() {
+  public ModelAndView list_all(
+      @RequestParam(value="review_word", defaultValue="") String review_word,
+      @RequestParam(value="nowPage", defaultValue="1") int nowPage
+      ) {
+    
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/review/list_all"); // /webapp/review/list_all.jsp
-
-    List<ReviewVO> list = this.reviewProc.list_all();
+    
+    // 숫자와 문자열 타입을 저장해야함으로 Obejct 사용
+    HashMap<String, Object> map = new HashMap<String, Object>();
+    map.put("review_word", review_word);     // #{word}
+    map.put("nowPage", nowPage);  // 페이지에 출력할 레코드의 범위를 산출하기위해 사용     
+    //System.out.println("--> nowPage: " + nowPage);
+    
+    // 검색 목록
+    List<Review_Member_ProductVO> list = reviewProc.list_all(map);
     mav.addObject("list", list);
-
-    return mav; // forward
+    
+    // 검색된 레코드 갯수
+    int search_count = reviewProc.search_count_all(map);
+    mav.addObject("search_count", search_count);
+    
+    mav.setViewName("/review/list_all"); // /webapp/review/list_all.jsp
+    
+     /*
+     * SPAN태그를 이용한 박스 모델의 지원, 1 페이지부터 시작 
+     * 현재 페이지: 11 / 22   [이전] 11 12 13 14 15 16 17 18 19 20 [다음] 
+     * 
+     * @param listFile 목록 파일명 
+     * @param review_cate_no 카테고리번호 
+     * @param search_count 검색(전체) 레코드수 
+     * @param nowPage     현재 페이지
+     * @param review_word 검색어
+     * @return 페이징 생성 문자열
+     */ 
+    String paging = reviewProc.pagingBox_all("list_all.do", search_count, nowPage, review_word);
+    
+    mav.addObject("paging", paging);
+    mav.addObject("nowPage", nowPage);
+    mav.setViewName("/review/list_all");   
+    
+    return mav;
   }
 
   /**
@@ -350,6 +383,12 @@ public class ReviewCont {
     
     ReviewVO reviewVO = this.reviewProc.read_update(review_no);
     mav.addObject("reviewVO", reviewVO);
+    
+    ProductVO productVO = productProc.read(reviewVO.getProduct_no());
+    mav.addObject("productVO", productVO);
+
+    ProductgrpVO productgrpVO = productgrpProc.read(productVO.getProductgrp_no());
+    mav.addObject("productgrpVO", productgrpVO);
     
     mav.setViewName("/review/delete");
     return mav;

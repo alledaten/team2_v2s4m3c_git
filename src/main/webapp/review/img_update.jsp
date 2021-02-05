@@ -6,11 +6,11 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>리뷰 메인이미지 변경 및 삭제</title>
+<title>리뷰 메인 이미지 변경 및 삭제</title>
  
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
-<link href="./review_css/style.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
  
 <script type="text/JavaScript"
           src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -23,37 +23,24 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
-  <DIV class="title_line">
-    『${reviewVO.review_title}』 메인 이미지 변경 및 삭제
+
+  <DIV class=" review_title_line">
+    <strong class ="review_title">『${reviewVO.review_title}』 메인 이미지 수정 및 삭제</strong>
   </DIV>
   
-  <ASIDE class="aside_left">
-    <!-- <A href="../review_categrp/list.do">카테고리 그룹</A> >  -->
-   <%--  <A href="../review_cate/list.do?review_categrp_no=${review_CategrpVO.review_categrp_no }">${review_CategrpVO.review_categrp_name }</A> >  --%>
-   <%--  <A href="../review/list.do?cateno=${reviewVO.review_cate_no }">${review_CateVO.review_cate_name}</A>   --%>
-  </ASIDE>
-  <ASIDE class="aside_right">
-    <A href=''>목록</A>
-    <!-- <span class='menu_divide' >│</span> --> 
-  </ASIDE> 
- 
-  <div class='menu_line'></div>
-  
-  <DIV style='width: 100%;'>
-    <H4>메인 이미지 삭제</H4>
+  <DIV style='width: 80%; margin: 5px auto;'>
 
     <%-- 이미지가 존재하는 경우 이미지를 출력하고 삭제 버튼 표시 --%>
     <c:set var="review_file" value="${reviewVO.review_file }" />
     <c:if test="${review_file.endsWith('jpg') || review_file.endsWith('png') || review_file.endsWith('gif')}">
       <FORM name='frm' method='POST' action='./img_delete.do' class="form-horizontal">
-        <!-- FK memberno 지정 -->
+
         <input type='hidden' name='member_no' id='member_no' value='1'>
-        <!-- FK categrpno 지정 -->
         <input type='hidden' name='product_no' id='product_no' value="${param.product_no }">
         <input type='hidden' name='review_no' id='review_no' value="${param.review_no }">
         <%-- <input type='hidden' name='nowPage' id='nowPage' value="${param.nowPage }"> --%>
 
-        <IMG src="./storage/main_images/${review_file }" style="width: 50%; margin-bottom: 10px;">
+        <IMG src="./storage/main_images/${review_file }" style="width: 300px; margin-bottom: 10px;">
         
         <div class="form-group">   
           <div class="col-md-12">
@@ -63,8 +50,8 @@
         
         <button type="submit" class="btn btn-info">메인 이미지 삭제</button>
         <button type="button" 
-                    onclick="location.href='./read.do?review_no=${param.review_no}'" 
-                    class="btn btn-info">취소[조회]</button>
+                    onclick="location.href='./read.do?product_no=${param.product_no}&review_no=${param.review_no }&review_word=${param.review_word }&nowPage=${param.nowPage }'" 
+                  class="btn btn-info">취소[조회]</button>
       </FORM> 
     </c:if> 
     
@@ -74,13 +61,10 @@
     <FORM name='frm' method='POST' action='./img_update.do' class="form-horizontal"
                 enctype="multipart/form-data">
                
-      <!-- FK memberno 지정 -->
       <input type='hidden' name='member_no' id='member_no' value='1'>
-      <!-- FK categrpno 지정 -->
       <input type='hidden' name='product_no' id='product_no' value="${param.product_no }">
       <input type='hidden' name='review_no' id='review_no' value="${param.review_no }">
-      <%-- <input type='hidden' name='nowPage' id='nowPage' value="${param.nowPage }"> --%>
-      
+          
       <div class="form-group">   
         <div class="col-md-12">
           <%-- 실제 컬럼명: review_file, Spring File 객체 대응: review_fileMF --%>
@@ -97,7 +81,7 @@
       
       <button type="submit" class="btn btn-info">새로운 메인 이미지 등록</button>
       <button type="button" 
-                  onclick="location.href='./read.do?review_no=${param.review_no}'" 
+                  onclick="location.href='./read.do?product_no=${param.product_no}&review_no=${param.review_no }&review_word=${param.review_word }&nowPage=${param.nowPage }'" 
                   class="btn btn-info">취소[조회]</button>
     </FORM>
   </DIV>

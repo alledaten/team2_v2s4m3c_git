@@ -21,20 +21,17 @@
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
  
-  <DIV class='title_line'>
-    첨부 파일 
+  <DIV class='review_title_line'>
+    <strong class ="review_title">${param.review_no }첨부파일 등록</strong>
   </DIV>
+  
+  <FORM name='frm' method='POST' action='./create.do' 
+                enctype="multipart/form-data" class="form-horizontal">
+                
+    <input type='hidden' name='product_no' id='product_no' value="${param.product_no }">
+    <input type='hidden' name='review_no' id='review_no' value="${param.review_no }">                       
+  </FORM>
 
-  <ASIDE class="aside_left">
-    신규 등록
-  </ASIDE>
-  <ASIDE class="aside_right">
-    <A href='./list.do?product_no=${param.product_no }'>목록</A>
-    <!-- <span class='menu_divide' >│</span> --> 
-  </ASIDE> 
- 
-  <div class='menu_line'></div>
- 
 <DIV class='message'>
   <fieldset class='fieldset_basic'>
     <UL>
@@ -59,12 +56,11 @@
                     onclick="location.href='../review/read.do?review_no=${param.review_no }'"
                     class="btn btn-info">업로드된 파일 확인</button>
         <button type='button' 
-                    onclick="location.href='../review/list.do?product_no=${param.product_no}'"
+                    onclick="location.href='./list_by_review_no.do?review_no=${param.review_no}'"
                     class="btn btn-info">목록</button>
       </LI>
      </UL>
   </fieldset>
- 
 </DIV>
  
 <jsp:include page="/menu/bottom.jsp" flush='false' />

@@ -10,7 +10,7 @@
  
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
-<link href="./review_css/style.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -48,6 +48,8 @@
    
   <DIV style="width: 80%; margin: 5px auto;">
     <ASIDE class="review_aside_right">
+      <A href='../review/list.do?product_no=${param.product_no }&review_word=${param.review_word}&nowPage=${param.nowPage}'>관련된 리뷰 목록</A>
+        <span class='menu_divide' > | </span>
       <A href="javascript:location.reload();">새로고침</A>
     </ASIDE> 
   </DIV> 

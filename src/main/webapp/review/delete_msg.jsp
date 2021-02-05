@@ -10,7 +10,7 @@
  
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
-<link href="./review_css/style.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
 
 <script type="text/JavaScript"
           src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -22,21 +22,10 @@
 </head> 
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
- 
-  <DIV class='title_line'>
-    카테고리 이름
-  </DIV>
 
-  <ASIDE class="aside_left">
-    <A href=''>카테고리 그룹</A> > 
-    <A href=''>카테고리</A> > 수정
-  </ASIDE>
-  <ASIDE class="aside_right">
-    <A href=''>목록</A>
-    <!-- <span class='menu_divide' >│</span> --> 
-  </ASIDE> 
-  
-  <div class='menu_line'></div>
+  <DIV class=" review_title_line">
+    <strong class ="review_title">『${param.review_title}』 삭제</strong>
+  </DIV>
  
 <DIV class='message'>
   <fieldset class='fieldset_basic'>
@@ -70,7 +59,7 @@
         <c:when test="${param.cnt == 1 && param.passwd_cnt == 1}">
           <LI class='li_none'>
             <button type='button' 
-                        onclick="location.href='./list.do?review_cate_no=${param.review_cate_no}&nowPage=${param.nowPage }'"
+                        onclick="location.href='./list.do?product_no=${param.product_no}&nowPage=${param.nowPage }'"
                         class="btn btn-info">목록</button>                        
           </LI>
         </c:when>
@@ -80,7 +69,7 @@
                         onclick="history.back();"
                         class="btn btn-info">재시도</button>
             <button type='button' 
-                        onclick="location.href='./list.do?cateno=${param.cateno}&nowPage=${param.nowPage }'"
+                        onclick="location.href='./list.do?product_no=${param.product_no}&nowPage=${param.nowPage }'"
                         class="btn btn-info">목록</button>                        
           </LI>
         </c:otherwise> 

@@ -11,7 +11,7 @@
  
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
-<link href="./review_css/style.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="stylesheet" type="text/css">
  
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -22,8 +22,9 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+
   <DIV class='title_line' style="width: 80%; margin: 30px auto; font-size: 20px; font-weight: bold;">
-    ${productVO.product_name}의 리뷰
+    <strong class ="review_title">『${productVO.product_name}』 리뷰</strong>
   </DIV>
 
   <div style="width: 80%; margin: 5px auto;">
@@ -57,13 +58,9 @@
     </form>
   </DIV>
   </div>
-      
-  <DIV class='menu_line' style="width: 80%; margin: 5px auto;" ></DIV>
 
-   
-  <div style='width: 80%; margin: 0 auto;'>
+  <div style='width: 80%; margin: 0 auto;' >
     <c:forEach var="review_member_productVO" items="${list }" varStatus="status">
-    
       <c:set var="review_no" value="${review_member_productVO.review_no }" />
       <c:set var="product_no" value="${review_member_productVO.product_no }" />
       <c:set var="review_thumb" value="${review_member_productVO.review_thumb }" />
@@ -75,13 +72,14 @@
       <c:set var="member_nickname" value="${review_member_productVO.member_nickname}" />
       <c:set var="review_date" value="${review_member_productVO.review_date }" />
       
-
-       <%--하나의 행에 이미지를 4개씩 출력후 행 변경 --%>
+     
+      <%--하나의 행에 이미지를 4개씩 출력후 행 변경 --%>
       <c:if test="${status.index % 4 == 0 && status.index != 0 }"> 
         <br><br>
       </c:if>
       
       <!-- 하나의 이미지, 24 * 4 = 96% -->
+     
       <DIV style='width: 24%; 
               float: left; 
               margin: 0.5%; padding: 0.5%; background-color: #FFFFFF;'>
@@ -91,7 +89,7 @@
               <c:when test="${review_thumb.endsWith('jpg') || review_thumb.endsWith('png') || review_thumb.endsWith('gif')}"> <!-- 이미지 인경우 -->
                <%--  <a href="./read.do?review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}"> --%> 
                 <a href="./read.do?review_no=${review_no }&review_word=${param.review_word }&nowPage=${param.nowPage}">   
-                  <IMG src="./storage/main_images/${review_thumb }" style='width: 250px; height: 250px;'>
+                  <IMG src="./storage/main_images/${review_thumb }" style='width: 150px; height: 150px;'>
                 </a><br><br>          
                 <div style="font-size: 18px; font-weight: bold; cursor: pointer;" onclick="location.href='./read.do?review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}'">
                   ${review_title} 
@@ -100,11 +98,11 @@
                 <div style='font-size: 14px; color: #b2b2b2' >조회: ${review_view } </div>
               </c:when>
               <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
-                <DIV style='width: 250px; height: 250px; display: table; border: solid 1px #CCCCCC;'>
-                  <DIV style='display: table-cell; vertical-align: middle; text-align: center;'> <!-- 수직 가운데 정렬 -->
-                    <a href="./read.do?product_no=${product_no }review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}">   </a><br><br>
-                  </DIV>
-                </DIV> 
+
+                    <a href="./read.do?review_no=${review_no}">   
+                      <img src='./images/none1.png' style='width: 150px; height: 150px;'>
+                    </a><br><br>
+
                 <div style="font-size: 18px; font-weight: bold; cursor: pointer;" onclick="location.href='./read.do?product_no=${product_no }&review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}'">
                   ${review_title} 
                 </div><br>   
@@ -114,8 +112,8 @@
             </c:choose>
           </c:when>
           <c:otherwise> <%-- 파일이 없는 경우 기본 이미지 출력 --%>
-            <a href="./read.do?product_no=${product_no }&review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}">
-              <img src='./images/none1.png' style='width: 250px; height: 250px;'>
+            <a href="./read.do?review_no=${review_no}">
+              <img src='./images/none1.png' style='width: 150px; height: 150px;'>
             </a><br><br>
             <div style="font-size: 18px; font-weight: bold; cursor: pointer;" onclick="location.href='./read.do?review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}'">
               ${review_title} 

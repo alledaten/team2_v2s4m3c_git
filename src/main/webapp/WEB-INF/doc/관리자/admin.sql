@@ -37,7 +37,7 @@ VALUES (admin_no_seq.nextval, 'admin4', '1234', '관리자4');
 commit;
 
 -- 목록
-SELECT admin_no, admin_id, admin_passwd, admin_name
+SELECT *
 FROM admin
 ORDER BY admin_no ASC;
 

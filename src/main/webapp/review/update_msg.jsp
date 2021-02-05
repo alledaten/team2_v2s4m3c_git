@@ -10,7 +10,7 @@
  
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
-<link href="./review_css/style.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
 
 <script type="text/JavaScript"
           src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -22,18 +22,13 @@
 </head> 
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
-  <DIV class='title_line'>
-    카테고리 이름
+  
+  <DIV class='title_line' style="width: 80%; margin: 30px auto; font-size: 20px; font-weight: bold;">
+    <strong class ="review_title">『${reviewVO.review_title}』 수정</strong>
   </DIV>
 
-  <ASIDE class="aside_left">
-    <A href=''>카테고리 그룹</A> > 
-    <A href=''>카테고리</A> > 수정
-  </ASIDE>
-  <ASIDE class="aside_right">
-    <A href=''>목록</A>
-    <!-- <span class='menu_divide' >│</span> --> 
-  </ASIDE> 
+  <div style="width: 80%; margin: 5px auto;">
+    ${reviewVO.review_title}
  
   <div class='menu_line'></div>
  
@@ -69,10 +64,10 @@
         <c:when test="${cnt == 1 && passwd_cnt == 1}">
           <LI class='li_none'>
             <button type='button' 
-                        onclick="location.href='./read.do?review_cate_no=${param.review_cate_no}&review_no=${param.review_no}&nowPage=${param.nowPage}'"
+                        onclick="location.href='./read.do?product_no=${param.product_no}&review_no=${param.review_no}&nowPage=${param.nowPage}'"
                         class="btn btn-info">변경 확인</button>
             <button type='button' 
-                        onclick="location.href='./list.do?review_cate_no=${param.review_cate_no}&nowPage=${param.nowPage }'"
+                        onclick="location.href='./list.do?product_no=${param.product_no}&nowPage=${param.nowPage }'"
                         class="btn btn-info">목록</button>                
                                                
           </LI>
@@ -82,8 +77,8 @@
             <button type='button' 
                         onclick="history.back();"
                         class="btn btn-info">재시도</button>
-            <button type='button' 
-                        onclick="location.href='./list.do?cateno=${param.cateno}&nowPage=${param.nowPage }'"
+            <button type='button'          
+                        onclick="location.href='./list.do?product_no=${param.product_no}&nowPage=${param.nowPage }'" 
                         class="btn btn-info">목록</button>                        
           </LI>
         </c:otherwise> 
@@ -93,6 +88,7 @@
   </fieldset>
  
 </DIV>
+</div>
  
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>

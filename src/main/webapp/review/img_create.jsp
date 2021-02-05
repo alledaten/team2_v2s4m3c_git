@@ -9,7 +9,7 @@
  
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
-<link href="./review_css/style.css" rel="stylesheet" type="text/css">
+<link href="../css/style.css" rel="Stylesheet" type="text/css">
  
 <script type="text/JavaScript"
           src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -22,32 +22,18 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
-  <DIV class="title_line">
-    『${reviewVO.review_title}』 메인 이미지 등록
+  
+  <DIV class=" review_title_line">
+    <strong class ="review_title">『${reviewVO.review_title}』 메인 이미지 등록</strong>
   </DIV>
-  
-  <ASIDE class="aside_left">
-    <!-- <A href="../review_categrp/list.do">카테고리 그룹</A> >  -->
-    <%-- <A href="../review_cate/list.do?review_categrp_no=${review_CategrpVO.review_categrp_no }">${review_CategrpVO.review_categrp_name }</A> >  --%>
-   <%--  <A href="../contents/list.do?review_cate_no=${reviewVO.review_cate_no }">${review_CateVO.review_cate_name}</A>   --%>
-  </ASIDE>
-  <ASIDE class="aside_right">
-    <A href=''>목록</A>
-    <!-- <span class='menu_divide' >│</span> --> 
-  </ASIDE> 
- 
-  <div class='menu_line'></div>
-  
-  <DIV style='width: 100%;'>
+
+  <DIV style='width: 80%; margin: 5px auto;'>
     <FORM name='frm' method='POST' action='./img_create.do' class="form-horizontal"
                 enctype="multipart/form-data">
-               
-      <!-- FK memberno 지정 -->
+
       <input type='hidden' name='member_no' id='member_no' value='1'>
-      <!-- FK categrpno 지정 -->
       <input type='hidden' name='product_no' id='product_no' value="${param.product_no }">
       <input type='hidden' name='review_no' id='review_no' value="${param.review_no }">
-      
 
       <div class="form-group">   
         <div class="col-md-12"> 
@@ -66,8 +52,8 @@
       <DIV class='content_bottom_menu'>
         <button type="submit" class="btn btn-info">등록</button>
         <button type="button" 
-                    onclick="location.href='./list.do?review_categrp_no=${param.review_categrp_no}'" 
-                    class="btn btn-info">취소[목록]</button>
+                    onclick="location.href='./read.do?product_no=${param.product_no}&review_no=${param.review_no }&review_word=${param.review_word }&nowPage=${param.nowPage }'" 
+                    class="btn btn-info">취소[조회]</button>
       </DIV>
        
     </FORM>

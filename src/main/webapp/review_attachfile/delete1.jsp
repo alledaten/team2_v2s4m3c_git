@@ -132,6 +132,7 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+
   <DIV class='title_line'>
     카테고리 이름
   </DIV>

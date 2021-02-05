@@ -77,22 +77,24 @@
   </div>
   <!-- ********** Modal 알림창 종료 ********** -->
 
-  <DIV class='title_line'>
-    ${reviewVO.review_title } 첨부 파일
+  <DIV class='review_title_line'>
+    <strong class ="review_title">『${reviewVO.review_title}』 첨부파일 목록</strong>
   </DIV>
 
-  <ASIDE class='aside_left'>
-    <A href='../review/read.do?review_no=${reviewVO.review_no }'>관련글</A> >
-    <A href='./create.do?review_no=${reviewVO.review_no }&product_no=${reviewVO.product_no }'>첨부 파일 등록</A>
-  </ASIDE>
-  <ASIDE class='aside_right'>
-    <A href="javascript:location.reload();">새로고침</A>
-<!--     <span class='menu_divide' > | </span> -->
-
-  </ASIDE> 
-  <DIV class='menu_line'></DIV>
+  <div style="width: 80%; margin: 5px auto;">
+    <ASIDE class='aside_right'>
+      <A href='../review_attachfile/create.do?review_no=${reviewVO.review_no }&product_no=${reviewVO.product_no }'>첨부파일 추가</A>
+        <span class='menu_divide' > | </span>
+      <a href="../review/read.do?product_no=${reviewVO.product_no }&review_no=${reviewVO.review_no }">관련글 조회</a>
+       <!-- <a href="../review_attachfile/read.do?review_no=${reviewVO.review_no }&product_no=${reviewVO.product_no }">관련글 조회</a> -->
+        <span class='menu_divide' > | </span>
+      <A href="javascript:location.reload();">새로고침</A>    
+    </ASIDE> 
+  </div>
   
-  <div style='width: 100%;'>
+  <DIV class='review_menu_line'></DIV>
+  
+  <DIV style='width: 80%; margin: 5px auto;'>
     <table class="table table-striped" style='width: 100%;'>
       <colgroup>
         <col style="width: 10%;"></col>
@@ -146,7 +148,6 @@
             </td>
           </tr>
         </c:forEach>
-        
       </tbody>
     </table>
     <br><br>
