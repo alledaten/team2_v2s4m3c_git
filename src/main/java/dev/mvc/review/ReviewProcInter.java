@@ -132,12 +132,21 @@ public interface ReviewProcInter {
   
 /////////////////////////////////////// 이미지 관련 등록, 수정, 삭제 종료 ////////////////////////////////////////////////////
   
-  /**
+   /**
    * 조회수 증가
    * @param review_no
    * @return
    */
   public int update_review_view(int review_no);
+  
+  /**
+   * 좋아요 증가
+   * @param review_no
+   * @return
+   */
+  public int update_review_good(int review_no);
+  
+  
 
 
   

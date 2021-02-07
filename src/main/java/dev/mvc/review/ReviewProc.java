@@ -263,6 +263,12 @@ public class ReviewProc implements ReviewProcInter{
     return cnt;
   }
   
+  @Override
+  public int update_review_good(int review_no) {
+    int cnt = this.reviewDAO.update_review_good(review_no);
+    return cnt;
+  }
+  
   
   @Override
   public String pagingBox_all(String listFile, int search_count_all, int nowPage, String review_word) { 

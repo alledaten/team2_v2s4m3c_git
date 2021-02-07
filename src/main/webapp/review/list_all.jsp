@@ -63,6 +63,7 @@
       <c:set var="review_score" value="${review_member_productVO.review_score }" />
       <c:set var="review_file" value="${review_member_productVO.review_file }" />
       <c:set var="review_date" value="${review_member_productVO.review_date }" />
+      <c:set var="review_good" value="${review_member_productVO.review_good }" />
 
       
       <c:if test="${status.index % 4 == 0 && status.index != 0 }"> 
@@ -80,7 +81,7 @@
           <br><br>
           
           <div style="font-size: 18px; font-weight: bold; cursor: pointer;" onclick="location.href='./read.do?review_no=${review_no}'">
-            ${review_title} 
+            ${review_title} <img src='./images/good1.jpg' style='width: 20px;' title="추천수"> (${review_good})
           </div>          
           <br>
           
@@ -98,7 +99,7 @@
         <br><br>
         
         <div style="font-size: 18px; font-weight: bold; cursor: pointer;" onclick="location.href='./read.do?review_no=${review_no}'">
-          ${review_title} 
+          ${review_title} <img src='./images/good1.jpg' style='width: 20px;' title="추천수"> (${review_good})
         </div> 
         <br>  
         

@@ -332,7 +332,12 @@
   
   <div style="width: 80%; margin: 5px auto;">
   <ASIDE class="aside_left">
-    ${reviewVO.review_title } <span>${reviewVO.review_date.substring(0, 16)}</span>
+    ${reviewVO.review_title } 
+    <a href="../review/update_review_good.do?review_no=${review_no }">
+      <img src='./images/good1.jpg' style='width: 20px;' title="추천수">(${reviewVO.review_good})
+    </a>  
+    
+    <span>${reviewVO.review_date.substring(0, 16)}</span>
   </ASIDE>
   <ASIDE class="aside_right">
     
@@ -376,7 +381,7 @@
          </a>
        </span>
        <span class = "product_info">  
-         <strong style="font-weight: bold; font-size: 16px;">상품명: ${productVO.product_name} 11</strong><br>                                                                                                       
+         <em style="font-weight: bold; font-size: 16px;">상품명: ${productVO.product_name}</em><br>                                                                                                       
          <strong style="font-size: 14px; color: #189fdb;">판매 금액: <fmt:formatNumber value="${productVO.product_cost}" pattern="#,###,###"></fmt:formatNumber>원</strong>
        </span>
      </div>
@@ -384,7 +389,6 @@
      
   <FORM name='frm' method="get" action='./update.do'>
       <input type="hidden" name="review_no" value="${review_no}">
-      
 
       <fieldset class="fieldset">
         <ul>

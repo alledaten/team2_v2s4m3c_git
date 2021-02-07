@@ -145,7 +145,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
   <!-- 1건 조회 -->
   <select id="read" resultType="ReviewVO" parameterType="int">
-    SELECT r.review_no, r.review_title, r.review_content, r.review_score, r.review_passwd, r.review_word, r.review_date, r.review_file, r.review_thumb, r.review_size,
+    SELECT r.review_no, r.review_title, r.review_content, r.review_score, r.review_passwd, r.review_word, r.review_date, r.review_file, r.review_thumb, r.review_size, r.review_good,
              m.member_no, m.member_nickname,
              p.product_no, p.product_name, p.product_cost, p.product_thumb1
     FROM review r, member m, product p
@@ -188,6 +188,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE review_no = #{review_no}
   </update>
   
+  <!-- 리뷰 좋아요 증가 -->
+  <update id="update_review_good" parameterType="int" >
+    UPDATE review
+    SET review_good = review_good + 1
+    WHERE review_no = #{review_no}
+  </update>
 
 
 

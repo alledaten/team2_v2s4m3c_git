@@ -71,6 +71,7 @@
       <c:set var="review_view" value="${review_member_productVO.review_view}" />
       <c:set var="member_nickname" value="${review_member_productVO.member_nickname}" />
       <c:set var="review_date" value="${review_member_productVO.review_date }" />
+      <c:set var="review_good" value="${review_member_productVO.review_good }" />
       
      
       <%--하나의 행에 이미지를 4개씩 출력후 행 변경 --%>
@@ -92,7 +93,7 @@
                   <IMG src="./storage/main_images/${review_thumb }" style='width: 150px; height: 150px;'>
                 </a><br><br>          
                 <div style="font-size: 18px; font-weight: bold; cursor: pointer;" onclick="location.href='./read.do?review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}'">
-                  ${review_title} 
+                  ${review_title} <img src='./images/good1.jpg' style='width: 20px;' title="추천수"> (${review_good})
                 </div><br>             
                 회원명: ${member_nickname }｜등록일: ${review_date.substring(0, 16) }<br>
                 <div style='font-size: 14px; color: #b2b2b2' >조회: ${review_view } </div>
@@ -104,7 +105,7 @@
                     </a><br><br>
 
                 <div style="font-size: 18px; font-weight: bold; cursor: pointer;" onclick="location.href='./read.do?product_no=${product_no }&review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}'">
-                  ${review_title} 
+                  ${review_title}  <img src='./images/good1.jpg' style='width: 20px;' title="추천수"> (${review_good})
                 </div><br>   
                  회원명: ${member_nickname }｜등록일: ${review_date.substring(0, 16) }<br>
                 <div style='font-size: 14px; color: #b2b2b2' >조회: ${review_view } </div>
@@ -116,7 +117,7 @@
               <img src='./images/none1.png' style='width: 150px; height: 150px;'>
             </a><br><br>
             <div style="font-size: 18px; font-weight: bold; cursor: pointer;" onclick="location.href='./read.do?review_no=${review_no}&review_word=${param.review_word }&nowPage=${param.nowPage}'">
-              ${review_title} 
+              ${review_title}  <img src='./images/good1.jpg' style='width: 20px;' title="추천수"> (${review_good})
             </div><br>    
              회원명: ${member_nickname}｜등록일: ${review_date.substring(0, 16) }<br>
              <div style='font-size: 14px; color: #b2b2b2' >조회: ${review_view } </div>

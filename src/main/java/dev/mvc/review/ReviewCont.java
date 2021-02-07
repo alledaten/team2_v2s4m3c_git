@@ -720,5 +720,24 @@ public class ReviewCont {
     return mav;    
   }
   
+   /**
+   * 좋아요 증가
+   * @param review_no
+   * @return
+   */
+  @RequestMapping(value = "/review/update_review_good.do", method = RequestMethod.GET)
+  public ModelAndView update_review_good(int review_no) {
+    ModelAndView mav = new ModelAndView();
+    
+    int cnt = this.reviewProc.update_review_good(review_no);
+    
+    ReviewVO reviewVO = this.reviewProc.read(review_no);
+
+    mav.addObject("cnt", cnt); // request에 저장
+    
+    mav.setViewName("redirect:/review/read.do?review_no=" + review_no); // webapp/review/read.jsp
+    return mav;
+  }
+  
 
 }
