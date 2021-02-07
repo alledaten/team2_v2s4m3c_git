@@ -48,13 +48,13 @@ public class QnaProc implements QnaProcInter {
     QnaVO qnaVO = this.qnaDAO.read(qna_no);
     
     String title = qnaVO.getQna_title();
-    String content = qnaVO.getQna_content();
+    // String content = qnaVO.getQna_content();
     
     title = Tool.convertChar(title); // 특수 문자 처리
-    content = Tool.convertChar(content);
+    // content = Tool.convertChar(content);
     
     qnaVO.setQna_title(title);
-    qnaVO.setQna_content(content);
+    // qnaVO.setQna_content(content);
     
     return qnaVO;
   }

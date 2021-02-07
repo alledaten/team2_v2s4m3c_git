@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   
   <update id="update" parameterType="QnaVO">
     UPDATE qna
-    SET community_no=4, qna_title= #{qna_title}, qna_content= #{qna_content}, qna_passwd= #{qna_passwd}
+    SET community_no=4, qna_title= #{qna_title}, qna_content= #{qna_content}, qna_passwd= #{qna_passwd}, qna_check= #{qna_check}
     WHERE qna_no = #{qna_no}
   </update>
   
@@ -199,7 +199,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      </selectKey>
     INSERT INTO qna(qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_check, qna_visible, qna_word,
                                  grpno, indent, ansnum)                       
-     VALUES(#{qna_no}, 4, #{member_no}, #{qna_title}, #{qna_content}, #{qna_passwd}, sysdate, 0, 'N', 'N', #{qna_word},
+     VALUES(#{qna_no}, 4, #{member_no}, #{qna_title}, #{qna_content}, #{qna_passwd}, sysdate, 0, #{qna_check}, 'N', #{qna_word},
                                 #{grpno}, #{indent}, #{ansnum})
    </insert>
   

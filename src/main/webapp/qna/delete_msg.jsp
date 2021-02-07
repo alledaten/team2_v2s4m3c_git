@@ -59,7 +59,7 @@
         <c:when test="${param.cnt == 1 && param.passwd_cnt == 1}">
           <LI class='li_none'>
             <button type='button' 
-                        onclick="location.href='./list.do?community_no=${community_no}&qna_word=${param.qna_word }&nowPage=${param.nowPage}'"
+                        onclick="location.href='./list.do?qna_word=${param.qna_word }&nowPage=${param.nowPage}'"
                         class="btn btn-info">목록</button>                        
           </LI>
         </c:when>
@@ -69,7 +69,7 @@
                         onclick="history.back();"
                         class="btn btn-info">재시도</button>
             <button type='button' 
-                        onclick="location.href='./list.do?community_no=${community_no}&qna_word=${param.qna_word }&nowPage=${param.nowPage}'"
+                        onclick="location.href='./list.do?qna_word=${param.qna_word }&nowPage=${param.nowPage}'"
                         class="btn btn-info">목록</button>                        
           </LI>
         </c:otherwise> 

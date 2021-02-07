@@ -19,9 +19,23 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../ckeditor/ckeditor.js"></script>
+
+<script type="text/JavaScript">
+  // window.onload=function(){
+  //  CKEDITOR.replace('qna_content');  // <TEXTAREA>태그 id 값
+  // };
+
+  $(function() {
+    CKEDITOR.replace('qna_content');  // <TEXTAREA>태그 id 값
+  });
+ 
+</script>
     
 <script type="text/javascript">
   $(function() {
+    $('#send').on('click', passwd);
+    
     $("#qna_check").change(function(){
       if($("#qna_check").is(":checked")){
           alert("비밀글로 설정합니다.");
@@ -31,6 +45,14 @@
   });
   });
 
+  function passwd() {
+    var qna_passwd = $('#qna_passwd').val();
+    
+    if(qna_passwd == ""){
+      alert("비밀번호를 입력해주세요.");
+      return false;
+     }
+  }
     
 </script>
  
@@ -72,14 +94,14 @@
     <div class="form-group" style="padding-left: 10%;">   
       <div class="col-md-12">
         <label>질문 내용: </label>
-        <textarea class="form-control" name='qna_content' id='qna_content' rows='10' placeholder="질문 내용" style='width: 80%;'>질문 내용 test</textarea>
+        <textarea class="form-control" name='qna_content' id='qna_content' rows='10' placeholder="질문 내용" style='width: 80%;'>${qna_content }질문 내용 test</textarea>
       </div>
     </div>
       
     <div class="form-group" style="padding-left: 10%;">   
       <div class="col-md-12">
         <label>비밀번호: </label>
-        <input type='password' class="form-control" name='qna_passwd' id='qna_passwd'  value='1234' placeholder="패스워드" style='width: 20%;'>
+        <input type='password' class="form-control" name='qna_passwd' id='qna_passwd'  value='' placeholder="패스워드" style='width: 20%;'>
       </div>
     </div>
     
@@ -100,7 +122,7 @@
   </div>
       
     <div class="content_bottom_menu" style="padding-right: 20%;">
-      <button type="submit" class="btn btn-primary">등록</button>
+      <button type="submit" id="send" class="btn btn-primary">등록</button>
       <button type="button" onclick="location.href='./list.do'" class="btn btn-primary">목록(취소)</button>
     </div>
   

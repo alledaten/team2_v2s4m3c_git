@@ -1,14 +1,55 @@
+/**********************************/
+/* Table Name: 회원 */
+/**********************************/
+DROP TABLE member;
+CREATE TABLE member(
+    member_no                         NUMERIC(10)    NOT NULL    PRIMARY KEY,
+    member_name                       VARCHAR2(50)     NOT NULL,
+    member_id                         VARCHAR2(50)     NOT NULL,
+    member_address                    VARCHAR2(200)    NOT NULL,
+    member_phone                      NUMERIC(10)    NOT NULL
+);
+
+COMMENT ON TABLE  is '회원';
+COMMENT ON COLUMN member.member_no is '회원 번호';
+COMMENT ON COLUMN member.member_name is '회원 이름';
+COMMENT ON COLUMN member.member_id is '회원 ID';
+COMMENT ON COLUMN member.member_address is '회원 주소';
+COMMENT ON COLUMN member.member_phone is '회원 연락처';
+
+DROP SEQUENCE member_seq;
+CREATE SEQUENCE member_seq
+  START WITH 1              -- 시작 번호
+  INCREMENT BY 1          -- 증가값
+  MAXVALUE 9999999999 -- 최대값 9999999 -- NUMBER(7) 대응
+  CACHE 2                       -- 2번은 메모리에서만 계산
+  NOCYCLE;                     -- 다시 1부터 생성되는 것을 방지
+
+-- 등록
+INSERT INTO member(member_no, member_name, member_id, member_address, member_phone)
+VALUES (member_seq.nextval, '가나다', 'user1', '서울특별시', 01011112222);
+
+INSERT INTO member(member_no, member_name, member_id, member_address, member_phone)
+VALUES (member_seq.nextval, '홍길동', 'user2', '부산광역시', 01011112222);
+
+-- 삭제
+DELETE member
+WHERE member_no =1;
+
+SELECT * FROM member;
+
+commit;
 
 /**********************************/
 /* Table Name: 커뮤니티 */
 /**********************************/
 DROP TABLE community;
 CREATE TABLE community(
-		community_no NUMERIC(3) NOT NULL PRIMARY KEY,
-		community_name VARCHAR(50) NOT NULL,
-		community_seqno NUMERIC(10) NOT NULL,
-		community_visible CHAR(1) DEFAULT 'Y' NOT NULL,
-		community_rdate DATE NOT NULL
+    community_no NUMERIC(3) NOT NULL PRIMARY KEY,
+    community_name VARCHAR(50) NOT NULL,
+    community_seqno NUMERIC(10) NOT NULL,
+    community_visible CHAR(1) DEFAULT 'Y' NOT NULL,
+    community_rdate DATE NOT NULL
 );
 
 COMMENT ON TABLE community is '커뮤니티';
@@ -44,51 +85,19 @@ SELECT * FROM community ORDER BY community_no ASC;
 commit;  
 
 /**********************************/
-/* Table Name: 회원 */
-/**********************************/
-DROP TABLE member;
-CREATE TABLE member(
-		member_no NUMERIC(10) NOT NULL PRIMARY KEY,
-        member_id  VARCHAR(50) NOT NULL
-);
-
-DROP SEQUENCE member_seq;
-CREATE SEQUENCE member_seq
-  START WITH 1              -- 시작 번호
-  INCREMENT BY 1          -- 증가값
-  MAXVALUE 9999999999 -- 최대값 9999999 -- NUMBER(7) 대응
-  CACHE 2                       -- 2번은 메모리에서만 계산
-  NOCYCLE;                     -- 다시 1부터 생성되는 것을 방지
-
--- 등록
-INSERT INTO member(member_no, member_id)
-VALUES(member_seq.nextval, 'user1');
-
-INSERT INTO member(member_no, member_id)
-VALUES(member_seq.nextval, 'user2');
-
--- 삭제
-DELETE member
-WHERE member_no =1;
-
-SELECT * FROM member;
-
-commit;
-
-/**********************************/
 /* Table Name: Q&A */
 /**********************************/
 DROP TABLE qna;
 CREATE TABLE qna(
-		qna_no NUMERIC(10) NOT NULL PRIMARY KEY,
-		community_no NUMERIC(3),
-		member_no NUMERIC(10),
-		qna_title VARCHAR(50),
-		qna_content VARCHAR(500) NOT NULL,
-		qna_passwd VARCHAR(20) NOT NULL,
-		qna_rdate DATE NOT NULL,
-		qna_count NUMERIC(3) NOT NULL,
-		qna_check CHAR(1) DEFAULT 'N' NULL,
+    qna_no NUMERIC(10) NOT NULL PRIMARY KEY,
+    community_no NUMERIC(3),
+    member_no NUMERIC(10),
+    qna_title VARCHAR(50),
+    qna_content VARCHAR(500) NOT NULL,
+    qna_passwd VARCHAR(20) NOT NULL,
+    qna_rdate DATE NOT NULL,
+    qna_count NUMERIC(3) NOT NULL,
+    qna_check CHAR(1) DEFAULT 'N' NULL,
         qna_visible CHAR(1) DEFAULT 'N' NULL,
         file1         VARCHAR(100)          NULL,
         thumb1    VARCHAR(100)          NULL,
@@ -136,9 +145,9 @@ INSERT INTO qna(qna_no, community_no, member_no, qna_title, qna_content, qna_pas
 VALUES(qna_seq.nextval, 4, 2, 'test 질문', '질문 내용', '1234', sysdate, 0, 'N', 'N', 'spring.jpg', 'spring_t.jpg', 23657, '테스트');
 
 -- 목록
-SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_check, qna_visible, file1, thumb1, size1, qna_word
+SELECT *
 FROM qna 
-ORDER BY qna_no ASC;
+ORDER BY qna_no DESC;
 
 -- 조회
 SELECT qna_no, community_no, member_no, qna_title, qna_content, qna_passwd, qna_rdate, qna_count, qna_check, qna_visible, file1, thumb1, size1, qna_word
@@ -319,88 +328,5 @@ WHERE r >= 1 AND r <= 10;
 ----------------------------------------------------------------------------------------------
 답변 + member join end
 ----------------------------------------------------------------------------------------------
-
-commit;
-
-/**********************************/
-/* Table Name: 답변(댓글) */
-/**********************************/
-DROP TABLE answer;
-CREATE TABLE answer(
-		answer_no NUMERIC(10) NOT NULL PRIMARY KEY,
-		member_no NUMERIC(10),
-		qna_no NUMERIC(10),
-		answer_content VARCHAR(4000) NOT NULL,
-        answer_rdate DATE NOT NULL,
-        answer_passwd   VARCHAR2(15)         NOT NULL,
-        file1        VARCHAR(100)          NULL,
-        thumb1   VARCHAR(100)          NULL,
-        size1       NUMBER(10)      DEFAULT 0 NULL,
-        grpno    NUMBER(8)         DEFAULT 0         NOT NULL,
-        indent   NUMBER(2)         DEFAULT 0         NOT NULL,
-        ansnum NUMBER(3)         DEFAULT 0         NOT NULL,
-  FOREIGN KEY (member_no) REFERENCES member (member_no),
-  FOREIGN KEY (qna_no) REFERENCES qna (qna_no)
-);
-
-COMMENT ON TABLE answer is '답변';
-COMMENT ON COLUMN answer.answer_no is '답변 번호';
-COMMENT ON COLUMN answer.member_no is '회원 번호';
-COMMENT ON COLUMN answer.qna_no is '질문 번호';
-COMMENT ON COLUMN answer.answer_content is '답변 내용';
-COMMENT ON COLUMN answer.answer_rdate is '답변 등록일';
-COMMENT ON COLUMN answer.answer_passwd is '비밀번호';
-COMMENT ON COLUMN answer.file1 is '메인 이미지';
-COMMENT ON COLUMN answer.thumb1 is '메인 이미지 Preview';
-COMMENT ON COLUMN answer.size1 is ' 메인 이미지 크기';
-COMMENT ON COLUMN qna.grpno is '그룹번호';
-COMMENT ON COLUMN qna.indent is '들여쓰기/답변차수';
-COMMENT ON COLUMN qna.ansnum is '답변순서';
-
-DROP SEQUENCE answer_seq;
-CREATE SEQUENCE answer_seq
-  START WITH 1              -- 시작 번호
-  INCREMENT BY 1          -- 증가값
-  MAXVALUE 9999999999 -- 최대값 9999999 -- NUMBER(7) 대응
-  CACHE 2                       -- 2번은 메모리에서만 계산
-  NOCYCLE;                     -- 다시 1부터 생성되는 것을 방지
-
---등록
-INSERT INTO answer(answer_no, member_no, qna_no, answer_content, answer_rdate, answer_passwd, file1, thumb1, size1,
-                               grpno, indent, ansnum)
-VALUES(answer_seq.nextval, 1, 1, '답변 내용', sysdate, '1234', 'spring.jpg', 'spring_t.jpg', 23657,
-           (SELECT NVL(MAX(grpno), 0) + 1 FROM qna), 0, 0);
-
--- 목록
-SELECT answer_no, member_no, qna_no, answer_content, answer_rdate, answer_passwd, file1, thumb1, size1, grpno, indent, ansnum
-FROM answer 
-ORDER BY answer_no ASC;
-
--- 질문 목록
-SELECT answer_no, member_no, qna_no, answer_content, answer_rdate, answer_passwd, file1, thumb1, size1, grpno, indent, ansnum
-FROM answer
-WHERE qna_no=1
-ORDER BY answer_no DESC;
-
--- 조회
-SELECT answer_no, member_no, qna_no, answer_content, answer_rdate, answer_passwd, file1, thumb1, size1, grpno, indent, ansnum
-FROM answer
-WHERE answer_no = 1;
-
--- 수정
-UPDATE answer
-SET qna_no= 1, answer_content='답변 test1중'
-WHERE answer_no = 1;
-
--- 첨부 파일 변경(등록, 변경, 수정, 삭제)
-UPDATE answer
-SET file1='file name', thumb1='thumb file name', size1=5000
-WHERE answer_no=1;
-
--- 삭제
-DELETE answer
-WHERE answer_no =3;
-
-SELECT * FROM answer;
 
 commit;

@@ -22,10 +22,112 @@
 
 <script type="text/javascript">
   $(function() {
-    CKEDITOR.replace('content');  // <TEXTAREA>태그 id 값
+    CKEDITOR.replace('qna_content');  // <TEXTAREA>태그 id 값
   });
 </script> 
+
+<script type="text/javascript">
+  $(function() {
+    $('#q_check').on('click', show);    // 질문 내용 확인
+    
+  });
+
+  function show() {
+    $('#q_read').show();
+  }
+  
+ </script>
 </head> 
+ 
+ <style type="text/css">
+  /* ****************** */
+  /* Q&A 태그 관련 */
+  /* ****************** */
+  
+  table.qna {
+    border-collapse: collapse;
+    padding-left: 10%;
+    text-align: left;
+    line-height: 1.5; 
+  }
+  
+  table.qna thead th {
+    padding: 10px;
+    font-size: 20px; 
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+  }
+  table.qna tbody th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #f3f6f7;
+  }
+  table.qna td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+  }
+ 
+  table.qna_read {
+    border-collapse: collapse;
+    width: 95%;
+    text-align: left;
+    line-height: 1.5;
+    border-left: 1px solid #ccc;
+    margin: 10px auto;
+  }
+  
+  table.qna_read thead th {
+    padding: 10px;
+    font-weight: bold;
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 2px solid #c00;
+    background: #dcdcd1;
+  }
+  table.qna_read tbody th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: #ececec;
+  }
+  table.qna_read td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .qna_bottom_menu {
+    clear: both;
+    padding-top: 20px;
+    padding-right: 20px;
+    text-align: right;
+    width: 100%;
+    background-color: #ffffff;
+  }
+  
+  .product_read {
+    width: 40%;
+    float: right;
+    margin: 10px; 
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+    padding: 10px;
+  }
+</style>
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
@@ -60,6 +162,27 @@
       
       <input type='hidden' name='nowPage' id='nowPage' value='${param.nowPage }'>
       
+      <div style="padding-left: 10%;">
+      <button type="button" id='q_check' class="btn btn-default" data-dismiss="modal">질문 내용 확인</button>
+      </div>
+
+      <div name='q_read' id='q_read' style='display: none; padding-left: 10%; text-align: left; width: 80%;'>
+      <table class="qna_read">
+      <thead>
+        <tr>
+          <th scope="cols">질문 제목: ${qnaVO.qna_title}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+           <td>질문 내용:
+                   ${qnaVO.qna_content }
+           </td>
+        </tr>
+      </tbody>
+    </table>
+     </div> 
+     <br>
      <div class="form-group" style="padding-left: 10%;">   
       <div class="col-md-12">
         <input type='text' class="form-control" name='qna_title' value='답변 테스트' placeholder="제목" required="required" style='width: 80%;'>
@@ -68,13 +191,13 @@
       
     <div class="form-group" style="padding-left: 10%;">   
       <div class="col-md-12">
-        <textarea class="form-control" name='qna_content' id='qna_content' rows='10' placeholder="질문 내용" style='width: 80%;'>질문 내용</textarea>
+        <textarea class="form-control" name='qna_content' id='qna_content' rows='10' placeholder="답변 내용" style='width: 80%;'>답변 내용</textarea>
       </div>
     </div>
       
     <div class="form-group" style="padding-left: 10%;">   
       <div class="col-md-12">
-        <input type='password' class="form-control" name='qna_passwd'  value='1234' placeholder="패스워드" style='width: 20%;'>
+        <input type='hidden' class="form-control" name='qna_passwd'  value='${qna_passwd }' placeholder="패스워드" style='width: 20%;'>
       </div>
     </div>    
       

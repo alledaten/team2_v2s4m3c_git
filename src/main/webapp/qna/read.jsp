@@ -128,9 +128,17 @@
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' > | </span> 
     <A href="./create.do">질문 등록</A>
-    <span class='menu_divide' > | </span> 
-    <A href='../answer/create.do?qna_no=${qnaVO.qna_no }'> 답변</A>
-    <span class='menu_divide' > | </span>
+    <c:choose>
+      <c:when test="${qnaVO.file1.trim().length() > 0 }">
+        <span class='menu_divide' > | </span> 
+        <A href='./img_update.do?qna_no=${qnaVO.qna_no}'>이미지 변경/삭제</A>     
+      </c:when>
+      <c:otherwise>
+        <span class='menu_divide' > | </span> 
+        <A href='./img_create.do?qna_no=${qnaVO.qna_no}'>이미지 등록</A>     
+      </c:otherwise>
+    </c:choose>
+    <span class='menu_divide' > | </span>    
     <A href='./list.do?qna_no=${qnaVO.qna_no }&qna_word=${param.qna_word }&nowPage=${param.nowPage}''>목록</A>
     <span class='menu_divide' > | </span> 
     <A href='./update.do?qna_no=${qnaVO.qna_no }&qna_word=${param.qna_word }&nowPage=${param.nowPage}'>수정</A>
@@ -163,11 +171,11 @@
         <th scope="row">작성일자: ${qnaVO.qna_rdate.substring(0, 16) }</th>
         <td style="text-align: right;">비밀글:
            <c:choose>
-            <c:when test="${qna_check == 'Y'}">
-              <A href="./update_visible.do?qna_no=${qna_no }&qna_visible=${qna_visible }"><IMG src="./images/bimil.png"></A>
+            <c:when test="${qnaVO.qna_check == 'Y'}">
+              <IMG src="./images/bimil.png"></A>
             </c:when>
             <c:otherwise>
-              <A href="./update_visible.do?qna_no=${qna_no }&qna_visible=${qna_visible }"><IMG src="./images/show.png"></A>
+              <IMG src="./images/show.png"></A>
             </c:otherwise>
           </c:choose>
         </td>
@@ -201,7 +209,6 @@
       <button type='button' onclick="location.href='./create.do'" class="btn btn-primary">새로운 질문 등록</button>
     </ASIDE>
     <ASIDE class="aside_right">
-      <button type='button' onclick="location.href='../answer/list_title.do?qna_no=${qnaVO.qna_no}'" class="btn btn-primary">답변 확인</button>
       <button type='button' onclick="location.href='./update.do?qna_no=${qnaVO.qna_no }&qna_word=${param.qna_word }&nowPage=${param.nowPage}'" class="btn btn-primary">수정</button>
       <button type='button' onclick="location.href='./delete.do?qna_no=${qnaVO.qna_no }&qna_word=${param.qna_word }&nowPage=${param.nowPage}'" class="btn btn-primary">삭제</button>
     </ASIDE>

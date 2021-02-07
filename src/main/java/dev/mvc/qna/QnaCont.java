@@ -5,17 +5,18 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import dev.mvc.answer.AnswerProcInter;
-import dev.mvc.answer.AnswerVO;
+
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -26,10 +27,7 @@ public class QnaCont {
   @Qualifier("dev.mvc.qna.QnaProc")
   private QnaProcInter qnaProc;
   
-  @Autowired
-  @Qualifier("dev.mvc.answer.AnswerProc")
-  private AnswerProcInter answerProc;
-  
+
   /**
    * 등록폼 http;//localhost:9090/team2/qna/create.do
    * 
@@ -50,7 +48,6 @@ public class QnaCont {
    */
   @RequestMapping(value = "/qna/create.do", method = RequestMethod.POST)
   public ModelAndView create(HttpServletRequest request, QnaVO qnaVO) {
-
     ModelAndView mav = new ModelAndView();
     
     // -------------------------------------------------------------------
@@ -86,7 +83,11 @@ public class QnaCont {
     // -------------------------------------------------------------------    
     
     mav.setViewName("/qna/create_msg"); // /webapp/qna/create_msg.jsp
-
+    // System.out.println("->" + qnaVO.getQna_check());
+    if(qnaVO.getQna_check().length() == 0) {
+      qnaVO.setQna_check("N");
+    }
+    
     int cnt = this.qnaProc.create(qnaVO); // 등록 처리
     mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
 
@@ -162,7 +163,7 @@ public class QnaCont {
   public ModelAndView update(int qna_no) {
     ModelAndView mav = new ModelAndView();
     
-    QnaVO qnaVO = this.qnaProc.read_update(qna_no); // 수정용 읽기
+    QnaVO qnaVO = this.qnaProc.read_update(qna_no); // 수정용 읽기    
     mav.addObject("qnaVO", qnaVO); // request.setAttribute("qnaVO", qnaVO);
     
     mav.setViewName("/qna/update"); // webapp/qna/update.jsp
@@ -180,6 +181,12 @@ public class QnaCont {
   public ModelAndView update(QnaVO qnaVO) {
     ModelAndView mav = new ModelAndView();
     
+    // System.out.println("확인" + qnaVO.getQna_check());  
+    if(qnaVO.getQna_check().length() == 0) {
+      qnaVO.setQna_check("N");
+    }
+    
+    mav.addObject("qnaVO", qnaVO);
     mav.addObject("qna_no", qnaVO.getQna_no());
     
     HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -197,7 +204,7 @@ public class QnaCont {
 
     mav.addObject("cnt", cnt); // request에 저장
     mav.addObject("passwd_cnt", passwd_cnt); // request에 저장
-        
+    
     mav.setViewName("/qna/update_msg"); // webapp/qna/update_msg.jsp
     
     return mav;
@@ -327,14 +334,14 @@ public class QnaCont {
   }
 
   /**
-   * 메인 이미지 등록폼 http;//localhost:9090/team2/answer/img_create.do
+   * 메인 이미지 등록폼 http;//localhost:9090/team2/qna/img_create.do
    * 
    * @return
    */
   @RequestMapping(value = "/qna/img_create.do", method = RequestMethod.GET)
   public ModelAndView img_create(int qna_no) {
     ModelAndView mav = new ModelAndView();    
-    mav.setViewName("/qna/img_create"); // /webapp/answer/img_create.jsp
+    mav.setViewName("/qna/img_create"); // /webapp/qna/img_create.jsp
     
     
     QnaVO qnaVO = this.qnaProc.read(qna_no);
@@ -368,7 +375,7 @@ public class QnaCont {
       String file1 = "";     // main image
       String thumb1 = ""; // preview image
           
-      String upDir = Tool.getRealPath(request, "/answer/storage/main_images"); // 절대 경로
+      String upDir = Tool.getRealPath(request, "/qna/storage/main_images"); // 절대 경로
       // 전송 파일이 없어서도 fnamesMF 객체가 생성됨.
       //  <input type='file' class="form-control" name='file1MF' id='file1MF' 
       //            value='' placeholder="파일 선택" multiple="multiple">
@@ -432,7 +439,7 @@ public class QnaCont {
    */
   @RequestMapping(value = "/qna/img_delete.do", method = RequestMethod.POST)
   public ModelAndView img_delete(HttpServletRequest request,
-                                             int answer_no, int qna_no, String qna_passwd) {
+                                                 int qna_no, String qna_passwd) {
     ModelAndView mav = new ModelAndView();
     
     HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -450,7 +457,7 @@ public class QnaCont {
       // -------------------------------------------------------------------
       // 삭제할 파일 정보를 읽어옴.
       QnaVO qnaVO = qnaProc.read(qna_no);
-      // System.out.println("file1: " + answerVO.getFile1());
+      // System.out.println("file1: " + qnaVO.getFile1());
       
       String file1 = qnaVO.getFile1().trim();
       String thumb1 = qnaVO.getThumb1().trim();
@@ -513,7 +520,7 @@ public class QnaCont {
       // -------------------------------------------------------------------
       // 삭제할 파일 정보를 읽어옴.
       QnaVO vo = qnaProc.read(qnaVO.getQna_no());
-      // System.out.println("file1: " + answerVO.getFile1());
+      // System.out.println("file1: " + qnaVO.getFile1());
       
       String file1 = vo.getFile1().trim();
       String thumb1 = vo.getThumb1().trim();
@@ -558,13 +565,13 @@ public class QnaCont {
       // 파일 전송 코드 종료
       // -------------------------------------------------------------------
       
-      mav.setViewName("redirect:/qna/read.do?answer_no=" + qnaVO.getQna_no()); 
+      mav.setViewName("redirect:/qna/read.do?qna_no=" + qnaVO.getQna_no()); 
 
       cnt = this.qnaProc.img_create(qnaVO);
       // mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
       
     } else {
-      mav.setViewName("/qna/update_msg"); // webapp/answer/update_msg.jsp
+      mav.setViewName("/qna/update_msg"); // webapp/qna/update_msg.jsp
     }
     
     mav.addObject("cnt", cnt); // request에 저장
@@ -585,7 +592,7 @@ public class QnaCont {
    */
   @RequestMapping(value = "/qna/list.do", 
                                        method = RequestMethod.GET)
-  public ModelAndView list_search_paging_join(
+  public ModelAndView list_search_paging_join(HttpServletRequest request, QnaMemberVO qnaMemberVO,
       @RequestParam(value="community_no", defaultValue="4") int community_no,
       @RequestParam(value="qna_word", defaultValue="") String qna_word,
       @RequestParam(value="nowPage", defaultValue="1") int nowPage
@@ -593,12 +600,14 @@ public class QnaCont {
     // System.out.println("--> nowPage: " + nowPage);
     
     ModelAndView mav = new ModelAndView();
+
     
     // 숫자와 문자열 타입을 저장해야함으로 Obejct 사용
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("community_no", community_no); // #{community_no}
     map.put("qna_word", qna_word);     // #{qna_word}
     map.put("nowPage", nowPage);  // 페이지에 출력할 레코드의 범위를 산출하기위해 사용     
+    
     
     // 검색 목록
 //    List<QnaVO> list = qnaProc.list_search_paging(map);
@@ -625,7 +634,7 @@ public class QnaCont {
      */ 
     String paging = qnaProc.pagingBox("list.do", community_no, search_count, nowPage, qna_word);
     mav.addObject("paging", paging);
-  
+
     mav.addObject("nowPage", nowPage);
 
     // /qna/list_search_paging_join.jsp
@@ -664,17 +673,25 @@ public class QnaCont {
     ModelAndView mav = new ModelAndView();
     
      // --------------------------- 답변 관련 코드 시작 --------------------------
-     QnaVO parentVO = qnaProc.read(qnaVO.getQna_no()); // 부모글 정보 추출
+     QnaVO parentVO = qnaProc.read(qnaVO.getQna_no()); // 부모글 정보 추출    
      
      HashMap<String, Object> map = new HashMap<String, Object>();
      map.put("grpno", parentVO.getGrpno());
      map.put("ansnum",  parentVO.getAnsnum());
+     map.put("qna_check",  parentVO.getQna_check());
+     map.put("qna_passwd",  parentVO.getQna_passwd());
      qnaProc.increaseAnsnum(map); // 현재 등록된 부모글 ansnum을 1 증가시킴.
 
      qnaVO.setGrpno(parentVO.getGrpno()); // 부모의 그룹번호 할당
      qnaVO.setIndent(parentVO.getIndent() + 1); // 답변 차수 증가
      qnaVO.setAnsnum(parentVO.getAnsnum() + 1); // 부모 바로 아래 등록
+     qnaVO.setQna_check(parentVO.getQna_check()); // 부모 비밀글 여부 가져오기
+     qnaVO.setQna_passwd(parentVO.getQna_passwd()); // 부모 비밀번호 가져오기
      // --------------------------- 답변 관련 코드 종료 --------------------------
+    
+    if(qnaVO.getQna_check().length() == 0) {
+       qnaVO.setQna_check("N");
+     }
      
     int cnt = this.qnaProc.reply(qnaVO); // Call By Reference로 전송
     
@@ -710,5 +727,26 @@ public class QnaCont {
     return mav;
   }
   
+  /**
+   * 글의 패스워드 체크, JSON 출력
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value="/qna/passwd.do", method=RequestMethod.GET ,
+                              produces = "text/plain;charset=UTF-8" )
+  public String passwd(int qna_no, String qna_passwd) {
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+    hashMap.put("qna_no", qna_no);
+    hashMap.put("qna_passwd", qna_passwd);
+    
+    // System.out.println("qna_no: " + qna_no + "qna_passwd: " + qna_passwd);
+    
+    int cnt = this.qnaProc.passwd_check(hashMap);
+    
+    JSONObject json = new JSONObject();
+    json.put("cnt", cnt);
+    
+    return json.toString(); 
+  }
   
 }

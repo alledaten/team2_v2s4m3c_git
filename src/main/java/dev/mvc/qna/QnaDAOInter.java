@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import dev.mvc.answer.AnswerVO;
 
 
 public interface QnaDAOInter {
