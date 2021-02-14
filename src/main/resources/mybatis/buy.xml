@@ -18,8 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   #{name}: public String getName() 자동 호출
    -->
   <insert id="create" parameterType="BuyVO">
+    <selectKey keyProperty="buy_no" resultType="int" order="BEFORE">
+      SELECT buy_seq.nextval FROM dual
+    </selectKey>
+  
     INSERT INTO buy(buy_no, cart_no, member_no, product_no, order_check, dev_no, pay_no, pay_count, pay_rdate, buy_check)
-    VALUES (buy_seq.nextval, #{cart_no}, #{member_no}, #{product_no}, #{order_check}, #{dev_no}, #{pay_no}, #{pay_count}, sysdate, 'N')
+    VALUES (#{buy_no}, #{cart_no}, #{member_no}, #{product_no}, #{order_check}, #{dev_no}, #{pay_no}, #{pay_count}, sysdate, 'N')
   </insert>
    
   <select id="list_buy_desc" resultType="BuyVO">

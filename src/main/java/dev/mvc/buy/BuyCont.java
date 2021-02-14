@@ -3,12 +3,17 @@ package dev.mvc.buy;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import dev.mvc.dev.DevProcInter;
+import dev.mvc.dev.DevVO;
 
 
 
@@ -17,6 +22,10 @@ public class BuyCont {
   @Autowired
   @Qualifier("dev.mvc.buy.BuyProc")
   private BuyProcInter buyProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.dev.DevProc")
+  private DevProcInter devProc;
   
   /**
    * 등록폼 http;//localhost:9090/team2/buy/create.do
@@ -37,15 +46,40 @@ public class BuyCont {
    * @return
    */
   @RequestMapping(value = "/buy/create.do", method = RequestMethod.POST)
-  public ModelAndView create(BuyVO buyVO) {
+  public ModelAndView create(HttpServletRequest request, BuyVO buyVO) {
     // request.setAttribute("buyVO", buyVO) 자동 실행
-
+    
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/buy/create_msg"); // /webapp/buy/create_msg.jsp
-
+    
     int cnt = this.buyProc.create(buyVO); // 등록 처리
+    
+    System.out.println("buyVO buy_no: " + buyVO.getBuy_no());    
+    
     mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
-
+    
+    mav.addObject("buy_no", buyVO.getBuy_no());
+    mav.addObject("pay_count", buyVO.getPay_count());
+    mav.addObject("url", "create_msg");
+    mav.setViewName("redirect:/dev/create.do");    
+    // mav.setViewName("/buy/create_msg"); // /webapp/buy/create_msg.jsp
+    
+    return mav; // forward
+  }
+  
+  /**
+   * 새로고침을 방지하는 메시지 출력
+   * @param buy_no
+   * @return
+   */
+  @RequestMapping(value="/buy/msg.do", method=RequestMethod.GET)
+  public ModelAndView msg(String url){
+    ModelAndView mav = new ModelAndView();
+    
+    // 등록 처리 메시지: create_msg --> /qna/create_msg.jsp
+    // 수정 처리 메시지: update_msg --> /qna/update_msg.jsp
+    // 삭제 처리 메시지: delete_msg --> /qna/delete_msg.jsp
+    mav.setViewName("/buy/" + url); // forward
+    
     return mav; // forward
   }
   
@@ -77,6 +111,9 @@ public class BuyCont {
 
     BuyVO buyVO = this.buyProc.read(buy_no);
     mav.addObject("buyVO", buyVO); // request.setAttribute("buyVO", buyVO);
+    
+    DevVO devVO = this.devProc.read(buyVO.getDev_no());    
+    mav.addObject("devVO", devVO);
     
     mav.setViewName("/buy/read"); // /webapp/buy/read.jsp
     

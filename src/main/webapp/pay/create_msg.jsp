@@ -29,27 +29,24 @@
   <fieldset class='fieldset_basic'>
     <UL>
       <c:choose>
-        <c:when test="${param.cnt == 1}">
+        <c:when test="${cnt == 1}">
           <LI class='li_none'>
-            <span class="span_success">주문을 추가했습니다.</span>
+            <span class="span_success">결제 정보를 추가했습니다.</span>
           </LI>
         </c:when>
         <c:otherwise>
           <LI class='li_none_left'>
-            <span class="span_fail">주문에 실패했습니다.</span>
+            <span class="span_fail">결제 정보 등록에 실패했습니다.</span>
           </LI>
           <LI class='li_none_left'>
             <span class="span_fail">다시 시도해주세요.</span>
           </LI>
         </c:otherwise>
       </c:choose>
-      
-      
-      
       <LI class='li_none'>
         <br>
-        <button type='button' onclick="location.href='../dev/create.do?buy_no=${param.buy_no }'" class="btn btn-primary">배송 정보 입력</button>
-        <button type='button' onclick="location.href='./list.do'" class="btn btn-primary">주문 내역 확인</button>
+        <button type='button' onclick="location.href='./list.do'" class="btn btn-primary">결제 정보 확인</button>
+        <button type='button' onclick="location.href='./update.do'" class="btn btn-primary">결제 정보 수정</button>
       </LI>
     </UL>
   </fieldset>

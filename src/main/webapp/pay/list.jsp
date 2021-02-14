@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  
+ 
 </head>
  
 <body>
@@ -37,67 +37,57 @@
     <A href="http://172.16.12.99:9090/team2/"> HOME ></A> 
     <A href="javascript:location.reload();"> 전통주 목록 ></A>
     <A href="javascript:location.reload();"> 전통주 주문 ></A>
-    주문 확인
+    결제 목록
   </ASIDE>
   
   <ASIDE class="aside_right">
     <A href="javascript:location.reload();">새로고침</A>
     <span class='menu_divide' >│</span>
-    <A href="./create.do">주문 하기</A>
+    <A href="../buy/list.do">주문 목록</A>
     <!--  <span class='menu_divide' >│</span> -->
   </ASIDE> 
   
   <DIV class='menu_line'></DIV>
   
-  <input type='hidden' name=' buy_no' id='buy_no' value='${buyVO.buy_no }'>
-  <input type='hidden' name=' dev_no' id='dev_no' value='${devVO.dev_no }'>
+  <input type='hidden' name=' buy_no' id='buy_no' value='2'>
   
   <div style='width: 100%;'>
     <table class="table table-striped" style='width: 100%;'>
     <colgroup>
-      <col style="width: 5%;">
+      <col style="width: 10%;">
+      <col style="width: 10%;">
+      <col style="width: 30%;">
       <col style="width: 10%;">
       <col style="width: 10%;">
       <col style="width: 15%;">
       <col style="width: 15%;">
-      <col style="width: 10%;">
-      <col style="width: 12%;">
-      <col style="width: 15%;">
-      <col style="width: 8%;">
     </colgroup>
     <thead>
       <tr>
         <th class="th_basic">NO</th>
-        <th class="th_basic">주문 상태</th>
-        <th class="th_basic">주문자</th>
+        <th class="th_basic">결제 상태</th>
         <th class="th_basic">전통주 정보</th>
-        <th class="th_basic">주문 일자</th>
-        <th class="th_basic">주문 수량</th>
         <th class="th_basic">결제 금액</th>
-        <th class="th_basic">배송 정보</th>
+        <th class="th_basic">결제 방법</th>
+        <th class="th_basic">결제 일자</th>
         <th class="th_basic">기타</th>
       </tr>
     </thead>
       
     <tbody>
-    <c:forEach var="buyVO" items="${list }">  <!-- request 객체에 접근 -->
-      <c:set var="buy_no" value="${buyVO.buy_no}" />
-      <c:set var="order_check" value="${buyVO.order_check}" />
-      <c:set var="pay_count" value="${buyVO.pay_count}" />
-      <c:set var="pay_rdate" value="${buyVO.pay_rdate}" />
+    <c:forEach var="payVO" items="${list }">  <!-- request 객체에 접근 -->
+      <c:set var="pay_no" value="${payVO.pay_no}" />
       <TR>
-        <TD class="td_bs">${buy_no }</TD>
-        <TD class="td_bs">${order_check }<br>
+        <TD class="td_bs">${pay_no }</TD>
+        <TD class="td_bs_left">결제 확인<br>
         </TD>
-        <TD class="td_bs">홍길동</TD>
-        <TD class="td_bs"><button type="button" onclick="'" class="btn btn-primary">이미지 보기</button></TD>
-        <TD class="td_bs">${pay_rdate.substring(0, 10) }</TD>
-        <TD class="td_bs">${pay_count }</TD>
-        <TD class="td_bs"><button type="button" onclick="location.href='../pay/read.do?buy_no=${buy_no}&pay_no=${buy_no }'" class="btn btn-primary">결제 금액</button></TD>
-        <TD class="td_bs"><button type="button" onclick="location.href='../dev/read.do?buy_no=${buy_no}&dev_no=${buy_no }'" class="btn btn-primary">${devVO.dev_number }배송 준비</button></TD>
+        <TD class="td_bs">장수 막걸리</TD>
+        <TD class="td_bs">${payVO.product_cost }</TD>
+        <TD class="td_bs">${payVO.pay_way }</TD>
+        <TD class="td_bs">${payVO.pay_rdate.substring(0, 10) }</TD>
         <TD class="td_bs">
-          <A href="./read_update.do?buy_no=${buy_no }"><span class="glyphicon glyphicon-pencil"></span></A>
-          <A href="./read_delete.do?buy_no=${buy_no }"><span class="glyphicon glyphicon-trash"></span></A>
+          <A href="./update.do?pay_no=${pay_no }"><span class="glyphicon glyphicon-pencil"></span></A>
+          <A href="./read_delete.do?pay_no=${pay_no }"><span class="glyphicon glyphicon-trash"></span></A>
 <%--           <c:choose>
             <c:when test="${buyVO.pay_check == 'Y'}">
               <A href="./update_visible.do?buy_no=${buyVO.buy_no }&buy_check=${buyVO.pay_check }"><IMG src="./images/open.png"></A>
@@ -116,7 +106,7 @@
     
     <fieldset class='fieldset_basic'>
       <div class="content_bottom_menu" style="padding-right: 50%;">
-        <button type="button" onclick="location.href='./create.do'" class="btn btn-primary">주문 하기</button>
+        <button type="button" onclick="location.href='../buy/list.do'" class="btn btn-primary">주문 목록</button>
       </div>
     </fieldset>
      

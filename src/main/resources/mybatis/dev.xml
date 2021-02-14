@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.qna.QnaDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="dev.mvc.dev.DevDAOInter"> 
+  <!-- 
+  insert: INSERT SQL 실행
+  id: Spring에서 호출시 사용
+  parameterType: 전달받는 데이터 객체의 타입
+  return: 등록한 레코드 갯수 리턴
+  SQL선언시 ';'은 삭제
+  #{}: ? 동일
+  #{name}: public String getName() 자동 호출
+   -->
+  <insert id="create" parameterType="DevVO">
+    INSERT INTO dev(dev_no, buy_no, dev_member, dev_phone, zipcode, address1, address2, dev_message, dev_rdate, dev_number, dev_check)
+    VALUES (dev_seq.nextval, #{buy_no}, #{dev_member}, #{dev_phone}, #{zipcode}, #{address1}, #{address2}, #{dev_message}, sysdate, #{dev_number}, 'N')
+  </insert>
+  
+  <select id="list_dev_desc" resultType="DevVO">
+    SELECT dev_no, buy_no, dev_member, dev_phone, zipcode, address1, address2, dev_message, dev_rdate, dev_number, dev_check
+    FROM dev 
+    ORDER BY dev_no DESC
+  </select>
+  
+  <select id="read" parameterType="int" resultType="DevVO">
+    SELECT dev_no, buy_no, dev_member, dev_phone, zipcode, address1, address2, dev_message, dev_rdate, dev_number, dev_check
+    FROM dev
+    WHERE dev_no = #{dev_no}
+  </select>
+  
+  <update id="update" parameterType="DevVO">
+    UPDATE dev
+    SET dev_member = #{dev_member}, dev_phone = #{dev_phone}, zipcode = #{zipcode}, address1 = #{address1}, address2= #{address2}, dev_number = #{dev_number}
+    WHERE dev_no = #{dev_no}
+  </update>
+  
+  <delete id= "delete" parameterType="int">
+    DELETE dev
+    WHERE dev_no = #{dev_no} 
+  </delete>  
+  
+</mapper>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.address.AddressDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="dev.mvc.address.AddressDAOInter"> 
+  <!-- 
+  insert: INSERT SQL 실행
+  id: Spring에서 호출시 사용
+  parameterType: 전달받는 데이터 객체의 타입
+  return: 등록한 레코드 갯수 리턴
+  SQL선언시 ';'은 삭제
+  #{}: ? 동일
+  #{name}: public String getName() 자동 호출
+   -->
+  <insert id="create" parameterType="AddressVO">
+    INSERT INTO address(address_no, member_no, address_name, address_member, address_phone, zipcode, address1, address2)
+    VALUES (address_seq.nextval, 1, #{address_name}, #{address_member}, #{address_phone}, #{zipcode}, #{address1}, #{address2})
+  </insert>
+  
+  <select id="list_address_desc" resultType="AddressVO">
+    SELECT address_no, member_no, address_name, address_member, address_phone, zipcode, address1, address2
+    FROM address 
+    ORDER BY address_no DESC
+  </select>
+  
+  <select id="read" parameterType="int" resultType="AddressVO">
+    SELECT address_no, member_no, address_name, address_member, address_phone, zipcode, address1, address2
+    FROM address
+    WHERE address_no = #{address_no}
+  </select>
+  
+  <update id="update" parameterType="AddressVO">
+    UPDATE address
+    SET address_name = #{address_name}, address_member = #{address_member}, address_phone = #{address_phone}, zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2}
+    WHERE address_no = #{address_no}
+  </update>
+  
+  <delete id= "delete" parameterType="int">
+    DELETE address
+    WHERE address_no = #{address_no}
+  </delete>  
+  
+  </mapper>

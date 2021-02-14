@@ -49,11 +49,11 @@
   <div class='menu_line'></div>
  
   <FORM name='frm' method='POST' action='./create.do' class="form-horizontal">
-    <!-- FK communuity_no 지정 -->
-    <input type='hidden' name='member_no' id='member_no' value='1'>
     <!-- FK member_no 지정 -->
+    <input type='hidden' name='member_no' id='member_no' value='1'>
+    <!-- FK product_no 지정 -->
     <input type='hidden' name='product_no' id='product_no' value='1'>
-
+    <!-- FK order_check 지정 -->
     <input type='hidden' name='order_check' id='order_check' value='주문 접수'>
       
       <DIV style="width: 50%; float: left; ">

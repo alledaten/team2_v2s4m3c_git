@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.qna.QnaDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="dev.mvc.pay.PayDAOInter"> 
+  <!-- 
+  insert: INSERT SQL 실행
+  id: Spring에서 호출시 사용
+  parameterType: 전달받는 데이터 객체의 타입
+  return: 등록한 레코드 갯수 리턴
+  SQL선언시 ';'은 삭제
+  #{}: ? 동일
+  #{name}: public String getName() 자동 호출
+   -->
+  <insert id="create" parameterType="PayVO">
+    INSERT INTO pay(pay_no, buy_no, pay_rdate, dev_cost, product_cost, pay_point, pay_coupon, pay_total, pay_way, pay_check)
+    VALUES (pay_seq.nextval, #{buy_no}, sysdate, #{dev_cost}, #{product_cost}, #{pay_point}, #{pay_coupon}, #{pay_total}, #{pay_way}, 'N')
+  </insert>
+  
+  <select id="list_pay_desc" resultType="PayVO">
+    SELECT pay_no, buy_no, pay_rdate, dev_cost, product_cost, pay_point, pay_coupon, pay_total, pay_way, pay_check
+    FROM pay 
+    ORDER BY pay_no DESC
+  </select>
+  
+  <select id="read" parameterType="int" resultType="PayVO">
+    SELECT pay_no, buy_no, pay_rdate, dev_cost, product_cost, pay_point, pay_coupon, pay_total, pay_way, pay_check
+    FROM pay
+    WHERE pay_no = #{pay_no}
+  </select>
+  
+  <update id="update" parameterType="PayVO">
+    UPDATE pay
+    SET pay_total = #{pay_total}, pay_way = #{pay_way}
+    WHERE pay_no = #{pay_no}
+  </update>
+  
+  <delete id= "delete" parameterType="int">
+    DELETE pay
+    WHERE pay_no = #{pay_no} 
+  </delete>
+  
+  </mapper>
