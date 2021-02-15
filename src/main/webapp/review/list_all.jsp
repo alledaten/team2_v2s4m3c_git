@@ -23,7 +23,7 @@
 <jsp:include page="/menu/top.jsp" flush='false' />
 
   <DIV class='title_line' style="width: 80%; margin: 30px auto; font-size: 20px; font-weight: bold;">
-    <strong>등록된 전체 리뷰</strong>
+    <strong class ="review_title">등록된 전체 리뷰</strong>
   </DIV>
   
   <div style="width: 80%; margin: 5px auto;">

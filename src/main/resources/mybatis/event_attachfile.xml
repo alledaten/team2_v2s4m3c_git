@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "dev.mvc.event_attachfile.Event_AttachfileDAOInter">
+
+  <!-- 첨부파일 등록  -->
+  <insert id="create" parameterType="Event_AttachfileVO">
+    INSERT INTO event_attachfile(event_attachfile_no, event_no, event_attachfile_rname, event_attachfile_upname, event_attachfile_thumb, event_attachfile_size, event_attachfile_date)
+    VALUES(event_attachfile_seq.nextval, #{event_no}, #{event_attachfile_rname}, #{event_attachfile_upname}, #{event_attachfile_thumb}, #{event_attachfile_size} ,sysdate)
+  </insert>
+  
+  <!-- 전체 목록 -->
+  <select id="list" resultType="Event_AttachfileVO">
+    SELECT event_attachfile_no, event_no, event_attachfile_rname, event_attachfile_upname, event_attachfile_thumb, event_attachfile_size, event_attachfile_date
+    FROM event_attachfile
+    ORDER BY event_no DESC, event_attachfile_no ASC
+  </select>
+  
+  <!-- PK 기준 하나의 레코드 조회 -->
+  <select id="read" resultType="Event_AttachfileVO" parameterType="int">
+    SELECT event_attachfile_no, event_no, event_attachfile_rname, event_attachfile_upname, event_attachfile_thumb, event_attachfile_size, event_attachfile_date
+    FROM  event_attachfile
+    WHERE event_attachfile_no=#{event_attachfile_no}  
+  </select>
+
+  <!-- FK 기준 event_no가 동일한 레코드 조회, event_attachfile_rname 오름 차순 -->
+  <select id="list_by_event_no" resultType="Event_AttachfileVO" parameterType="int">
+    SELECT event_attachfile_no, event_no, event_attachfile_rname, event_attachfile_upname, event_attachfile_thumb, event_attachfile_size, event_attachfile_date
+    FROM  event_attachfile
+    WHERE event_no = #{event_no}
+    ORDER BY event_attachfile_rname ASC
+  </select>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM event_attachfile
+    WHERE event_attachfile_no = #{event_attachfile_no}    
+  </delete>
+  
+  <!-- FK 부모키를 이용한 모든 레코드 삭제 -->
+  <delete id="delete_by_event_no" parameterType="int">
+    DELETE FROM event_attachfile
+    WHERE event_attachfile_no = #{event_attachfile_no}
+  </delete>
+  
+  <!-- 부모키(event_no)별 갯수 산출 -->
+  <select id="count_by_event_no" parameterType="int" resultType="int">
+    SELECT COUNT(*) as cnt
+    FROM event_attachfile
+    WHERE event_no = #{event_no}
+  </select>
+
+
+      
+</mapper> 

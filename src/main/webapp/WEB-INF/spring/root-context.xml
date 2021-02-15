@@ -47,6 +47,9 @@
                           dev.mvc.review,
                           dev.mvc.review_reply,
                           dev.mvc.review_attachfile,
+                          dev.mvc.event_grp,
+                          dev.mvc.event,
+                          dev.mvc.event_attachfile,
                           dev.mvc.product,
                           dev.mvc.product_attachfile,
                           dev.mvc.product_reply" />

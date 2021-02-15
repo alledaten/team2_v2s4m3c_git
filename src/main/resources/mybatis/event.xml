@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.event.EventDAOInter">
+
+  <!-- 이벤트 등록 -->
+  <insert id="create" parameterType="EventVO">
+    INSERT INTO event(event_no, event_grp_no, admin_no, event_title, event_content, event_passwd, event_word, event_date,
+                             event_file, event_thumb, event_size)
+    VALUES(event_seq.nextval, #{event_grp_no}, #{admin_no}, #{event_title}, #{event_content}, #{event_passwd}, #{event_word}, sysdate, #{event_file}, 
+                                     #{event_thumb}, #{event_size})
+  </insert>
+  
+  <!-- 이벤트 그룹별 검색 목록 + 페이징 + 메인 이미지 -->
+  <select id="list_by_event_grp_no_search_paging" 
+              resultType="Event_AdminVO" parameterType="HashMap">
+     SELECT event_no, event_grp_no, admin_no, admin_name, event_title, event_content, event_word, event_view, event_date,
+               event_file, event_thumb, event_size, r
+     FROM (
+            SELECT event_no, event_grp_no, admin_no, admin_name, event_title, event_content, event_word, event_view, event_date,
+                      event_file, event_thumb, event_size, rownum as r
+            FROM (
+                     SELECT  e.event_no, e.admin_no, e.event_grp_no, e.event_title, e.event_content, 
+                                e.event_word, e.event_view, e.event_date, e.event_file, e.event_thumb, 
+                                e.event_size,
+                                a.admin_name
+                     FROM event e, admin a, event_grp eg
+                     <choose>
+                        <when test="event_word == null or event_word == ''">
+                           WHERE e.event_grp_no = #{event_grp_no} 
+                                        AND e.admin_no = a.admin_no
+                                        AND e.event_grp_no = eg.event_grp_no
+                        </when>
+                        <otherwise>
+                           WHERE e.event_grp_no = #{event_grp_no}
+                                    AND e.admin_no = a.admin_no
+                                    AND e.event_grp_no = eg.event_grp_no
+                                    AND (event_title LIKE '%' || #{event_word} || '%'
+                                           OR event_content LIKE '%' || #{event_word} || '%' 
+                                           OR event_word LIKE '%' || #{event_word} || '%')                           
+                        </otherwise>
+                     </choose>
+                     ORDER BY event_no DESC
+           )      
+)         
+
+    WHERE <![CDATA[ r >= #{startNum} AND r <= #{endNum} ]]>
+    
+    
+  <!-- 1 page: WHERE r >= 1 AND r <= 10; 
+        2 page: WHERE r >= 11 AND r <= 20;
+        3 page: WHERE r >= 21 AND r <= 30; -->
+     
+  </select>
+  
+  <!-- 상품추천 그룹별 검색된 리뷰 갯수 -->
+   <select id="search_count" resultType="int" parameterType="HashMap">
+     SELECT COUNT(*) as event_cnt
+     FROM event
+     <choose>
+       <when test="event_word == null or event_word == ''"> <!-- 검색하지 않는 경우의 레코드 갯수 -->
+         WHERE event_grp_no = #{event_grp_no}
+       </when>
+       <otherwise> <!-- 검색하는 경우의 레코드 갯수 -->
+         WHERE event_grp_no = #{event_grp_no} 
+                                       AND (event_title LIKE '%' || #{event_word} || '%' 
+                                       OR event_content LIKE '%' || #{event_word} || '%' 
+                                       OR event_word LIKE '%' || #{event_word} || '%')
+       </otherwise>
+     </choose>
+   </select>
+   
+   <!-- 1건 조회 -->
+  <select id="read" resultType="EventVO" parameterType="int">
+    SELECT eg.event_grp_no, eg.event_grp_title,
+             e.event_no, e.event_title, e.event_content, e.event_date, e.event_thumb, e.event_file,
+             e.event_view, e.event_word,
+             a.admin_no, a.admin_name
+    FROM event e, admin a, event_grp eg
+    WHERE e.event_no = #{event_no}
+                               AND e.admin_no = a.admin_no
+                               AND e.event_grp_no = eg.event_grp_no
+  </select>
+  
+  <!-- 수정 -->
+  <update id="update" parameterType="EventVO">
+    UPDATE event 
+    SET event_title =#{event_title}, event_content = #{event_content}, event_word= #{event_word}
+    WHERE event_no = #{event_no}
+  </update>
+  
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM event
+    WHERE event_no = #{event_no}
+  </delete>
+  
+  <!-- 패스워드 검사 -->
+  <select id="passwd_check" parameterType="HashMap" resultType="int">
+    SELECT COUNT(*) as passwd_cnt
+    FROM event
+    WHERE event_no = #{event_no} 
+              AND event_passwd = #{event_passwd}
+  </select>
+  
+  <!-- 첨부 파일 메인 이미지 변경 -->
+  <update id="img_update" parameterType="EventVO">
+    UPDATE event
+    SET event_file = #{event_file}, event_thumb= #{event_thumb}, event_size=#{event_size}
+    WHERE event_no = #{event_no} 
+  </update>
+  
+  <!-- 리뷰 조회수 증가 -->
+  <update id="update_event_view" parameterType="int" >
+    UPDATE event
+    SET event_view = event_view + 1
+    WHERE event_no = #{event_no}
+  </update> 
+
+
+</mapper>

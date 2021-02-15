@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev.mvc.event_grp.Event_GrpDAOInter">
+
+  <!-- 이벤트 그룹 등록 -->
+  <insert id="create" parameterType="Event_GrpVO"> 
+    INSERT INTO event_grp(event_grp_no, event_grp_title, event_grp_seqno, event_grp_date)
+    VALUES(event_grp_seq.nextval, #{event_grp_title}, #{event_grp_seqno}, sysdate)
+  </insert> 
+  
+  <!-- 이벤트 그룹 번호순(PK) 목록 -->
+  <select id="list_event_grp_no" resultType="Event_GrpVO">
+    SELECT event_grp_no, event_grp_title, event_grp_seqno, event_grp_date
+    FROM event_grp
+    ORDER BY event_grp_no ASC
+  </select>
+  
+  <!-- 이벤트 그룹 출력순서순 목록 -->
+  <select id="list_by_event_grp_seqno" resultType="Event_GrpVO">
+    SELECT event_grp_no, event_grp_title, event_grp_seqno, event_grp_date
+    FROM event_grp
+    ORDER BY event_grp_seqno ASC
+  </select>
+  
+  <!-- 조회 -->
+  <select id="read" parameterType="int" resultType="Event_GrpVO">
+    SELECT event_grp_no, event_grp_title, event_grp_seqno, event_grp_date
+    FROM event_grp
+    WHERE event_grp_no = #{event_grp_no}
+  </select>
+  
+   <!-- 수정 -->
+  <update id="update" parameterType="Event_GrpVO">
+    UPDATE event_grp 
+    SET event_grp_title = #{event_grp_title}, event_grp_seqno=#{event_grp_seqno}
+    WHERE event_grp_no = #{event_grp_no}
+  </update>
+    
+  <!-- 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM event_grp
+    WHERE event_grp_no = #{event_grp_no}
+  </delete>
+  
+ <!-- 우선순위 상향 up 10 ▷ 1 -->
+  <update id="update_event_grp_seqno_up" parameterType="int">
+    UPDATE event_grp
+    SET event_grp_seqno = event_grp_seqno - 1
+    WHERE event_grp_no = #{event_grp_no}
+  </update>
+  
+ <!-- 우선순위 하향 down 1 ▷ 10 -->
+ <update id="update_event_grp_seqno_down" parameterType="int">
+    UPDATE event_grp
+    SET event_grp_seqno = event_grp_seqno + 1
+    WHERE event_grp_no = #{event_grp_no}
+ </update>
+ 
+</mapper>

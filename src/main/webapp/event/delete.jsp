@@ -6,7 +6,7 @@
 <head> 
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
-<title>리뷰 삭제</title>
+<title>이벤트 삭제</title>
  
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
@@ -25,16 +25,16 @@
     // $('#btn_close').on('click', setFocus); // Dialog창을 닫은후의 focus 이동
     // $('#btn_send').on('click', send); 
 
-    count_by_review_no();
+    count_by_event_no();
   });
 
   // jQuery ajax 요청
-  function count_by_review_no() {
+  function count_by_event_no() {
     // $('#btn_close').attr("data-focus", "이동할 태그 지정");
     
     // var frm = $('#frm'); // id가 frm인 태그 검색
     // var id = $('#id', frm).val(); // frm 폼에서 id가 'id'인 태그 검색
-    var params = 'review_no=' + ${param.review_no};
+    var params = 'event_no=' + ${param.event_no};
     var msg = '';
 
     // var params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
@@ -42,7 +42,7 @@
     // return;
 
     $.ajax({
-      url: '../review_attachfile/count_by_review_no.do', // spring execute
+      url: '../event_attachfile/count_by_event_no.do', // spring execute
       type: 'get',  // post
       cache: false, // 응답 결과 임시 저장 취소
       async: true,  // true: 비동기 통신
@@ -53,7 +53,7 @@
         if (rdata.cnt > 0) {
           msg = "현재 " + rdata.cnt + "건의 첨부 파일이 있습니다.<br><br>"
           // msg += "<button type='button' onclick='' class='btn btn-info'>첨부 파일 삭제</button>";
-          msg += "<button type='button' onclick='delete_by_review_no()' class='btn btn-danger'>첨부 파일 삭제</button>";
+          msg += "<button type='button' onclick='delete_by_event_no()' class='btn btn-danger'>첨부 파일 삭제</button>";
 
           $('#panel1').attr("class", "msg_warning"); // 경고 style 지정
         }
@@ -79,12 +79,12 @@
   }
   
   // jQuery ajax 요청
-  function delete_by_review_no() {
+  function delete_by_event_no() {
     // $('#btn_close').attr("data-focus", "이동할 태그 지정");
     
     // var frm = $('#frm'); // id가 frm인 태그 검색
     // var id = $('#id', frm).val(); // frm 폼에서 id가 'id'인 태그 검색
-    var params = 'review_no=' + ${param.review_no};
+    var params = 'event_no=' + ${param.event_no};
     var msg = '';
 
     // var params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
@@ -92,7 +92,7 @@
     // return;
 
     $.ajax({
-      url: '../review_attachfile/delete_by_review_no.do', // spring execute
+      url: '../event_attachfile/delete_by_event_no.do', // spring execute
       type: 'post',  // get, post
       cache: false, // 응답 결과 임시 저장 취소
       async: true,  // true: 비동기 통신
@@ -134,13 +134,12 @@
 <jsp:include page="/menu/top.jsp" flush='false' />
   
   <DIV class='title_line' style="width: 80%; margin: 30px auto; font-size: 20px; font-weight: bold;">
-    <strong class ="review_title">『${reviewVO.review_title}』 삭제</strong>
+    <strong class ="review_title">『${eventVO.event_title}』 삭제</strong>
   </DIV>
 
   <div style="width: 80%; margin: 5px auto;">
-    <A href="../product/list.do?productgrp_no=${productgrpVO.productgrp_no }">${productgrpVO.productgrp_name }</A> > 
-    <A href="../product/read.do?product_no=${productVO.product_no }">${productVO.product_name }</A> > 
-    ${reviewVO.review_title}
+    <A href="../event_grp/list.do?event_grp_no=${event_grpVO.event_grp_no }">${event_grpVO.event_grp_title }</A> > 
+       ${eventVO.event_title}
     
     <ASIDE class="aside_right">
       <A href="javascript:location.reload();">새로고침</A>
@@ -149,21 +148,21 @@
   <div class='menu_line'></div>
  
   <FORM name='frm' method='POST' action='./delete.do'>
-      <input type='hidden' name='review_no' value='${param.review_no}'>
-      <input type="hidden" name="product_no" value="${param.product_no }">
+      <input type='hidden' name='event_no' value='${param.event_no}'>
+      <input type="hidden" name="event_grp_no" value="${param.event_grp_no }">
       <input type='hidden' name='nowPage' id='nowPage' value='${param.nowPage }'>
       
       <DIV id='panel1' style="width: 40%; text-align: center; margin: 10px auto;"></DIV>
             
       <div class="form-group">   
         <div class="col-md-12" style='text-align: center; margin: 10px auto;'>
-          삭제 되는글: ${reviewVO.review_title }<br><br>
+          삭제 되는글: ${eventVO.event_title }<br><br>
           첨부파일이 있다면 먼저 삭제해야 합니다.<br><br>
           삭제하시겠습니까? 삭제하시면 복구 할 수 없습니다.<br><br>
           
         <div class="form-group">   
         <div class="col-md-12" style='text-align: center; margin: 10px auto;'>
-          <input type='password' class="form-control" name='review_passwd'  value='' placeholder="패스워드" style='width: 20%; margin: 0px auto;'>
+          <input type='password' class="form-control" name='event_passwd'  value='' placeholder="패스워드" style='width: 20%; margin: 0px auto;'>
         </div>
       </div>
           

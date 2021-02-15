@@ -34,6 +34,9 @@
   <context:component-scan base-package="dev.mvc.review" /> <!-- DS -->
   <context:component-scan base-package="dev.mvc.review_attachfile" /> <!-- DS -->
   <context:component-scan base-package="dev.mvc.review_reply" /> <!-- DS -->
+  <context:component-scan base-package="dev.mvc.event_grp" /> <!-- DS -->
+  <context:component-scan base-package="dev.mvc.event" /> <!-- DS -->
+  <context:component-scan base-package="dev.mvc.event_attachfile" /> <!-- DS -->
   <context:component-scan base-package="dev.mvc.qna" /> <!-- AI -->
   <context:component-scan base-package="dev.mvc.buy" /> <!-- AI -->
   <context:component-scan base-package="dev.mvc.dev" /> <!-- AI -->
