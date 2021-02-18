@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.cate.CateDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="dev.mvc.cart.CartDAOInter">
+  <insert id="create" parameterType="CartVO">
+    INSERT INTO cart(cart_no, product_no, member_no, cart_cnt, cart_rdate)
+    VALUES(cart_seq.nextval, #{product_no}, #{member_no}, #{cart_cnt}, sysdate)
+  </insert> 
+   
+  <select id= "list" resultType= "CartVO">
+    SELECT c.cart_no, c.cart_cnt, c.cart_rdate, p.product_name, m.member_id, m.member_no,
+              p.product_cost, p.product_file1, p.product_thumb1
+    FROM cart c, product p, member m
+    WHERE c.product_no = p.product_no and c.member_no = m.member_no and c.member_no = #{member_no}
+    ORDER BY cart_no DESC
+  </select>
+  
+  
+  <!-- 장바구니 수정 -->
+  <update id="update" parameterType="CartVO">
+    UPDATE cart
+    SET cart_cnt=#{cart_cnt}
+    WHERE member_no = #{member_no} and product_no = #{product_no}
+  </update>
+  
+  <delete id="delete" >
+    DELETE FROM cart
+    WHERE cart_no=#{cart_no}
+  </delete>
+            
+</mapper>
