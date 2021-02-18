@@ -46,6 +46,7 @@
   <context:component-scan base-package="dev.mvc.product" /> <!-- DA -->
   <context:component-scan base-package="dev.mvc.product_attachfile" /> <!-- DA -->
   <context:component-scan base-package="dev.mvc.product_reply" /> <!-- DA -->
+  <context:component-scan base-package="dev.mvc.cart" /> <!-- DA -->
   <context:component-scan base-package="dev.mvc.notice" /> <!-- CD -->
   <context:component-scan base-package="dev.mvc.boardgrp" /> <!-- WP -->
   <context:component-scan base-package="dev.mvc.forum" /> <!-- WP -->

@@ -61,12 +61,12 @@
             <error></error>
             <linkedPath></linkedPath>
             <tableName>productgrp</tableName>
-            <logicalName>ìƒí’ˆ ì¢…ë¥˜</logicalName>
+            <logicalName>»óÇ° Á¾·ù</logicalName>
             <description></description>
             <columns>
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>productgrp_no</columnName>
-                <logicalName>ìƒí’ˆ ì¢…ë¥˜ ë²ˆí˜¸</logicalName>
+                <logicalName>»óÇ° Á¾·ù ¹øÈ£</logicalName>
                 <columnType class="net.java.amateras.db.dialect.ColumnType">
                   <name>NUMBER</name>
                   <logicalName>Numeric</logicalName>
@@ -82,7 +82,7 @@
               </net.java.amateras.db.visual.model.ColumnModel>
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>productgrp_name</columnName>
-                <logicalName>ìƒí’ˆ ì¢…ë¥˜</logicalName>
+                <logicalName>»óÇ° Á¾·ù</logicalName>
                 <columnType class="net.java.amateras.db.dialect.ColumnType">
                   <name>VARCHAR2</name>
                   <logicalName>String</logicalName>
@@ -98,7 +98,7 @@
               </net.java.amateras.db.visual.model.ColumnModel>
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>productgrp_seqno</columnName>
-                <logicalName>ì¶œë ¥ ìˆœì„œ</logicalName>
+                <logicalName>Ãâ·Â ¼ø¼­</logicalName>
                 <columnType class="net.java.amateras.db.dialect.ColumnType">
                   <name>NUMBER</name>
                   <logicalName>Numeric</logicalName>
@@ -114,7 +114,7 @@
               </net.java.amateras.db.visual.model.ColumnModel>
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>productgrp_visible</columnName>
-                <logicalName>ì¶œë ¥ ëª¨ë“œ</logicalName>
+                <logicalName>Ãâ·Â ¸ğµå</logicalName>
                 <columnType class="net.java.amateras.db.dialect.ColumnType">
                   <name>CHAR</name>
                   <logicalName>Character</logicalName>
@@ -175,12 +175,12 @@
             <error></error>
             <linkedPath></linkedPath>
             <tableName>cart</tableName>
-            <logicalName>ì‡¼í•‘ì¹´íŠ¸</logicalName>
+            <logicalName>¼îÇÎÄ«Æ®</logicalName>
             <description></description>
             <columns>
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>cart_no</columnName>
-                <logicalName>ì¹´íŠ¸ë²ˆí˜¸</logicalName>
+                <logicalName>Ä«Æ®¹øÈ£</logicalName>
                 <columnType class="net.java.amateras.db.dialect.ColumnType">
                   <name>NUMBER</name>
                   <logicalName>Numeric</logicalName>
@@ -196,7 +196,7 @@
               </net.java.amateras.db.visual.model.ColumnModel>
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>product_no</columnName>
-                <logicalName>ìƒí’ˆë²ˆí˜¸</logicalName>
+                <logicalName>»óÇ°¹øÈ£</logicalName>
                 <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
                 <size>10</size>
                 <notNull>true</notNull>
@@ -207,7 +207,7 @@
               </net.java.amateras.db.visual.model.ColumnModel>
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>cart_cnt</columnName>
-                <logicalName>ìˆ˜ëŸ‰</logicalName>
+                <logicalName>¼ö·®</logicalName>
                 <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
                 <size>10</size>
                 <notNull>false</notNull>
@@ -218,7 +218,7 @@
               </net.java.amateras.db.visual.model.ColumnModel>
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>cart_tot</columnName>
-                <logicalName>í•©ê³„</logicalName>
+                <logicalName>ÇÕ°è</logicalName>
                 <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
                 <size>10</size>
                 <notNull>false</notNull>
@@ -229,7 +229,7 @@
               </net.java.amateras.db.visual.model.ColumnModel>
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>cart_rdate</columnName>
-                <logicalName>ë‚ ì§œ</logicalName>
+                <logicalName>³¯Â¥</logicalName>
                 <columnType class="net.java.amateras.db.dialect.ColumnType">
                   <name>DATE</name>
                   <logicalName>Date</logicalName>
@@ -260,12 +260,12 @@
       <error></error>
       <linkedPath></linkedPath>
       <tableName>product</tableName>
-      <logicalName>ìƒí’ˆ</logicalName>
+      <logicalName>»óÇ°</logicalName>
       <description></description>
       <columns>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_no</columnName>
-          <logicalName>ìƒí’ˆ ë²ˆí˜¸</logicalName>
+          <logicalName>»óÇ° ¹øÈ£</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>NUMBER</name>
             <logicalName>Numeric</logicalName>
@@ -281,7 +281,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>productgrp_seqno</columnName>
-          <logicalName>ì¶œë ¥ ìˆœì„œ</logicalName>
+          <logicalName>Ãâ·Â ¼ø¼­</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>NUMBER</name>
             <logicalName>Numeric</logicalName>
@@ -297,7 +297,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_name</columnName>
-          <logicalName>ì œí’ˆëª…</logicalName>
+          <logicalName>Á¦Ç°¸í</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>VARCHAR2</name>
             <logicalName>String</logicalName>
@@ -313,7 +313,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_brand</columnName>
-          <logicalName>ë¸Œëœë“œ</logicalName>
+          <logicalName>ºê·£µå</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>VARCHAR2</name>
             <logicalName>String</logicalName>
@@ -329,7 +329,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_origin</columnName>
-          <logicalName>ì›ì‚°ì§€</logicalName>
+          <logicalName>¿ø»êÁö</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[4]/columnType"/>
           <size>100</size>
           <notNull>true</notNull>
@@ -340,7 +340,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_frequency</columnName>
-          <logicalName>ë„ìˆ˜</logicalName>
+          <logicalName>µµ¼ö</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>NUMBER</name>
             <logicalName>Numeric</logicalName>
@@ -356,7 +356,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_description</columnName>
-          <logicalName>ë‚´ìš©</logicalName>
+          <logicalName>³»¿ë</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>VARCHAR2</name>
             <logicalName>String</logicalName>
@@ -372,7 +372,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_cost</columnName>
-          <logicalName>ê°€ê²©</logicalName>
+          <logicalName>°¡°İ</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[6]/columnType"/>
           <size>10</size>
           <notNull>true</notNull>
@@ -383,7 +383,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_ml</columnName>
-          <logicalName>ë‚´ìš©ëŸ‰</logicalName>
+          <logicalName>³»¿ë·®</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>NUMBER</name>
             <logicalName>Numeric</logicalName>
@@ -399,7 +399,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_word</columnName>
-          <logicalName>ê²€ìƒ‰ì–´</logicalName>
+          <logicalName>°Ë»ö¾î</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>VARCHAR2</name>
             <logicalName>String</logicalName>
@@ -415,7 +415,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_passwd</columnName>
-          <logicalName>ë¹„ë°€ë²ˆí˜¸</logicalName>
+          <logicalName>ºñ¹Ğ¹øÈ£</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[6]/columnType"/>
           <size>20</size>
           <notNull>true</notNull>
@@ -426,7 +426,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_replycnt</columnName>
-          <logicalName>ëŒ“ê¸€ìˆ˜</logicalName>
+          <logicalName>´ñ±Û¼ö</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>NUMBER</name>
             <logicalName>Numeric</logicalName>
@@ -442,7 +442,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_file1</columnName>
-          <logicalName>ë©”ì¸ì´ë¯¸ì§€</logicalName>
+          <logicalName>¸ŞÀÎÀÌ¹ÌÁö</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>VARCHAR2</name>
             <logicalName>String</logicalName>
@@ -458,7 +458,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_thumb1</columnName>
-          <logicalName>ë©”ì¸ ì´ë¯¸ì§€ Preview</logicalName>
+          <logicalName>¸ŞÀÎ ÀÌ¹ÌÁö Preview</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[13]/columnType"/>
           <size>100</size>
           <notNull>false</notNull>
@@ -469,7 +469,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_size</columnName>
-          <logicalName>ë©”ì¸ ì´ë¯¸ì§€ í¬ê¸°</logicalName>
+          <logicalName>¸ŞÀÎ ÀÌ¹ÌÁö Å©±â</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[12]/columnType"/>
           <size>10</size>
           <notNull>false</notNull>
@@ -480,7 +480,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_indent</columnName>
-          <logicalName>ë“¤ì—¬ì“°ê¸°/ë‹µë³€ì°¨ìˆ˜</logicalName>
+          <logicalName>µé¿©¾²±â/´äº¯Â÷¼ö</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[12]/columnType"/>
           <size>2</size>
           <notNull>true</notNull>
@@ -491,7 +491,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_ansnum</columnName>
-          <logicalName>ë‹µë³€ìˆœì„œ</logicalName>
+          <logicalName>´äº¯¼ø¼­</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[12]/columnType"/>
           <size>3</size>
           <notNull>true</notNull>
@@ -502,7 +502,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_grpno</columnName>
-          <logicalName>ê·¸ë£¹ë²ˆí˜¸</logicalName>
+          <logicalName>±×·ì¹øÈ£</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[12]/columnType"/>
           <size>8</size>
           <notNull>true</notNull>
@@ -513,7 +513,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_cnt</columnName>
-          <logicalName>ì¡°íšŒìˆ˜</logicalName>
+          <logicalName>Á¶È¸¼ö</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[12]/columnType"/>
           <size>7</size>
           <notNull>true</notNull>
@@ -524,7 +524,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_recom</columnName>
-          <logicalName>ì¶”ì²œìˆ˜</logicalName>
+          <logicalName>ÃßÃµ¼ö</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[12]/columnType"/>
           <size>7</size>
           <notNull>true</notNull>
@@ -535,7 +535,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>product_date</columnName>
-          <logicalName>ë“±ë¡ì¼</logicalName>
+          <logicalName>µî·ÏÀÏ</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>DATE</name>
             <logicalName>Date</logicalName>
@@ -551,7 +551,7 @@
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>productgrp_no</columnName>
-          <logicalName>ìƒí’ˆ ì¢…ë¥˜ ë²ˆí˜¸</logicalName>
+          <logicalName>»óÇ° Á¾·ù ¹øÈ£</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>NUMBER</name>
             <logicalName>Numeric</logicalName>

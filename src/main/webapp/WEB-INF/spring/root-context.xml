@@ -52,7 +52,8 @@
                           dev.mvc.event_attachfile,
                           dev.mvc.product,
                           dev.mvc.product_attachfile,
-                          dev.mvc.product_reply" />
+                          dev.mvc.product_reply,
+                          dev.mvc.cart" />
     <property name="mapperLocations" value="classpath:mybatis/*.xml" />
   </bean>
   
