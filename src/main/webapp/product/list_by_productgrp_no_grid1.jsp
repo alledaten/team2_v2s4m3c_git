@@ -69,7 +69,7 @@
                 <a href="./read.do?product_no=${product_no}">               
                   <IMG src="./storage/main_images/${product_thumb1 }" style='width: 100%; height: 150px;'>
                 </a><br>
-                ${productVO.product_name} (${productVO.product_cnt})
+                ${productVO.product_name}
               </c:when>
               <c:otherwise> <!-- 이미지가 아닌 일반 파일 -->
                 <DIV style='width: 100%; height: 150px; display: table; border: solid 1px #CCCCCC;'>

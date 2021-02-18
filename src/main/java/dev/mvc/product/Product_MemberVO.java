@@ -6,7 +6,7 @@ public class Product_MemberVO {
   /*
   CREATE TABLE product(
     product_no                        NUMBER(10)     NOT NULL    PRIMARY KEY,
-        memberno                              NUMBER(10)     NOT NULL ,
+        member_no                              NUMBER(10)     NOT NULL ,
     product_name                      VARCHAR2(100)    NOT NULL,
     product_brand                     VARCHAR2(100)    NOT NULL,
     product_origin                    VARCHAR2(100)    NOT NULL,
@@ -30,45 +30,46 @@ public class Product_MemberVO {
   FOREIGN KEY (productgrp_no) REFERENCES productgrp (productgrp_no)
   );
   */
+  /** 상품 번호 */
     private int product_no;
-    
+    /** 회원 번호 */
     private int member_no;
-    
+    /** 상품 그룹 번호 */
     private int productgrp_no;
-    
+    /** 상품 이름 */
     private String product_name = "";
-    
+    /** 상품 브랜드 */
     private String product_brand = "";
-    
+    /** 원산지 */
     private String product_origin = "";
-    
+    /** 도수 */
     private String product_frequency = "";
-    
+    /** 내용 */
     private String product_description = "";;
-    
-    private String product_cost = "";
-    
+    /** 가격 */
+    private long product_cost;
+    /** 용량 */
     private String product_ml = "";
-    
+    /** 비밀번호 */
     private String product_passwd = "";
-    
+    /** 상품 댓글수 */
     private int product_replycnt;
-    
+    /** 상품 메인 이미지 파일 */
     private String product_file1 = "";
-
+    /** 상품 메인 이미지 섬네일 */
     private String product_thumb1 = "";
-
+    /** 상품 메인 이미지 크기 */
     private long product_size1;
     
     private String size1_label;
-    
+    /** 상품 들여쓰기 및 답변 차수 */
     private int product_indent;
-    
+    /** 상품 답변순서 */
     private int product_ansnum;
-    
+    /** 상품 그룸 번호 */
     private int product_grpno;
     
-    private int cnt = 0;
+    private int product_cnt = 0;
     
     private int product_recom;
     
@@ -151,11 +152,11 @@ public class Product_MemberVO {
       this.product_description = product_description;
     }
 
-    public String getProduct_cost() {
+    public long getProduct_cost() {
       return product_cost;
     }
 
-    public void setProduct_cost(String product_cost) {
+    public void setProduct_cost(long product_cost) {
       this.product_cost = product_cost;
     }
 
@@ -239,12 +240,12 @@ public class Product_MemberVO {
       this.product_grpno = product_grpno;
     }
 
-    public int getCnt() {
-      return cnt;
+    public int getProduct_cnt() {
+      return product_cnt;
     }
 
-    public void setCnt(int cnt) {
-      this.cnt = cnt;
+    public void setProduct_cnt(int product_cnt) {
+      this.product_cnt = product_cnt;
     }
 
     public int getProduct_recom() {

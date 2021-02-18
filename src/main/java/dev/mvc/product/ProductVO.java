@@ -46,7 +46,7 @@ public class ProductVO {
     
     private String product_description = "";
     
-    private String product_cost = "";
+    private long product_cost;
     
     private String product_ml = "";
     
@@ -144,11 +144,11 @@ public class ProductVO {
       this.product_description = product_description;
     }
 
-    public String getProduct_cost() {
+    public long getProduct_cost() {
       return product_cost;
     }
 
-    public void setProduct_cost(String product_cost) {
+    public void setProduct_cost(long product_cost) {
       this.product_cost = product_cost;
     }
 

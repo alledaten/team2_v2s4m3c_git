@@ -167,7 +167,7 @@
           msg = "『" + $('#productgrp_name').val() + "』 카테고리 그룹을 수정했습니다."
           msg += " <button type='button' onclick='location.reload(true)'>확인</button>";
         } else {
-          msg = "『" + $('#name').val() + "』 카테고리 그룹 수정에 실패했습니다."
+          msg = "『" + $('#productgrp_name').val() + "』 카테고리 그룹 수정에 실패했습니다."
         }
         $('#panel1').html(msg); // 메시지 출력
       },

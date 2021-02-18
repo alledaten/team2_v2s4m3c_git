@@ -4,49 +4,49 @@ import java.util.List;
 
 public interface Product_AttachfileProcInter {
   /**
-   * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½  
-   * @param attachfileVO
+   * ÆÄÀÏ µî·Ï  
+   * @param product_attachfileVO
    * @return
    */
   public int create(Product_AttachfileVO product_attachfileVO);
   
   /**
-   * ï¿½ï¿½Ã¼ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+   * ÀüÃ¼ ÀÌ¹ÌÁö ¸ñ·Ï
    * @return
    */
   public List<Product_AttachfileVO> list();
   
   
   /**
-   * ï¿½ï¿½È¸
-   * @param attachfileno
+   * Á¶È¸
+   * @param product_attachfile_no
    * @return
    */
   public Product_AttachfileVO read(int product_attachfile_no);
   
   /**
-   * contentsnoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+   * review_no¿¡ µû¸¥ ÆÄÀÏ ¸ñ·Ï
    * @param contentsno
    * @return
    */
   public List<Product_AttachfileVO> list_by_product_no(int product_no);
   
   /**
-   * ï¿½ï¿½ï¿½ï¿½
-   * @param attachfileno
+   * »èÁ¦
+   * @param product_attachfile_no
    * @return
    */
   public int delete(int product_attachfile_no);
   
   /**
-   * contentsnoï¿½ï¿½ Ä«ï¿½ï¿½Æ®
+   * product_noº° »èÁ¦
    * @param contentsno
    * @return
    */
   public int count_by_product_no(int product_no);
 
   /**
-   * contentsnoï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+   * product_noº° Ä«¿îÆ®
    * @param contentsno
    * @return
    */

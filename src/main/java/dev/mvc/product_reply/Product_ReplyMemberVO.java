@@ -1,20 +1,19 @@
 package dev.mvc.product_reply;
 
 public class Product_ReplyMemberVO {
-  /** å ì™ì˜™å ì‹±ë“¸ì˜™ */
+  /** È¸¿ø id */
   private String member_id = "";
-  
-  /** å ì™ì˜™å ï¿½ å ì™ì˜™í˜¸ */
+  /** ¸®ºä ´ñ±Û ¹øÈ£ */
   private int product_reply_no;
-  /** å ì™ì˜™å ì™ì˜™ å ì™ì˜™ å ì™ì˜™í˜¸ */
+  /** ¸®ºä ¹øÈ£(FK) */
   private int product_no;
-  /** íšŒå ì™ì˜™ å ì™ì˜™í˜¸ */
+  /** È¸¿ø ¹øÈ£(FK) */
   private int member_no;
-  /** å ì™ì˜™å ì™ì˜™ */
+  /** ´ñ±Û ³»¿ë */
   private String product_reply_content;
-  /** å ì‹»ì™ì˜™å ì™ì˜™å ì™ì˜™ */
+  /** ´ñ±Û ºñ¹Ğ¹øÈ£ */
   private String product_reply_passwd;
-  /** å ì™ì˜™å ì™ì˜™å ï¿½ */
+  /** ´ñ±Û µî·ÏÀÏ */
   private String product_reply_rdate;
   
 

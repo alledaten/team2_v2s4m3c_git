@@ -89,7 +89,7 @@
       
       <div class="form-group">   
         <div class="col-md-12">
-          <input type='text' class="form-control" name='product_cost' value='3500' placeholder="가격" style='width: 80%;'>
+          <input type='number' class="form-control" name='product_cost' value='3500' placeholder="가격" style='width: 80%;'>
         </div>
       </div>
       

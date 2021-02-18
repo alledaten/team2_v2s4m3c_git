@@ -1,17 +1,17 @@
 package dev.mvc.product_reply;
 
 public class Product_ReplyVO {
-  /** ï¿½ï¿½ï¿½ ï¿½ï¿½È£ */
+  /** ¸®ºä ´ñ±Û ¹øÈ£ */
   private int product_reply_no;
-  /** ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£ */
+  /** ¸®ºä ¹øÈ£(FK) */
   private int product_no;
-  /** È¸ï¿½ï¿½ ï¿½ï¿½È£ */
+  /** È¸¿ø ¹øÈ£(FK) */
   private int member_no;
-  /** ï¿½ï¿½ï¿½ï¿½ */
+  /** ´ñ±Û ³»¿ë */
   private String product_reply_content;
-  /** ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ */
+  /** ´ñ±Û ºñ¹Ð¹øÈ£ */
   private String product_reply_passwd;
-  /** ï¿½ï¿½ï¿½ï¿½ï¿½ */
+  /** ´ñ±Û µî·ÏÀÏ */
   private String product_reply_rdate;
 
   public int getProduct_no() {

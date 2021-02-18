@@ -30,7 +30,7 @@ public class Product_ReplyProc implements Product_ReplyProcInter {
   public List<Product_ReplyMemberVO> list_member_join() {
     List<Product_ReplyMemberVO> list = product_replyDAO.list_member_join();
     
-    // Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // Æ¯¼ö ¹®ÀÚ º¯°æ
     for (Product_ReplyMemberVO product_replyMemberVO:list) {
       String product_reply_content = product_replyMemberVO.getProduct_reply_content();
       product_reply_content = Tool.convertChar(product_reply_content);
@@ -45,7 +45,7 @@ public class Product_ReplyProc implements Product_ReplyProcInter {
     List<Product_ReplyVO> list = product_replyDAO.list_by_product_no(product_no);
     String product_reply_content = "";
     
-    // Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // Æ¯¼ö ¹®ÀÚ º¯°æ
     for (Product_ReplyVO product_replyVO:list) {
       product_reply_content = product_replyVO.getProduct_reply_content();
       product_reply_content = Tool.convertChar(product_reply_content);
@@ -59,7 +59,7 @@ public class Product_ReplyProc implements Product_ReplyProcInter {
     List<Product_ReplyMemberVO> list = product_replyDAO.list_by_product_no_join(product_no);
     String product_reply_content = "";
     
-    // Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // Æ¯¼ö ¹®ÀÚ º¯°æ
     for (Product_ReplyMemberVO product_replyMemberVO:list) {
       product_reply_content = product_replyMemberVO.getProduct_reply_content();
       product_reply_content = Tool.convertChar(product_reply_content);
@@ -82,17 +82,17 @@ public class Product_ReplyProc implements Product_ReplyProcInter {
 
   @Override
   public List<Product_ReplyMemberVO> list_by_product_no_join_add(HashMap<String, Object> map) {
-    int record_per_page = 2; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½
+    int record_per_page = 2; // ÇÑÆäÀÌÁö´ç 2°Ç
     
-    // replyPageï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ // replyPage´Â 1ºÎÅÍ ½ÃÀÛ
     int beginOfPage = ((Integer)map.get("replyPage") - 1) * record_per_page; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½
 
     int startNum = beginOfPage + 1; 
     int endNum = beginOfPage + record_per_page;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½
     /*
-    1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: WHERE r >= 1 AND r <= 2
-    2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: WHERE r >= 3 AND r <= 4
-    3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: WHERE r >= 5 AND r <= 6
+    1 ÆäÀÌÁö: WHERE r >= 1 AND r <= 2
+    2 ÆäÀÌÁö: WHERE r >= 3 AND r <= 4
+    3 ÆäÀÌÁö: WHERE r >= 5 AND r <= 6
     */
     map.put("startNum", startNum);
     map.put("endNum", endNum);
@@ -100,7 +100,7 @@ public class Product_ReplyProc implements Product_ReplyProcInter {
     List<Product_ReplyMemberVO> list = product_replyDAO.list_by_product_no_join_add(map);
     String product_reply_content = "";
     
-    // Æ¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ // Æ¯¼ö ¹®ÀÚ º¯°æ
     for (Product_ReplyMemberVO product_replyMemberVO:list) {
       product_reply_content = product_replyMemberVO.getProduct_reply_content();
       product_reply_content = Tool.convertChar(product_reply_content);

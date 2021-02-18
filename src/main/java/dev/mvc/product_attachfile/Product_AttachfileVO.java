@@ -6,28 +6,28 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class Product_AttachfileVO {
   /*
-    attachfileno                  NUMBER(10)     NOT NULL    PRIMARY KEY,
-    contentsno                   NUMBER(10)    NULL ,
-    fname                           VARCHAR2(100)    NOT NULL,
-    fupname                      VARCHAR2(100)     NOT NULL,
-    thumb                         VARCHAR2(100)    NULL ,
-    fsize                             NUMBER(10)     DEFAULT 0     NOT NULL,
+    product_attachfile_no                  NUMBER(10)     NOT NULL    PRIMARY KEY,
+    product_no                   NUMBER(10)    NULL ,
+    product_attachfile_fname                           VARCHAR2(100)    NOT NULL,
+    product_attachfile_fupname                      VARCHAR2(100)     NOT NULL,
+    product_attachfile_thumb                         VARCHAR2(100)    NULL ,
+    product_attachfile_fsize                             NUMBER(10)     DEFAULT 0     NOT NULL,
    */
-  /** ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ */
+  /** Ã·ºÎÆÄÀÏ ¹øÈ£(PK) */
   private int product_attachfile_no;
-  /** ï¿½ï¿½ ï¿½ï¿½È£(FK) */
+  /** ¸®ºä ¹øÈ£(FK) */
   private int product_no;
-  /** ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ */
+  /** ¿øº» ÆÄÀÏ¸í */
   private String product_attachfile_fname;
-  /** ï¿½ï¿½ï¿½Îµï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ */
+  /** ¾÷·Îµå ÆÄÀÏ¸í */
   private String product_attachfile_fupname;
-  /** Thumb ï¿½Ì¹ï¿½ï¿½ï¿½ */
+  /** ¼¶³×ÀÏ ÀÌ¹ÌÁö */
   private String product_attachfile_thumb;
-  /** ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ */
+  /** ÆÄÀÏ Å©±â */
   private long product_attachfile_fsize;
-  /** ï¿½ï¿½ï¿½ï¿½ï¿½ */
+  /** µî·ÏÀÏ */
   private String product_attachfile_rdate;
-  
+  /** FormÀÇ ÆÄÀÏÀ» MultipartFile·Î º¯È¯ÇÏ¿© List¿¡ ÀúÀå  */
   private List<MultipartFile> fnamesMF;
   
   private String flabel;

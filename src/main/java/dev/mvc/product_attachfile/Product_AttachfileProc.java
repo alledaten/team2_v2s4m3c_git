@@ -37,7 +37,7 @@ public class Product_AttachfileProc implements Product_AttachfileProcInter {
   }
 
   /**
-   * Ã·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ë·® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+   * Ã·ºÎ ÆÄÀÏ ¸ñ·Ï, ÆÄÀÏ ¿ë·® ´ÜÀ§ Ãâ·Â
    */
   @Override
   public List<Product_AttachfileVO> list_by_product_no(int product_no) {
@@ -50,6 +50,9 @@ public class Product_AttachfileProc implements Product_AttachfileProcInter {
     return list;
   }
   
+  /**
+   * »èÁ¦
+   */
   @Override
   public int delete(int product_attachfile_no) {
     int cnt = this.product_attachfileDAO.delete(product_attachfile_no);
@@ -57,12 +60,18 @@ public class Product_AttachfileProc implements Product_AttachfileProcInter {
     
   }
 
+  /**
+   * FKº° °¹¼ö
+   */
   @Override
   public int count_by_product_no(int product_no) {
     int cnt = this.product_attachfileDAO.count_by_product_no(product_no);
     return cnt;
   }
 
+  /**
+   * FKº° ÀüÃ¼ »èÁ¦
+   */
   @Override
   public int delete_by_product_no(int product_no) {
     int cnt = this.product_attachfileDAO.delete_by_product_no(product_no);

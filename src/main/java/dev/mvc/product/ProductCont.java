@@ -42,12 +42,12 @@ public class ProductCont {
   @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc = null;
-  
-  public ProductCont() {
-    System.out.println("--> ProductCont created.");
-  }
-  
 
+   /**
+   * 
+   * @param productgrp_no
+   * @return
+   */
   @RequestMapping(value = "/product/create.do", method = RequestMethod.GET)
   public ModelAndView create(int productgrp_no) {
     ModelAndView mav = new ModelAndView();
@@ -60,8 +60,12 @@ public class ProductCont {
 
     return mav; // forward
   }
-  
-  
+  /**
+   * 
+   * @param request
+   * @param productVO
+   * @return
+   */
   @RequestMapping(value = "/product/create.do", method = RequestMethod.POST)
   public ModelAndView create(HttpServletRequest request, ProductVO productVO) {
 
@@ -91,7 +95,7 @@ public class ProductCont {
     int cnt = this.productProc.create(productVO); 
     
     System.out.println("--> product_no: " + productVO.getProduct_no());
-    mav.addObject("product_no", productVO.getProduct_no()); // redirect parameter ï¿½ï¿½ï¿½ï¿½
+    mav.addObject("product_no", productVO.getProduct_no()); // redirect parameter
     
     if (cnt == 1) {
       productgrpProc.increaseCnt(productVO.getProductgrp_no());
@@ -105,7 +109,10 @@ public class ProductCont {
     
     return mav; // forward
   }
-  
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/create.do
+   * @return
+   */
   @RequestMapping(value = "/product/list_all.do", method = RequestMethod.GET)
   public ModelAndView list() {
     ModelAndView mav = new ModelAndView();
@@ -117,7 +124,13 @@ public class ProductCont {
     return mav; // forward
   }
 
-  
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/list.do
+   * @param productgrp_no
+   * @param product_word
+   * @param nowPage
+   * @return
+   */
   @RequestMapping(value = "/product/list.do", 
                                        method = RequestMethod.GET)
   public ModelAndView list_by_cateno_search_paging(
@@ -153,6 +166,11 @@ public class ProductCont {
     return mav;
   }    
  
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/list_by_productgrp_no_grid1.do
+   * @param productgrp_no
+   * @return
+   */
   @RequestMapping(value = "/product/list_by_productgrp_no_grid1.do", method = RequestMethod.GET)
   public ModelAndView list_by_productgrp_no_grid1(int productgrp_no) {
     ModelAndView mav = new ModelAndView();
@@ -168,6 +186,11 @@ public class ProductCont {
     return mav; // forward
   }
   
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/raad.do
+   * @param product_no
+   * @return
+   */
   @RequestMapping(value="/product/read.do", method=RequestMethod.GET )
   public ModelAndView read(int product_no) {
     ModelAndView mav = new ModelAndView();
@@ -180,13 +203,18 @@ public class ProductCont {
 
     List<Product_AttachfileVO> product_attachfile_list = this.product_attachfileProc.list_by_product_no(product_no);
     mav.addObject("product_attachfile_list", product_attachfile_list);
-    System.out.println("--> Ã·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + product_attachfile_list.size());
+    
     
     mav.setViewName("/product/read_img_attachfile_reply_add_pg"); // /webapp/contents/read_img_attachfile_reply_add_pg.jsp
     
     return mav;
   }
   
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/update.do
+   * @param product_no
+   * @return
+   */
   @RequestMapping(value="/product/update.do", method=RequestMethod.GET )
   public ModelAndView update(int product_no) {
     ModelAndView mav = new ModelAndView();
@@ -229,7 +257,13 @@ public class ProductCont {
     
     return mav;
   }
-
+   
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/delete.do
+   * @param session
+   * @param product_no
+   * @return
+   */
   @RequestMapping(value="/product/delete.do", method=RequestMethod.GET )
   public ModelAndView delete(HttpSession session, int product_no) {
     ModelAndView mav = new ModelAndView();
@@ -248,6 +282,16 @@ public class ProductCont {
     return mav;
   }
   
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/delete.do
+   * @param request
+   * @param productgrp_no
+   * @param product_no
+   * @param product_passwd
+   * @param product_word
+   * @param nowPage
+   * @return
+   */
   @RequestMapping(value="/product/delete.do", method=RequestMethod.POST )
   public ModelAndView delete(HttpServletRequest request,
                                            int productgrp_no, 
@@ -281,7 +325,7 @@ public class ProductCont {
         if (productProc.search_count(map) % Product.RECORD_PER_PAGE == 0) {
           nowPage = nowPage - 1;
           if (nowPage < 1) {
-            nowPage = 1; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            nowPage = 1;
           }
         }
         // -------------------------------------------------------------------------------------
@@ -305,6 +349,11 @@ public class ProductCont {
     return mav;
   }
 
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/img_create.do
+   * @param product_no
+   * @return
+   */
   @RequestMapping(value = "/product/img_create.do", method = RequestMethod.GET)
   public ModelAndView img_create(int product_no) {
     ModelAndView mav = new ModelAndView();
@@ -319,6 +368,13 @@ public class ProductCont {
     return mav; // forward
   }
 
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/list_all.do
+   * @param request
+   * @param productVO
+   * @param nowPage
+   * @return
+   */
   @RequestMapping(value = "/product/img_create.do", method = RequestMethod.POST)
   public ModelAndView img_create(HttpServletRequest request, 
                                     ProductVO productVO,
@@ -371,6 +427,11 @@ public class ProductCont {
     return mav;    
   }
 
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/img_update.do
+   * @param product_no
+   * @return
+   */
   @RequestMapping(value = "/product/img_update.do", method = RequestMethod.GET)
   public ModelAndView img_update(int product_no) {
     ModelAndView mav = new ModelAndView();
@@ -385,6 +446,15 @@ public class ProductCont {
     return mav; // forward
   }
   
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/img_delete.do
+   * @param request
+   * @param product_no
+   * @param productgrp_no
+   * @param product_passwd
+   * @param nowPage
+   * @return
+   */
   @RequestMapping(value = "/product/img_delete.do", method = RequestMethod.POST)
   public ModelAndView img_delete(HttpServletRequest request,
                                        int product_no, 
@@ -438,7 +508,13 @@ public class ProductCont {
             
     return mav;    
   }
-  
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/umg_update.do
+   * @param request
+   * @param productVO
+   * @param nowPage
+   * @return
+   */
   @RequestMapping(value = "/product/img_update.do", method = RequestMethod.POST)
   public ModelAndView img_update(HttpServletRequest request, 
                                      ProductVO productVO,
@@ -498,6 +574,11 @@ public class ProductCont {
     return mav;    
   }
   
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/msg.do
+   * @param url
+   * @return
+   */
   @RequestMapping(value="/product/msg.do", method=RequestMethod.GET)
   public ModelAndView msg(String url){
     ModelAndView mav = new ModelAndView();
@@ -507,6 +588,12 @@ public class ProductCont {
     return mav; 
   }
   
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/passwd.do
+   * @param product_no
+   * @param product_passwd
+   * @return
+   */
   @ResponseBody
   @RequestMapping(value="/product/passwd.do", method=RequestMethod.GET ,
                               produces = "text/plain;charset=UTF-8" )
@@ -523,10 +610,15 @@ public class ProductCont {
     return json.toString(); 
   }
 
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/list_by_productgrp_no_grid1.do
+   * @param productgrp_no
+   * @param product_no
+   * @return
+   */
   @RequestMapping(value="/product/reply.do", method=RequestMethod.GET )
   public ModelAndView reply(int productgrp_no, int product_no) {
     ModelAndView mav = new ModelAndView();
-    System.out.println("ï¿½äº¯ ï¿½ï¿½ï¿½: " + product_no);
     
     ProductgrpVO productgrpVO = this.productgrpProc.read(productgrp_no);
     mav.addObject("productgtpVO", productgrpVO);
@@ -536,6 +628,12 @@ public class ProductCont {
     return mav;
   }
 
+  /**
+   * µî·ÏÆû http://localhost:9090/team2/product/list_by_productgrp_no_grid1.do
+   * @param request
+   * @param productVO
+   * @return
+   */
   @RequestMapping(value="/product/reply.do", 
                               method=RequestMethod.POST )
   public ModelAndView reply(HttpServletRequest request, ProductVO productVO) {

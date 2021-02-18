@@ -67,10 +67,10 @@
       <TD class="td_bs_left">${productgrpVO.productgrp_name }</TD>
       <TD class="td_bs">${productgrpVO.productgrp_visible }</TD>
       <TD class="td_bs">
-        <A href="./read_update.do?productgrpno=${productgrp_no }" title="수정"><span class="glyphicon glyphicon-pencil"></span></A>
-        <A href="./read_delete.do?productgrpno=${productgrp_no }" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>
-        <A href="./update_seqno_up.do?categrpno=${productgrp_no }" title="우선순위 상향"><span class="glyphicon glyphicon-arrow-up"></span></A>
-        <A href="./update_seqno_down.do?categrpno=${productgrp_no }" title="우선순위 하향"><span class="glyphicon glyphicon-arrow-down"></span></A>         
+        <A href="./read_update.do?productgrp_no=${productgrp_no }" title="수정"><span class="glyphicon glyphicon-pencil"></span></A>
+        <A href="./read_delete.do?productgrp_no=${productgrp_no }" title="삭제"><span class="glyphicon glyphicon-trash"></span></A>
+        <A href="./update_seqno_up.do?categrp_no=${productgrp_no }" title="우선순위 상향"><span class="glyphicon glyphicon-arrow-up"></span></A>
+        <A href="./update_seqno_down.do?categrp_no=${productgrp_no }" title="우선순위 하향"><span class="glyphicon glyphicon-arrow-down"></span></A>         
        </TD>   
     </TR>   
   </c:forEach> 

@@ -20,20 +20,16 @@ import dev.mvc.admin.AdminProcInter;
 @Controller
 public class Product_ReplyCont {
   @Autowired
-  @Qualifier("dev.mvc.product_reply.Product_ReplyProc") // 占싱몌옙 占쏙옙占쏙옙
+  @Qualifier("dev.mvc.product_reply.Product_ReplyProc") 
   private Product_ReplyProcInter product_replyProc;
   
   @Autowired
-  @Qualifier("dev.mvc.admin.AdminProc") // 占싱몌옙 占쏙옙占쏙옙
+  @Qualifier("dev.mvc.admin.AdminProc")
   private AdminProcInter adminProc;
   
-  public Product_ReplyCont(){
-    System.out.println("--> ReplyCont created.");
-  }
-  
   /**
-   * 占쏙옙占� 占쏙옙占� 처占쏙옙
-   * @param replyVO
+   * ��� ��� ó��
+   * @param product_replyVO
    * @return
    */
   @ResponseBody
@@ -50,6 +46,11 @@ public class Product_ReplyCont {
 
   }
   
+  /**
+   * �����ڸ� ��� Ȯ�� ����
+   * @param session
+   * @return
+   */
   @RequestMapping(value="/product_reply/list.do", method=RequestMethod.GET)
   public ModelAndView list(HttpSession session) {
     ModelAndView mav = new ModelAndView();
@@ -67,6 +68,11 @@ public class Product_ReplyCont {
     return mav;
   }
   
+  /**
+   * http://localhost:9090/team2/review_reply/list_by_review_no.do?review_no=1
+   * @param review_no
+   * @return
+   */
   @ResponseBody
   @RequestMapping(value = "/product_reply/list_by_product_no.do",
                             method = RequestMethod.GET,
@@ -80,7 +86,12 @@ public class Product_ReplyCont {
     return obj.toString(); 
 
   }
-
+  
+  /**
+   * http://localhost:9090/team2/product__reply/list_by_product_no_join.do?product_no=45 ����� JSON �迭 �������� ���
+   * @param review_no
+   * @return
+   */
   @ResponseBody
   @RequestMapping(value = "/product_reply/list_by_product_no_join.do",
                               method = RequestMethod.GET,
@@ -95,6 +106,13 @@ public class Product_ReplyCont {
     return obj.toString();     
   }
 
+  /**
+   * �н����带 �˻��� �� ��۸� ���� 
+   * http://localhost:9090/team2/product_reply/delete.do?product_reply_no=1&review_reply_passwd=1234  --> GET ������� �׽�Ʈ�غ��� ����
+   * @param review_reply_no
+   * @param review_reply_passwd
+   * @return
+   */
   @ResponseBody
   @RequestMapping(value = "/product_reply/delete.do", 
                               method = RequestMethod.POST,
@@ -104,24 +122,24 @@ public class Product_ReplyCont {
     map.put("product_reply_no", product_reply_no);
     map.put("product_reply_passwd", product_reply_passwd);
     
-    int passwd_cnt = product_replyProc.checkPasswd(map); // 占싻쏙옙占쏙옙占쏙옙 占쏙옙치 占쏙옙占쏙옙, 1: 占쏙옙치, 0: 占쏙옙占쏙옙치
-    int delete_cnt = 0;                                    // 占쏙옙占쏙옙占쏙옙 占쏙옙占�
-    if (passwd_cnt == 1) { // 占싻쏙옙占쏙옙占썲가 占쏙옙치占쏙옙 占쏙옙占�
-      delete_cnt = product_replyProc.delete(product_reply_no); // 占쏙옙占� 占쏙옙占쏙옙
+    int passwd_cnt = product_replyProc.checkPasswd(map); 
+    int delete_cnt = 0;                                   
+    if (passwd_cnt == 1) {
+      delete_cnt = product_replyProc.delete(product_reply_no); 
     }
     
     JSONObject obj = new JSONObject();
-    obj.put("passwd_cnt", passwd_cnt); // 占싻쏙옙占쏙옙占쏙옙 占쏙옙치 占쏙옙占쏙옙, 1: 占쏙옙치, 0: 占쏙옙占쏙옙치
-    obj.put("delete_cnt", delete_cnt); // 占쏙옙占쏙옙占쏙옙 占쏙옙占�
+    obj.put("passwd_cnt", passwd_cnt); 
+    obj.put("delete_cnt", delete_cnt);
     
     return obj.toString();
   }
   
   /**
-   * 占쏙옙占쏙옙占쏙옙 占쏙옙튼 占쏙옙占쏙옙징 占쏙옙占�
-   * http://localhost:9090/resort/reply/list_by_contentsno_join_add.do?contentsno=53&replyPage=1
-   * @param contentsno 占쏙옙占� 占싸몌옙占� 占쏙옙호
-   * @param replyPage 占쏙옙占� 占쏙옙占쏙옙占쏙옙
+   * 
+   * http://localhost:9090/team2/product_reply/list_by_product_no_join_add.do?product_no=53&replyPage=1
+   * @param product_no 
+   * @param replyPage 
    * @return
    */
   @ResponseBody
@@ -129,8 +147,6 @@ public class Product_ReplyCont {
                               method = RequestMethod.GET,
                               produces = "text/plain;charset=UTF-8")
   public String list_by_product_no_join(int product_no, int replyPage) {
-  //    System.out.println("contentsno: " + contentsno);
-  //    System.out.println("replyPage: " + replyPage);
     
     HashMap<String, Object> map = new HashMap<String, Object>();
     map.put("product_no", product_no); 

@@ -23,20 +23,20 @@
       <constraint>
         <height>-1</height>
         <width>-1</width>
-        <x>85</x>
-        <y>156</y>
+        <x>108</x>
+        <y>206</y>
       </constraint>
       <sourceConnections/>
       <targetConnections/>
       <error></error>
       <linkedPath></linkedPath>
-      <tableName>productgrp</tableName>
-      <logicalName>상품 종류</logicalName>
+      <tableName>product_attachfile</tableName>
+      <logicalName>상품 첨부파일</logicalName>
       <description></description>
       <columns>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>productgrp_no</columnName>
-          <logicalName>상품 종류 번호</logicalName>
+          <columnName>product_attachfile_no</columnName>
+          <logicalName>상품첨부파일번호</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>NUMBER</name>
             <logicalName>Numeric</logicalName>
@@ -51,15 +51,26 @@
           <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>productgrp_name</columnName>
-          <logicalName>상품 종류</logicalName>
+          <columnName>product_no</columnName>
+          <logicalName>상품번호</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
+          <size>10</size>
+          <notNull>false</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>product_attachfile_FNAME</columnName>
+          <logicalName>원본 파일명</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
             <name>VARCHAR2</name>
             <logicalName>String</logicalName>
             <supportSize>true</supportSize>
             <type>12</type>
           </columnType>
-          <size>20</size>
+          <size>100</size>
           <notNull>true</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
@@ -67,46 +78,20 @@
           <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>productgrp_seqno</columnName>
-          <logicalName>출력 순서</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType">
-            <name>NUMBER</name>
-            <logicalName>Numeric</logicalName>
-            <supportSize>true</supportSize>
-            <type>2</type>
-          </columnType>
-          <size>10</size>
-          <notNull>true</notNull>
+          <columnName>product_attachfile_thumb</columnName>
+          <logicalName>Thumb 파일명</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+          <size>100</size>
+          <notNull>false</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
           <autoIncrement>false</autoIncrement>
-          <defaultValue>0</defaultValue>
+          <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>productgrp_visible</columnName>
-          <logicalName>출력 모드</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType">
-            <name>CHAR</name>
-            <logicalName>Character</logicalName>
-            <supportSize>true</supportSize>
-            <type>1</type>
-          </columnType>
-          <size>1</size>
-          <notNull>true</notNull>
-          <primaryKey>false</primaryKey>
-          <description></description>
-          <autoIncrement>false</autoIncrement>
-          <defaultValue>&apos;Y&apos;</defaultValue>
-        </net.java.amateras.db.visual.model.ColumnModel>
-        <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>productgrp_rdate</columnName>
-          <logicalName>상품그룹생성일</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType">
-            <name>VARCHAR2</name>
-            <logicalName>String</logicalName>
-            <supportSize>true</supportSize>
-            <type>12</type>
-          </columnType>
+          <columnName>product_attachfile_fsize</columnName>
+          <logicalName>파일 사이즈</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel/columnType"/>
           <size>10</size>
           <notNull>true</notNull>
           <primaryKey>false</primaryKey>
@@ -115,15 +100,15 @@
           <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
-          <columnName>productgrp_cnt</columnName>
-          <logicalName>상품그룹글수</logicalName>
+          <columnName>product_attachfile_RDATE</columnName>
+          <logicalName>등록일</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
-            <name>NUMBER</name>
-            <logicalName>Numeric</logicalName>
-            <supportSize>true</supportSize>
-            <type>2</type>
+            <name>DATE</name>
+            <logicalName>Date</logicalName>
+            <supportSize>false</supportSize>
+            <type>91</type>
           </columnType>
-          <size>10</size>
+          <size>7</size>
           <notNull>true</notNull>
           <primaryKey>false</primaryKey>
           <description></description>
@@ -133,9 +118,9 @@
       </columns>
       <indices/>
       <backgroundColor>
-        <red>255</red>
-        <green>128</green>
-        <blue>128</blue>
+        <red>217</red>
+        <green>255</green>
+        <blue>217</blue>
       </backgroundColor>
       <sql></sql>
     </net.java.amateras.db.visual.model.TableModel>
@@ -144,9 +129,9 @@
   <dialectName>Oracle</dialectName>
   <logicalMode>true</logicalMode>
   <jarFile>C:\ai7\ojdbc6.jar</jarFile>
-  <jdbcDriver>oracle.jdbc.OracleDriver</jdbcDriver>
+  <jdbcDriver>oracle.jdbc.driver.OracleDriver</jdbcDriver>
   <jdbcUrl>jdbc:oracle:thin:@localhost:1521:XE</jdbcUrl>
-  <jdbcUser>team2</jdbcUser>
+  <jdbcUser>ai7</jdbcUser>
   <jdbcPassword>1234</jdbcPassword>
   <jdbcSchema></jdbcSchema>
   <jdbcCatalog></jdbcCatalog>

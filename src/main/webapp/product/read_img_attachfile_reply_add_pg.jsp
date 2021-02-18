@@ -54,6 +54,8 @@ tag += "</A>";
     
     $('#product_attachfile_panel').html(tag); 
     $('#product_attachfile_panel').show(); 
+
+    $('#btn_addCart').on('click', cart_check_login);  // check_login 함수 호출
     
   });
  
@@ -272,6 +274,48 @@ tag += "</A>";
       }
     });
   }
+  <!-------------------------- DA: 쇼핑카트 등록 시작---------------------------->
+
+   
+  function add_cart() {
+    var frm_cart = $('#frm_cart');
+    if(check_login() != false) {  // 로그인 상태인 경우 카트 담기 처리
+      var params = frm_cart.serialize();
+      // alert(params);
+      // return;
+      $.ajax({
+          url: "../cart/create_ajax.do", // action 대상 주소
+          type: "post",
+          cache: false,
+          async: true,
+          dataType: "json",             // 응답 형식
+          data: params,
+          success: function(rdata) {
+            // alert(rdata);
+            if(rdata.cnt == 1) {
+              alert("선택하신 상품을 장바구니에 담았습니다.");
+            } else {
+              alert("카트 담기 X");
+            } // if~else
+            
+          },  // function(rdata) 
+          
+          error: function(request, status, error) { // callback 함수
+            var msg = 'ERROR request.status: '+request.status + '/ ' + error;
+            console.log(msg); // Chrome에 출력
+          }  // Ajax 통신 error, 응답 코드가 200이 아닌경우, dataType이 다른경우 
+      });  // $.ajax
+     }  // if  
+  }  // add_cart()
+  
+    function cart_check_login() {  
+    var frm_cart = $('#frm_cart');
+    if ($('#member_no', frm_cart).val().length == 0 ) {  // 로그인 상태인지 검사
+      alert("로그인 후 사용 가능")
+    } else {
+      add_cart()
+      }
+  }  // check_login()
 </script>
 </head>
 
@@ -420,19 +464,25 @@ tag += "</A>";
         </fieldset>
       <DIV>${productVO.product_description }</DIV>
     </FORM>
+    
+    
+    <!-- 장바구니 -->
     <tr align="center" >
       <td colspan="2">
-        <form name "form1" method="post" action= "../cart/insert.do">
-          <input type="hidden" name="product_no" value="${productVO.product_no }">
-          <select name="cart_cnt">
-            <c:forEach begin="1" end= "100" var="i">
-              <option value = "${i }">${i }</option>
-            </c:forEach>
-          </select>&nbsp; 개
-          <input type="submit" value="장바구니 담기">
+        <form name="frm_cart" id='frm_cart' >
+            <input type="hidden" name="member_no" id="member_no" value="${sessionScope.member_no}">
+            <input type="hidden" name="product_no" value="${productVO.product_no }">
+              <select name="cart_cnt">
+                <c:forEach begin="1" end= "100" var="i">
+                  <option value = "${i }">${i }</option>
+                </c:forEach>
+            </select>&nbsp; 개
+            <input type="submit"  id="btn_addCart" value="장바구니 담기">
           </form>
         </td>
       </tr>
+      
+
 
   <!-- ---------- 댓글 영역 시작 ---------- -->
       <HR>

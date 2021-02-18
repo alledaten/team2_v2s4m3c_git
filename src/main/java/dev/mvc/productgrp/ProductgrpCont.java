@@ -26,7 +26,7 @@ public class ProductgrpCont {
   }
 
   /**
-   * Ajax ��� ��� ó�� http://localhost:9090/resort/categrp/create_ajax.do
+   * Ajax  http://localhost:9090/resort/categrp/create_ajax.do
    * 
    * @return
    */
@@ -40,7 +40,7 @@ public class ProductgrpCont {
       e.printStackTrace();
     }
     
-    int cnt = this.productgrpProc.create(productgrpVO); // ��� ó��
+    int cnt = this.productgrpProc.create(productgrpVO);
     
     JSONObject json = new JSONObject();
     json.put("cnt", cnt);
@@ -49,7 +49,7 @@ public class ProductgrpCont {
   }
 
   /**
-   * ��� http://localhost:9090/resort/categrp/list.do
+   * http://localhost:9090/resort/categrp/list.do
    * 
    * @return
    */
@@ -57,17 +57,12 @@ public class ProductgrpCont {
   public ModelAndView list(HttpSession session) {
     ModelAndView mav = new ModelAndView();
     
-//    if (adminProc.isAdmin(session)) { // ������ �α����� ���
-      List<ProductgrpVO> list = productgrpProc.list_productgrp_seqno_asc();
-      
-      mav.addObject("list", list);
-      mav.setViewName("/productgrp/list_ajax"); // /webapp/categrp/list_ajax.jsp
-//    } else {
-//      mav.setViewName("/admin/login_need"); // /webapp/admin/login_need.jsp    
-//    }
 
-    // mav.setViewName("redirect:/categrp/create_msg.jsp?count=" + count);
-        
+    List<ProductgrpVO> list = productgrpProc.list_productgrp_seqno_asc();
+    
+    mav.addObject("list", list);
+    mav.setViewName("/productgrp/list_ajax"); 
+
     return mav;
   }
   
@@ -98,7 +93,7 @@ public class ProductgrpCont {
   }
 
   /**
-   * Ajax ��� ��� ó�� http://localhost:9090/resort/categrp/update_ajax.do
+   * Ajax http://localhost:9090/resort/categrp/update_ajax.do
    * 
    * @return
    */
@@ -112,7 +107,7 @@ public class ProductgrpCont {
       e.printStackTrace();
     }
     
-    int cnt = this.productgrpProc.update(productgrpVO); // ��� ó��
+    int cnt = this.productgrpProc.update(productgrpVO); // 占쏙옙占� 처占쏙옙
     
     JSONObject json = new JSONObject();
     json.put("cnt", cnt);
@@ -121,7 +116,7 @@ public class ProductgrpCont {
   }
   
   /**
-   * ������ http://localhost:9090/team2/productgrp/read_delete.do
+   * http://localhost:9090/team2/productgrp/read_delete.do
    * 
    * @return
    */
@@ -141,7 +136,7 @@ public class ProductgrpCont {
   
 
   /**
-   * ���� ó�� + Ajax
+   * 
    * @param productgrpno
    * @return
    */
@@ -164,9 +159,9 @@ public class ProductgrpCont {
   }
 
   /**
-   * �켱���� ���� up 10 �� 1
    * 
-   * @param categrpno ī�װ� ��ȣ
+   * 
+   * @param categrpno 카占쌓곤옙 占쏙옙호
    * @return
    */
   @RequestMapping(value = "/productgrp/update_seqno_up.do",
@@ -175,7 +170,7 @@ public class ProductgrpCont {
     ModelAndView mav = new ModelAndView();
 
     int cnt = this.productgrpProc.update_seqno_up(productgrp_no);
-    mav.addObject("cnt", cnt); // request�� ����
+    mav.addObject("cnt", cnt); // request占쏙옙 占쏙옙占쏙옙
 
     ProductgrpVO productgrpVO = this.productgrpProc.read(productgrp_no);
     mav.addObject("productgrpVO", productgrpVO);
@@ -188,9 +183,9 @@ public class ProductgrpCont {
   // http://localhost:9090/resort/categrp/update_seqno_down.do?categrpno=1
   // http://localhost:9090/resort/categrp/update_seqno_down.do?categrpno=1000
   /**
-   * �켱���� ���� up 1 �� 10
    * 
-   * @param categrpno ī�װ� ��ȣ
+   * 
+   * @param categrpno 카占쌓곤옙 占쏙옙호
    * @return
    */
   @RequestMapping(value = "/productgrp/update_seqno_down.do", method = RequestMethod.GET)
@@ -198,7 +193,7 @@ public class ProductgrpCont {
     ModelAndView mav = new ModelAndView();
 
     int cnt = this.productgrpProc.update_seqno_down(productgrp_no);
-    mav.addObject("cnt", cnt); // request�� ����
+    mav.addObject("cnt", cnt); // request占쏙옙 占쏙옙占쏙옙
 
     ProductgrpVO productgrpVO = this.productgrpProc.read(productgrp_no);
     mav.addObject("productgrpVO", productgrpVO);
@@ -213,7 +208,7 @@ public class ProductgrpCont {
     ModelAndView mav = new ModelAndView();
 
     int cnt = this.productgrpProc.update_productgrp_visible(productgrpVO);
-    mav.addObject("cnt", cnt); // request�� ����
+    mav.addObject("cnt", cnt); // request占쏙옙 占쏙옙占쏙옙
 
     mav.setViewName("redirect:/productgrp/list.do"); //
 
@@ -221,7 +216,7 @@ public class ProductgrpCont {
   }
   
   /**
-   * ���ΰ�ħ�� �����ϴ� �޽��� ���
+   * 
    * @return
    */
   @RequestMapping(value="/productgrp/msg.do", method=RequestMethod.GET)
