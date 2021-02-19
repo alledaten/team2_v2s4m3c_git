@@ -24,7 +24,7 @@ public class Admin_logCont {
   }
 
   /**
-   * 목록
+   * 관리자 로그인 기록 목록
    * http://localhost:9090/team2/admin_log/list.do
    * @param session
    * @return
@@ -42,7 +42,7 @@ public class Admin_logCont {
   }
 
   /**
-   * Ajax기반 조회
+   * Ajax기반 관리자 로그인 기록 조회 (고유번호)
    * http://localhost:9090/team2/admin_log/read.do
    * @param admin_log_no
    * @return

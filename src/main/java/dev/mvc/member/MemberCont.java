@@ -18,9 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import dev.mvc.login_log.Login_logCont;
 import dev.mvc.login_log.Login_logProcInter;
 import dev.mvc.login_log.Login_logVO;
+import dev.mvc.memberlevel.MemberlevelProcInter;
+import dev.mvc.memberlevel.MemberlevelVO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -29,6 +30,10 @@ public class MemberCont {
   @Autowired
   @Qualifier("dev.mvc.member.MemberProc")
   private MemberProcInter memberProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.memberlevel.MemberlevelProc")
+  private MemberlevelProcInter memberlevelProc;
   
   @Autowired
   @Qualifier("dev.mvc.login_log.Login_logProc")
@@ -125,8 +130,8 @@ public class MemberCont {
    */
   @RequestMapping(value = "/member/list.do", 
                   method = RequestMethod.GET)
-  public ModelAndView list_by_cateno_search_paging(@RequestParam(value="word", defaultValue="") String word,
-                                                   @RequestParam(value="nowPage", defaultValue="1") int nowPage
+  public ModelAndView list_by_search_paging(@RequestParam(value="word", defaultValue="") String word,
+                                            @RequestParam(value="nowPage", defaultValue="1") int nowPage
                                                    ) { 
     // System.out.println("--> nowPage: " + nowPage);
     
@@ -181,6 +186,10 @@ public class MemberCont {
     MemberVO memberVO = this.memberProc.read(member_no);
     mav.addObject("memberVO", memberVO); // request.setAttribute("memberVO", memberVO);
     
+    int memberlevel_no = memberVO.getMemberlevel_no();
+    MemberlevelVO memberlevelVO = this.memberlevelProc.read(memberlevel_no);
+    mav.addObject("memberlevel_name", memberlevelVO.getMemberlevel_name());
+    
     mav.setViewName("/member/read"); // /webapp/member/read.jsp
     return mav;
   }
@@ -197,6 +206,11 @@ public class MemberCont {
     MemberVO memberVO = this.memberProc.read_update(member_no); // 수정용 읽기
     mav.addObject("memberVO", memberVO); // request.setAttribute("memberVO", memberVO);
     
+    // option 용 memberlevel 목록
+    List<MemberlevelVO> memberlevelList = this.memberlevelProc.list();
+    mav.addObject("memberlevelList", memberlevelList);
+    
+    // option selected용 회원 등급번호
     mav.setViewName("/member/update"); // webapp/member/update.jsp
     
     return mav;
@@ -272,10 +286,8 @@ public class MemberCont {
       // -------------------------------------------------------------------
       
       cnt = this.memberProc.update(memberVO);
-      
-      mav.setViewName("/member/update_msg"); // webapp/member/update_msg.jsp
     }
-
+    mav.setViewName("/member/update_msg"); // webapp/member/update_msg.jsp
     mav.addObject("cnt", cnt); // request에 저장
     mav.addObject("passwd_cnt", passwd_cnt); // request에 저장
     

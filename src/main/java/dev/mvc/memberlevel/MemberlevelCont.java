@@ -22,7 +22,8 @@ public class MemberlevelCont {
   }
   
   /**
-   * 목록 http://localhost:9090/team2/memberlevel/list.do
+   * 목록
+   * http://localhost:9090/team2/memberlevel/list.do
    * @return
    */
   @RequestMapping(value = "/memberlevel/list.do", method = RequestMethod.GET)
@@ -37,7 +38,9 @@ public class MemberlevelCont {
   }
 
   /**
-   * ajax기반 권한 등록처리 http://localhost:9090/team2/memberlevel/create.do
+   * ajax기반 권한 등록처리
+   * http://localhost:9090/team2/memberlevel/create.do
+   * @param memberlevelVO
    * @return
    */
   @ResponseBody
@@ -53,8 +56,9 @@ public class MemberlevelCont {
   
 
   /**
-   * Ajax기반 조회 http://localhost:9090/team2/memberlevel/read.do
-   * 
+   * Ajax기반 조회
+   * http://localhost:9090/team2/memberlevel/read.do
+   * @param memberlevel_no
    * @return
    */
   @ResponseBody
@@ -73,8 +77,7 @@ public class MemberlevelCont {
 
   /**
    * Ajax 기반 수정 처리
-   * 
-   * @param MemberlevelVO
+   * @param memberlevelVO
    * @return
    */
   @ResponseBody

@@ -1,8 +1,8 @@
 package dev.mvc.auth;
 
 public class AuthVO {
-//  auth_no                           NUMBER(10)     NOT NULL    PRIMARY KEY,
-//  auth_content                      VARCHAR2(50)     NOT NULL
+//  auth_no       NUMBER(10)     NOT NULL    PRIMARY KEY,
+//  auth_content  VARCHAR2(50)     NOT NULL
 
   /** 권한번호*/
   private int auth_no;

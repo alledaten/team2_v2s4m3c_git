@@ -20,19 +20,19 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <link href="../css/style.css" rel="stylesheet" type="text/css"></head> 
- 
+</head>
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
   <DIV class='title_line'>
-    회원 정보
+    회원
   </DIV>
-
   <ASIDE class="aside_left">
-    <A href=''>회원 목록</A> > 
-    <A href=''>회원 정보</A> > 삭제
+    <A href='./list.do'>회원 목록</A> > 
+    <A href='./read.do?member_no=${param.member_no}'>회원 정보</A> > 
+    탈퇴
   </ASIDE>
   <ASIDE class="aside_right">
-    <A href=''>목록</A>
+    <A href='./list.do'>목록</A>
     <!-- <span class='menu_divide' >│</span> --> 
   </ASIDE> 
   

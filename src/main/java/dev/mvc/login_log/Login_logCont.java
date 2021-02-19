@@ -22,7 +22,6 @@ public class Login_logCont {
   public Login_logCont() {
     System.out.println("--> Login_logCont created");
   }
-    
  
   /**
    * 목록
@@ -33,15 +32,22 @@ public class Login_logCont {
   @RequestMapping(value="/login_log/list.do", method = RequestMethod.GET)
   public ModelAndView list(HttpSession session) {
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/login_log/list");
     
-    int member_no = (int) session.getAttribute("member_no");
-    List<Login_logVO> list = this.login_logProc.list(member_no);
-    mav.addObject("list", list);
-    
+    // 로그인 상태인지 체크
+    if (session.getAttribute("member_id") == null) {
+      // 로그인 상태가 아니라면 에러 화면으로 이동
+      mav.setViewName("/login_log/list_error"); 
+    } else {
+      // 로그인 상태라면 본인의 로그인기록 화면으로 이동
+      int member_no = (int) session.getAttribute("member_no"); 
+      List<Login_logVO> list = this.login_logProc.list(member_no);
+      mav.addObject("list", list);
+      
+      mav.setViewName("/login_log/list");
+    }
     return mav;
   }
-  
+
   /**
    * Ajax기반 조회
    * http://localhost:9090/team2/login_log/read.do

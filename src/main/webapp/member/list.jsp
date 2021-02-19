@@ -20,18 +20,19 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <link href="../css/style.css" rel="stylesheet" type="text/css">
-
 </head>
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
   <DIV class="title_line">
-    회원 목록
+    회원
   </DIV>
   <ASIDE class="aside_left">
-    전체 보기 
+    <A href='./list.do'>회원 목록</A>
   </ASIDE>
   <ASIDE class="aside_right">
+    전체 보기
+    <span class='menu_divide' >│</span>
     <A href="javascript:location.reload();">새로고침</A>
   </ASIDE>
   <DIV class='menu_line'></DIV>
@@ -80,7 +81,7 @@
                 </c:otherwise>
               </c:choose> --%>
             </td>  
-            <td style='text-align: center;'>${memberVO.member_nickname}</td>
+            <td style='text-align: center;'><a href="./read.do?member_no=${member_no}">${memberVO.member_nickname}</a></td>
             <td style='text-align: center;'>${memberVO.member_email}</td> 
             <td style='text-align: center;'>${memberVO.member_rdate.substring(0,10)}</td>
             <td style='text-align: center;'>${memberVO.level_name}</td>
@@ -90,7 +91,23 @@
       </tbody>
     </table>
     <DIV class='bottom_menu'>${paging }</DIV>
-    <br><br>
+    <DIV class='bottom_menu'>
+      <form name='frm' id='frm' method='get' action='./list.do'>
+      <c:choose>
+        <c:when test="${param.word != '' }"> <%-- 검색하는 경우 --%>
+          <input type='text' name='word' id='word' value='${param.word }' style='width: 20%;'>
+        </c:when>
+        <c:otherwise> <%-- 검색하지 않는 경우 --%>
+          <input type='text' name='word' id='word' value='' style='width: 20%;'>
+        </c:otherwise>
+      </c:choose>
+      <button type='submit'>검색</button>
+      <c:if test="${param.word.length() > 0 }">
+        <button type='button' 
+                     onclick="location.href='./list.do?word='">검색 취소</button>  
+      </c:if>    
+      </form>
+    </DIV>
   </div>
  
 <jsp:include page="/menu/bottom.jsp" flush='false' />

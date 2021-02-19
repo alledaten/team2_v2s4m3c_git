@@ -29,7 +29,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </insert> 
   
   <select id="list_memberno_asc" resultType="MemberVO">
-    SELECT member_no, member_id, member_name, member_nickname, member_email, member_rdate, member_profilethumb, memberlevel_no
+    SELECT member_no, member_id, member_passwd, member_nickname, member_name, member_isAdult, member_tel, member_email, member_rdate,
+           member_zipcode, member_address1, member_address2, member_profilepic, member_profilethumb, memberlevel_no, auth_no, snslogin_no
     FROM member
     ORDER BY member_no ASC
   </select>
@@ -99,7 +100,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </select>
   
   <select id="readById" resultType="MemberVO" parameterType="String">
-    SELECT member_no, member_id, member_passwd, member_name, member_tel, member_zipcode, member_address1, member_address2
+    SELECT member_no, member_id, member_passwd, member_nickname, member_name, member_isAdult, member_tel, member_email, member_rdate,
+           member_zipcode, member_address1, member_address2, member_profilepic, member_profilethumb, memberlevel_no, auth_no, snslogin_no
     FROM member
     WHERE member_id = #{member_id}
   </select>
@@ -116,7 +118,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         member_address1 = #{member_address1},
         member_address2 = #{member_address2},
         member_profilepic = #{member_profilepic},
-        member_profilethumb = #{member_profilethumb}
+        member_profilethumb = #{member_profilethumb},
+        memberlevel_no = #{memberlevel_no}
     WHERE member_no=#{member_no}
   </update>
   

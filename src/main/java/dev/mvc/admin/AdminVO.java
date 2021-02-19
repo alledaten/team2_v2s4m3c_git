@@ -1,10 +1,10 @@
 package dev.mvc.admin;
 
 public class AdminVO {
-//  admin_no  NUMBER(10,0)      NOT NULL    PRIMARY KEY, 
-//  admin_id    VARCHAR2(100)   NOT NULL,
+//  admin_no        NUMBER(10,0)    NOT NULL    PRIMARY KEY, 
+//  admin_id        VARCHAR2(100)   NOT NULL,
 //  admin_passwd    VARCHAR2(100)   NOT NULL,
-//  admin_name   VARCHAR2(100)  NOT NULL
+//  admin_name      VARCHAR2(100)   NOT NULL
 
   /** 관리자번호 */
   private int admin_no;

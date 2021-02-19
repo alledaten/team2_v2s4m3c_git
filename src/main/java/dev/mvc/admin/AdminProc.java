@@ -41,6 +41,12 @@ public class AdminProc implements AdminProcInter {
     AdminVO adminVO = this.adminDAO.read(admin_no);
     return adminVO;
   }
+  
+  @Override
+  public AdminVO readById(String admin_id) {
+    AdminVO adminVO = this.adminDAO.readById(admin_id);
+    return adminVO;
+  }
 
   @Override
   public int update(AdminVO adminVO) {
@@ -58,12 +64,6 @@ public class AdminProc implements AdminProcInter {
   public int delete(int admin_no) {
     int cnt = this.adminDAO.delete(admin_no);
     return cnt;
-  }
-
-  @Override
-  public AdminVO readById(String admin_id) {
-    AdminVO adminVO = this.adminDAO.readById(admin_id);
-    return adminVO;
   }
   
   @Override

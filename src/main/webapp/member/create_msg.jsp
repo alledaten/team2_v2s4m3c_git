@@ -59,7 +59,7 @@
         <c:choose>
           <c:when test="${cnt == 1 }">
             <button type='button' 
-                         onclick=""
+                         onclick="location.href='./login.do'"
                          class="btn btn-info">로그인</button>
           </c:when>
           <c:otherwise>

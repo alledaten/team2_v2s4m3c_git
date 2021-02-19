@@ -23,6 +23,11 @@
 
     
 <script type="text/javascript">
+  $(function() {
+    if(sessionScope == null) {
+      location.reload('./list_error.jsp');
+    }
+  }); 
 
   /****************** 취소 ******************/
   function cancel() {
@@ -121,7 +126,7 @@
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
   <DIV class="title_line">
-    회원 권한 관리
+    회원
   </DIV>
   <ASIDE class="aside_left">
     전체 보기 

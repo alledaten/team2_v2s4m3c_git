@@ -20,7 +20,7 @@ CREATE TABLE member(
     memberlevel_no                NUMBER(10)     NOT NULL,
     auth_no                       NUMBER(10)         NOT NULL,
     snslogin_no                   NUMBER(10)     NOT NULL,
-    PRIMARY KEY(member_no),
+    PRIMARY KEY (member_no),
     FOREIGN KEY (auth_no) REFERENCES auth (auth_no),
     FOREIGN KEY (memberlevel_no) REFERENCES memberlevel (memberlevel_no),
     FOREIGN KEY (snslogin_no) REFERENCES snslogin (snslogin_no)

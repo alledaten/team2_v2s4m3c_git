@@ -24,7 +24,8 @@ public class SnsloginCont {
   }
   
   /**
-   * 목록 http://localhost:9090/team2/snslogin/list.do
+   * 목록
+   * http://localhost:9090/team2/snslogin/list.do
    * @return
    */
   @RequestMapping(value = "/snslogin/list.do", method = RequestMethod.GET)
@@ -39,7 +40,9 @@ public class SnsloginCont {
   }
     
   /**
-   * ajax기반 권한 등록처리 http://localhost:9090/team2/snslogin/create.do
+   * ajax기반 권한 등록처리
+   * http://localhost:9090/team2/snslogin/create.do
+   * @param snsloginVO
    * @return
    */
   @ResponseBody
@@ -55,8 +58,9 @@ public class SnsloginCont {
   
 
   /**
-   * Ajax기반 조회 http://localhost:9090/team2/snslogin/read.do
-   * 
+   * Ajax기반 조회
+   * http://localhost:9090/team2/snslogin/read.do
+   * @param snslogin_no
    * @return
    */
   @ResponseBody
@@ -75,8 +79,7 @@ public class SnsloginCont {
 
   /**
    * Ajax 기반 수정 처리
-   * 
-   * @param SnsloginVO
+   * @param snsloginVO
    * @return
    */
   @ResponseBody

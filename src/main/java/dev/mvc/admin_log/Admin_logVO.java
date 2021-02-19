@@ -1,9 +1,9 @@
 package dev.mvc.admin_log;
 
 public class Admin_logVO {
-//  admin_log_no    NUMBER(10)  NOT NULL    PRIMARY KEY,
-//  admin_no        NUMBER(10)  NOT NULL,
-//  admin_log_date  DATE    NOT NULL,
+//  admin_log_no    NUMBER(10)      NOT NULL    PRIMARY KEY,
+//  admin_no        NUMBER(10)      NOT NULL,
+//  admin_log_date  DATE            NOT NULL,
 //  admin_log_ip    VARCHAR2(100)   NOT NULL,
 //  FOREIGN KEY (admin_no) REFERENCES admin (admin_no)
 
@@ -43,8 +43,5 @@ public class Admin_logVO {
   public void setAdmin_log_ip(String admin_log_ip) {
     this.admin_log_ip = admin_log_ip;
   }
-  
-  
-  
   
 }

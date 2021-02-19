@@ -256,14 +256,17 @@
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
   <DIV class="title_line">
-    회원 권한 관리
+    회원 관리
   </DIV>
   <ASIDE class="aside_left">
-    전체 보기 
+    <A href='./list.do'>등급 목록</A>
+    <span class='menu_divide' >│</span>
+    <A href='../auth/list.do'>권한 목록</A>
+    <span class='menu_divide' >│</span>
+    <A href='../snslogin/list.do'>SNS로그인 목록</A>    
   </ASIDE>
   <ASIDE class="aside_right">
     <A href="javascript:location.reload();">새로고침</A>
-    <!--  <span class='menu_divide' >│</span> -->
   </ASIDE> 
   <DIV class='menu_line'></DIV>
     <DIV id='panel_create' style='padding: 10px 0px 10px 0px; background-color: #F9F9F9; width: 100%; text-align: center;'>

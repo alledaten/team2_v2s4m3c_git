@@ -7,14 +7,18 @@
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>Resort world</title>
  
-<link href="../css/style.css" rel="Stylesheet" type="text/css">
+<link href="../css/common.css" rel="stylesheet" type="text/css">
+<link href="../css/menu.css" rel="stylesheet" type="text/css">
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  
-<script type="text/JavaScript"
-          src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
- 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- Bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<link href="../css/style.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
   function loadDefault() {
@@ -27,8 +31,12 @@
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
- 
-<DIV class='title_line'>로그인</DIV>
+   <DIV class='title_line'>
+  회원
+  </DIV>
+  <ASIDE class="aside_left">
+    <A href='./login.do'>로그인</A>
+  </ASIDE>
  
 <DIV style='width: 80%; margin: 0px auto;'>
   <FORM name='frm' method='POST' action='./login.do' class="form-horizontal">
@@ -58,7 +66,7 @@
         <button type='button' onclick="location.href='./create.do'" class="btn btn-primary btn-md">회원가입</button>
         <button type='button' onclick="loadDefault();" class="btn btn-primary btn-md">테스트 계정</button>
       </div>
-    </div>   
+    </div>
     
   </FORM>
 </DIV>

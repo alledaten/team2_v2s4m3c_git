@@ -7,7 +7,8 @@
 <meta charset="UTF-8"> 
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>전통주 리뷰 커뮤니티</title>
- <link href="../css/common.css" rel="stylesheet" type="text/css">
+ 
+<link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/menu.css" rel="stylesheet" type="text/css">
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -22,17 +23,16 @@
 </head> 
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
- 
-  <DIV class='title_line'>
+  <DIV class="title_line">
     회원
   </DIV>
-
   <ASIDE class="aside_left">
-    <A href=''>회원</A> > 
-    <A href=''>회원 정보</A> > 탈퇴
+    <A href='./list.do'>회원 목록</A> > 
+    <A href='./read.do?member_no=${param.member_no}'>회원 정보</A> > 
+    탈퇴
   </ASIDE>
   <ASIDE class="aside_right">
-    <A href=''>목록</A>
+    <A href='./list.do'>목록</A>
     <!-- <span class='menu_divide' >│</span> --> 
   </ASIDE> 
   

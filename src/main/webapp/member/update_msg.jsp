@@ -24,15 +24,14 @@
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
   <DIV class='title_line'>
-    카테고리 이름
+    회원
   </DIV>
-
   <ASIDE class="aside_left">
-    <A href=''>카테고리 그룹</A> > 
-    <A href=''>카테고리</A> > 수정
+    <A href='./list.do'>회원 목록</A> > 
+    <A href='./read.do?member_no=${param.member_no}'>회원 정보</A> > 수정
   </ASIDE>
   <ASIDE class="aside_right">
-    <A href=''>목록</A>
+    <A href='./list.do'>목록</A>
     <!-- <span class='menu_divide' >│</span> --> 
   </ASIDE> 
  

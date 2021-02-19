@@ -258,10 +258,14 @@
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
   <DIV class="title_line">
-    회원 권한 관리
+    회원 관리
   </DIV>
   <ASIDE class="aside_left">
-    전체 보기 
+    <A href='../memberlevel/list.do'>등급 목록</A>
+    <span class='menu_divide' >│</span>
+    <A href='./list.do'>권한 목록</A>
+    <span class='menu_divide' >│</span>
+    <A href='../snslogin/list.do'>SNS로그인 목록</A>    
   </ASIDE>
   <ASIDE class="aside_right">
     <A href="javascript:location.reload();">새로고침</A>

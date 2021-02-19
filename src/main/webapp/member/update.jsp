@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  
 <!DOCTYPE html> 
 <html lang="ko"> 
@@ -22,20 +23,59 @@
 <script type="text/javascript">
   $(function() { // 자동 실행
     $('#btn_DaumPostcode').on('click', DaumPostcode); // 다음 우편 번호
+    $('#btn_send').on('click', send); 
   });
 
+  function send() { // 수정 처리
+    // 패스워드를 입력했는지 확인
+    if ($('#member_passwd').val().length <= 0) {
+      msg = "패스워드를 입력해주세요.<br>"; 
+      
+      $('#modal_content').attr('class', 'alert alert-danger'); // CSS 변경
+      $('#modal_title').html('패스워드 확인'); // 제목 
+      $('#modal_content').html(msg);  // 내용
+      $('#modal_panel').modal();         // 다이얼로그 출력
+      
+      $('#btn_send').attr('data-focus', 'member_passwd');
+      
+      return false; // submit 중지
+    }
+  
+    $('#frm').submit();
+  }
+  
 </script>
 </head> 
  
 <body>
 <jsp:include page="/menu/top.jsp" flush='false' />
+  <!-- ********** Modal 알림창 시작 ********** -->
+  <div id="modal_panel" class="modal fade"  role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+          <h4 class="modal-title" id='modal_title'></h4><!-- 제목 -->
+        </div>
+        <div class="modal-body">
+          <p id='modal_content'></p>  <!-- 내용 -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="btn_close" data-focus="" class="btn btn-default" 
+                  data-dismiss="modal">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ********** Modal 알림창 종료 ********** -->
+  
   <DIV class='title_line'>
-    회원 정보
+    회원
   </DIV>
-
   <ASIDE class="aside_left">
-    <A href=''>회원</A> > 
-    <A href=''>회원정보</A> > 수정
+    <A href='./list.do'>회원 목록</A> > 
+    <A href='./read.do?member_no=${param.member_no}'>회원 정보</A> > 수정
   </ASIDE>
   <ASIDE class="aside_right">
     <A href='./list.do'>목록</A>
@@ -185,7 +225,7 @@
       <div class="form-group">   
         <label for="member_address2" class="col-md-2 control-label">상세주소</label>
         <div class="col-md-6">
-          <input type='text' class="form-control" name='member_address2' id='member_address2' value=''${memberVO.member_address2} placeholder="주소" required="required" style='width: 80%;'>
+          <input type='text' class="form-control" name='member_address2' id='member_address2' value=''${memberVO.member_address2} placeholder="주소" style='width: 80%;'>
         </div>
       </div>
       
@@ -201,18 +241,18 @@
       
       <div class="form-group">
         <label for="memberlevel" class="col-md-2 control-label">등급</label>
+        <c:set var="memberlevel_no" value="${memberVO.memberlevel_no}" />
         <div class="col-md-6">
-          <%-- 실제 컬럼명: member_profilepic, Spring File 객체 대응: fiel1MF --%>
-          <select name="memberlevel">
-            <option value="일반회원" selected="selected">일반회원</option>
-            <option value="준회원">준회원</option>
-            <option value="정회원">정회원</option>
+          <select name="memberlevel_no">
+            <c:forEach var="vo" items="${memberlevelList}">
+              <option value="${vo.memberlevel_no}" ${ vo.memberlevel_no == memberlevel_no ? "selected='selected'": "" } >${vo.memberlevel_name}</option>
+            </c:forEach>
          </select>
         </div>
       </div>
       
       <DIV class='content_bottom_menu'>
-        <button type="submit" id="btn_send" class="btn btn-info">수정</button>
+        <button type="button" id="btn_send" class="btn btn-info">수정</button>
         <button type="button" 
                 onclick="location.href='./list.do'" 
                 class="btn btn-info">취소</button>

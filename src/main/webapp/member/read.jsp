@@ -24,17 +24,28 @@
 </head>
 
 <body>
-  <%-- <c:set var="cateno" value="${cateVO.cateno}" />
-<c:set var="contentsno" value="${contentsVO.contentsno }" />
- --%>
   <jsp:include page="/menu/top.jsp" flush='false' />
-  <DIV class='title_line'>회원 정보</DIV>
-  <ASIDE class="aside_left">회원 목록 > 회원정보</ASIDE>
-
+  <c:set var="member_no" value="${memberVO.member_no}" />
+  <DIV class='title_line'>회원</DIV>
+  <ASIDE class="aside_left">
+    <A href='./list.do'>회원 목록</A> > 
+    회원정보
+  </ASIDE>
+  <ASIDE class="aside_right">
+    <A href='./update.do?&member_no=${member_no}'>수정</A>
+    <span class='menu_divide'> | </span>
+    <A href='./delete.do?&member_no=${member_no}'>탈퇴</A>
+    <c:choose>
+      <%-- 회원으로 로그인 된 상태라면 메뉴 보이기 --%>
+      <c:when test="${sessionScope.member_id != null}">
+        <span class='menu_divide'> | </span>
+        <A href='../login_log/list.do?member_no=${member_no}'>로그인 기록</A>
+      </c:when>
+    </c:choose>
+  </ASIDE>
   <div class='menu_line'></div>
 
   <FORM name='frm' method="get" action='./update.do'>
-    <c:set var="member_no" value="${memberVO.member_no}" />
     <input type="hidden" name="member_no" value="${member_no}">
     <table class="table table-hover">
       <colgroup>
@@ -74,7 +85,7 @@
         </tr>
         <tr>
           <td>프로필사진</td>
-          <td><img src="./storage/profile_images/${memberVO.member_profilepic }"></td>
+          <td><img src="./storage/profile_images/${memberVO.member_profilepic }" style="width: 300px;"></td>
         </tr>
         <tr>
           <td>가입일</td>
@@ -82,7 +93,7 @@
         </tr>
         <tr>
           <td>등급</td>
-          <td>${memberVO.auth_no }</td>
+          <td>${memberlevel_name }</td>
         </tr>
         <tr>
           <td>SNS연동</td>
@@ -91,11 +102,7 @@
       </tbody>
     </table>
   </FORM>
-  <ASIDE class="aside_right">
-    <A href='./update.do?&member_no=${member_no}'>수정</A>
-    <span class='menu_divide'> | </span>
-    <A href='./delete.do?&member_no=${member_no}'>탈퇴</A>
-  </ASIDE>
+
   <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
 

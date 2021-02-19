@@ -25,7 +25,7 @@
 <script type="text/javascript">
   $(function(){ 
     $('#btn_retry').on('click', function() { 
-      location.href="./login.do"
+      location.href="../member/list.do"
     });
 
     $('#btn_home').on('click', function() { 
@@ -46,10 +46,10 @@
   <DIV class='message'>
     <fieldset class='fieldset_basic'>
       <ul>
-        <li class='li_none'>회원 로그인에 실패했습니다.</li>
-        <li class='li_none'>ID 또는 패스워드가 일치하지 않습니다.</li>
+        <li class='li_none'>열람 권한이 없습니다.</li>
+        <li class='li_none'>로그인 해 주세요</li>
         <li class='li_none'>
-          <button type="button" id="btn_retry" class="btn btn-primary btn-md">로그인 다시 시도</button>
+          <button type="button" id="btn_retry" class="btn btn-primary btn-md">로그인</button>
           <button type="button" id="btn_home" class="btn btn-primary btn-md">확인</button>
         </li>
         
