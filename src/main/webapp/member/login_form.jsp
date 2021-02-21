@@ -28,6 +28,12 @@
     $('#member_id').val('user1');
     $('#member_passwd').val('1234');
   }  
+
+  var naverLogin = new naver.LoginWithNaverId(
+      {
+        loginButton: {color: "green", type: 3, height: 60} /* 로그인 버튼의 타입을 지정 */
+      }
+    );
 </script> 
 
 </head> 
@@ -51,7 +57,6 @@
                    value='' required="required" 
                    style='width: 30%;' placeholder="아이디" autofocus="autofocus">
       </div>
- 
     </div>   
  
     <div class="form-group">
@@ -72,10 +77,13 @@
     </div>
     
   </FORM>
+  <!-- 네이버 로그인 화면으로 이동 시키는 URL -->
+  <!-- 네이버 로그인 화면에서 ID, PW를 올바르게 입력하면 callback 메소드 실행 요청 -->
+  <div id="naver_id_login" style="text-align:center">
+    <a href="${url}"><img src="../css/images/naver_login_green.PNG" style='width: 250px;'></a>
+  </div>
 </DIV>
- <!-- 네이버 로그인 화면으로 이동 시키는 URL -->
-<!-- 네이버 로그인 화면에서 ID, PW를 올바르게 입력하면 callback 메소드 실행 요청 -->
-<div id="naver_id_login" style="text-align:center"><a href="${url}">네이버 로그인</a></div>
+
 <br>
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>

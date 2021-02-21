@@ -6,6 +6,22 @@ DROP TABLE memberlevel;
 DROP TABLE snslogin;
 
 /**********************************/
+/* Member 테이블 제약조건 변경 */
+/**********************************/
+ALTER TABLE member modify member_id NULL;
+ALTER TABLE member modify member_passwd NULL;
+ALTER TABLE member modify member_nickname NULL;
+ALTER TABLE member modify member_name NULL;
+ALTER TABLE member modify member_isAdult NULL;
+ALTER TABLE member modify member_tel NULL;
+ALTER TABLE member modify member_rdate NULL;
+ALTER TABLE member modify member_zipcode NULL;
+ALTER TABLE member modify member_address1 NULL;
+ALTER TABLE member modify member_address2 NULL;
+ALTER TABLE member modify memberlevel_no NULL;
+ALTER TABLE member modify auth_no NULL;
+
+/**********************************/
 /* Table Name: 회원 */
 /**********************************/
 CREATE TABLE member(
