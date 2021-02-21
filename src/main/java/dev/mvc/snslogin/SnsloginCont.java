@@ -170,8 +170,6 @@ public class SnsloginCont {
       memberVO.setMember_id(sns_id);
       memberVO.setMember_email(naverUserInfo.getString("email"));
       memberVO.setMember_nickname(naverUserInfo.getString("nickname"));
-      memberVO.setMember_name(naverUserInfo.getString("name"));
-      memberVO.setMember_profilepic(naverUserInfo.getString("profile_image"));
       memberVO.setSnslogin_no(2); // 2: ³×ÀÌ¹ö
       this.memberProc.create(memberVO);
 
