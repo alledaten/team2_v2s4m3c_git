@@ -1,31 +1,31 @@
 -- 테이블 구조
 -- member 삭제전에 FK가 선언된 테이블 먼저 삭제합니다.
+DROP TABLE member;
 DROP TABLE auth;
 DROP TABLE memberlevel;
 DROP TABLE snslogin;
-DROP TABLE member;
 
 /**********************************/
 /* Table Name: 회원 */
 /**********************************/
 CREATE TABLE member(
     member_no                     NUMBER(10)		NOT NULL    PRIMARY KEY,
-    member_id                     VARCHAR2(50)		NOT NULL,
-    member_passwd                 VARCHAR2(50)		NOT NULL,
-    member_nickname               VARCHAR2(50)		NOT NULL,
-    member_name                   VARCHAR2(50)		NOT NULL,
-    member_isAdult                VARCHAR2(50)		NOT NULL,
-    member_tel                    VARCHAR2(50)		NOT NULL,
+    member_id                     VARCHAR2(50)		NULL,
+    member_passwd                 VARCHAR2(50)		NULL,
+    member_nickname               VARCHAR2(50)		NULL,
+    member_name                   VARCHAR2(50)		NULL,
+    member_isAdult                VARCHAR2(50)		NULL,
+    member_tel                    VARCHAR2(50)		NULL,
     member_email                  VARCHAR2(100)		NULL,
-    member_rdate                  DATE		        NOT NULL,
-    member_zipcode                VARCHAR2(200)		NOT NULL,
-    member_address1               VARCHAR2(200)     NOT NULL,
-    member_address2               VARCHAR2(200)     NOT NULL,
+    member_rdate                  DATE		        NULL,
+    member_zipcode                VARCHAR2(200)		NULL,
+    member_address1               VARCHAR2(200)     NULL,
+    member_address2               VARCHAR2(200)     NULL,
     member_profilepic             VARCHAR2(200)     NULL,
     member_profilethumb           VARCHAR2(200)     NULL,
-    memberlevel_no                NUMBER(10)		NOT NULL,
-    auth_no                       NUMBER(10)        NOT NULL,
-    snslogin_no                   NUMBER(10)		NOT NULL,
+    memberlevel_no                NUMBER(10)		NULL,
+    auth_no                       NUMBER(10)        NULL,
+    snslogin_no                   NUMBER(10)		NULL,
     FOREIGN KEY (auth_no) REFERENCES auth (auth_no),
     FOREIGN KEY (memberlevel_no) REFERENCES memberlevel (memberlevel_no),
     FOREIGN KEY (snslogin_no) REFERENCES snslogin (snslogin_no)
@@ -216,7 +216,7 @@ DELETE FROM member;
  
 2) 특정 회원 삭제
 DELETE FROM member
-WHERE memberno=10;
+WHERE member_no=19;
 
 COMMIT;
  

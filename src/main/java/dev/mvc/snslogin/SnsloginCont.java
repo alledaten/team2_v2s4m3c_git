@@ -1,23 +1,46 @@
 package dev.mvc.snslogin;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import dev.mvc.auth.AuthVO;
+import com.github.scribejava.core.model.OAuth2AccessToken;
+
+import dev.mvc.login_log.Login_logProcInter;
+import dev.mvc.login_log.Login_logVO;
+import dev.mvc.member.MemberProcInter;
+import dev.mvc.member.MemberVO;
+import dev.mvc.tool.Tool;
+import dev.mvc.tool.Upload;
 
 @Controller
 public class SnsloginCont {
   @Autowired
   @Qualifier("dev.mvc.snslogin.SnsloginProc")
   private SnsloginProcInter snsloginProc;
+  
+  @Autowired
+  @Qualifier("dev.mvc.member.MemberProc")
+  private MemberProcInter memberProc;
+
+  @Autowired
+  @Qualifier("dev.mvc.login_log.Login_logProc")
+  private Login_logProcInter login_logProc;
 
   public SnsloginCont() {
     System.out.println("--> SnsloginCont created");
@@ -110,4 +133,81 @@ public class SnsloginCont {
 
     return json.toString();
   }
+  
+  /**********************************************************************************************/
+
+  private NaverLoginBO naverLoginBO;
+  private String apiResult = null;
+  
+  @Autowired
+  private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+    this.naverLoginBO = naverLoginBO;
+  }
+
+  //네이버 로그인 성공시 callback호출 메소드
+  @RequestMapping(value = "/snslogin/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
+  public ModelAndView callback(Model model, @RequestParam String code, @RequestParam String state, HttpSession session, HttpServletRequest request)
+      throws IOException {
+    ModelAndView mav = new ModelAndView();
+    System.out.println("여기는 callback");
+    
+    OAuth2AccessToken oauthToken;
+        oauthToken = naverLoginBO.getAccessToken(session, code, state);
+        //로그인 사용자 정보를 읽어온다.
+        apiResult = naverLoginBO.getUserProfile(oauthToken);
+      
+    // 가입여부를 판단하기위해 id를 확인함
+    JSONObject naverUserInfo = new JSONObject(apiResult).getJSONObject("response");
+    String sns_id = naverUserInfo.getString("id");
+    
+    // 가입여부체크
+    int checkIdCnt = this.memberProc.checkID(sns_id);
+    
+    if (checkIdCnt == 0) {
+      System.out.println("없어서 등록함");
+      // 없으면 등록
+      MemberVO memberVO = new MemberVO();
+      memberVO.setMember_id(sns_id);
+      memberVO.setMember_email(naverUserInfo.getString("email"));
+      memberVO.setMember_nickname(naverUserInfo.getString("nickname"));
+      memberVO.setMember_name(naverUserInfo.getString("name"));
+      memberVO.setMember_profilepic(naverUserInfo.getString("profile_image"));
+      memberVO.setSnslogin_no(2); // 2: 네이버
+      this.memberProc.create(memberVO);
+
+    } else {
+      System.out.println("있는 아이디");
+    }
+    // DB에 등록된 정보를 읽어옴
+    MemberVO memberVO = this.memberProc.readById(sns_id);
+
+    /************* 로그인 로그 등록 *******/
+    Login_logVO login_logVO = new Login_logVO();
+    
+    login_logVO.setMember_no(memberVO.getMember_no());  // 회원 번호
+    login_logVO.setLogin_log_ip(request.getRemoteAddr()); // IP주소
+
+    int cnt = this.login_logProc.create(login_logVO);
+    
+    if(cnt == 1) {
+      System.out.println("--> " + sns_id +" 회원 로그인 등록 성공");
+    } else {
+      System.out.println("--> 등록실패");
+    }
+    /**************************************/
+    
+    // 세션에 정보 저장
+    session.setAttribute("member_no", memberVO.getMember_no());
+    session.setAttribute("member_id", sns_id);
+    session.setAttribute("member_name", memberVO.getMember_nickname());
+    
+    // 모델에 정보 저장
+    mav.addObject("member_no", memberVO.getMember_no());
+    mav.addObject("result", apiResult);
+    mav.setViewName("redirect:/index.do");
+    
+    /* 네이버 로그인 성공 페이지 View 호출 */
+    return mav;
+  }
+  
 }

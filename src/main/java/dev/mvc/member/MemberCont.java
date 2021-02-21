@@ -22,6 +22,7 @@ import dev.mvc.login_log.Login_logProcInter;
 import dev.mvc.login_log.Login_logVO;
 import dev.mvc.memberlevel.MemberlevelProcInter;
 import dev.mvc.memberlevel.MemberlevelVO;
+import dev.mvc.snslogin.NaverLoginBO;
 import dev.mvc.tool.Tool;
 import dev.mvc.tool.Upload;
 
@@ -388,9 +389,21 @@ public class MemberCont {
   // http://localhost:9090/team2/member/login.do 
   @RequestMapping(value = "/member/login.do", 
                   method = RequestMethod.GET)
-  public ModelAndView login() {
+  public ModelAndView login(HttpSession session) {
     ModelAndView mav = new ModelAndView();
   
+    /* 네이버 로그인 */
+    NaverLoginBO naverLoginBO = new NaverLoginBO();
+    String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+    
+    //https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=sE***************&
+    //redirect_uri=http%3A%2F%2F211.63.89.90%3A8090%2Flogin_project%2Fcallback&state=e68c269c-5ba9-4c31-85da-54c16c658125
+    System.out.println("네이버:" + naverAuthUrl);
+    
+
+    /* 생성한 네이버 인증 URL을 View로 전달 */
+    mav.addObject("url", naverAuthUrl);
+    
     mav.setViewName("/member/login_form");
     return mav;
   }

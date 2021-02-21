@@ -18,6 +18,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+<!-- 네이버 -->
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
+
 <link href="../css/style.css" rel="stylesheet" type="text/css">
 
 <script type="text/javascript">
@@ -70,7 +73,10 @@
     
   </FORM>
 </DIV>
- 
+ <!-- 네이버 로그인 화면으로 이동 시키는 URL -->
+<!-- 네이버 로그인 화면에서 ID, PW를 올바르게 입력하면 callback 메소드 실행 요청 -->
+<div id="naver_id_login" style="text-align:center"><a href="${url}">네이버 로그인</a></div>
+<br>
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>
  

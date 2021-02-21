@@ -56,5 +56,7 @@
     class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
   </beans:bean>
   
+  <beans:bean id="naverLoginBO" class="dev.mvc.snslogin.NaverLoginBO" />
+  
 </beans:beans>
 	
