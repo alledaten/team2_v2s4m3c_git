@@ -18,18 +18,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   #{name}: public String getName() 자동 호출
    -->
   <insert id="create" parameterType="PayVO">
-    INSERT INTO pay(pay_no, buy_no, pay_rdate, dev_cost, product_cost, pay_point, pay_coupon, pay_total, pay_way, pay_check)
-    VALUES (pay_seq.nextval, #{buy_no}, sysdate, #{dev_cost}, #{product_cost}, #{pay_point}, #{pay_coupon}, #{pay_total}, #{pay_way}, 'N')
+    INSERT INTO pay(pay_no, member_no, buy_no, pay_rdate, dev_cost, product_cost, pay_point, pay_coupon, pay_total, pay_way, pay_check)
+    VALUES (pay_seq.nextval, #{member_no}, #{buy_no}, sysdate, #{dev_cost}, #{product_cost}, #{pay_point}, #{pay_coupon}, #{pay_total}, #{pay_way}, 'N')
   </insert>
   
   <select id="list_pay_desc" resultType="PayVO">
-    SELECT pay_no, buy_no, pay_rdate, dev_cost, product_cost, pay_point, pay_coupon, pay_total, pay_way, pay_check
+    SELECT pay_no, member_no, buy_no, pay_rdate, dev_cost, product_cost, pay_point, pay_coupon, pay_total, pay_way, pay_check
     FROM pay 
     ORDER BY pay_no DESC
   </select>
   
   <select id="read" parameterType="int" resultType="PayVO">
-    SELECT pay_no, buy_no, pay_rdate, dev_cost, product_cost, pay_point, pay_coupon, pay_total, pay_way, pay_check
+    SELECT pay_no, member_no, buy_no, pay_rdate, dev_cost, product_cost, pay_point, pay_coupon, pay_total, pay_way, pay_check
     FROM pay
     WHERE pay_no = #{pay_no}
   </select>

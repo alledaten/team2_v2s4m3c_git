@@ -42,6 +42,8 @@
   <context:component-scan base-package="dev.mvc.dev" /> <!-- AI -->
   <context:component-scan base-package="dev.mvc.pay" /> <!-- AI -->
   <context:component-scan base-package="dev.mvc.address" /> <!-- AI -->
+  <context:component-scan base-package="dev.mvc.point" /> <!-- AI -->
+  <context:component-scan base-package="dev.mvc.coupon" /> <!-- AI -->
   <context:component-scan base-package="dev.mvc.productgrp" /> <!-- DA -->
   <context:component-scan base-package="dev.mvc.product" /> <!-- DA -->
   <context:component-scan base-package="dev.mvc.product_attachfile" /> <!-- DA -->

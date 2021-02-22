@@ -2,6 +2,7 @@ package dev.mvc.dev;
 
 /*CREATE TABLE dev(
     dev_no                            NUMERIC(10)    NOT NULL    PRIMARY KEY,
+    member_no                         NUMERIC(10)    NOT NULL,
     buy_no                          NUMERIC(10),
     dev_member                        VARCHAR(999)     NOT NULL,
     dev_phone                       VARCHAR(50)    NOT NULL ,
@@ -12,12 +13,15 @@ package dev.mvc.dev;
     dev_rdate                         DATE     NOT NULL,
     dev_number                      VARCHAR(999)     NOT NULL,
     dev_check                          CHAR(1)           DEFAULT 'N' NOT NULL,
+  FOREIGN KEY (member_no) REFERENCES member (member_no),
   FOREIGN KEY (buy_no) REFERENCES buy (buy_no)
 );*/
 
 public class DevVO {
   /** 배송 번호 */
   private int dev_no;
+  /** 회원 번호 */
+  public int member_no;
   /** 주문 번호 */
   private int buy_no;
   /** 배송 받는 분 */
@@ -41,11 +45,18 @@ public class DevVO {
   
   
   
+  
   public int getDev_no() {
     return dev_no;
   }
   public void setDev_no(int dev_no) {
     this.dev_no = dev_no;
+  }
+  public int getMember_no() {
+    return member_no;
+  }
+  public void setMember_no(int member_no) {
+    this.member_no = member_no;
   }
   public int getBuy_no() {
     return buy_no;
@@ -107,6 +118,10 @@ public class DevVO {
   public void setDev_check(String dev_check) {
     this.dev_check = dev_check;
   }
+  
+  
+  
+
   
   
  

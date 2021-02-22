@@ -1,5 +1,6 @@
 package dev.mvc.address;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface AddressProcInter {
@@ -37,6 +38,11 @@ public interface AddressProcInter {
    */
   public int delete(int address_no);
 
-  
+  /**
+   * 주소록 값 전송
+   * @param hashMap
+   * @return
+   */
+  public int v_address(HashMap hashMap);
   
 }

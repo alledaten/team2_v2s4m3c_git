@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<!-- dev.mvc.coupon.CouponDAOInter 패키지에 등록된 interface 명시,
+      패키지명과 인터페이스명은 실제로 존재해야함,
+      Spring이 내부적으로 자동으로 interface를 구현해줌. -->
+<mapper namespace="dev.mvc.coupon.CouponDAOInter"> 
+  <!-- 
+  insert: INSERT SQL 실행
+  id: Spring에서 호출시 사용
+  parameterType: 전달받는 데이터 객체의 타입
+  return: 등록한 레코드 갯수 리턴
+  SQL선언시 ';'은 삭제
+  #{}: ? 동일
+  #{name}: public String getName() 자동 호출
+   -->
+  <insert id="create" parameterType="CouponVO">
+    INSERT INTO coupon(coupon_no, member_no, pay_no, coupon_num, coupon_rdate, coupon_use_rdate, coupon_until_rdate, coupon_check)
+    VALUES (coupon_seq.nextval, 1, 1, #{coupon_num}, sysdate, #{coupon_use_rdate}, #{coupon_until_rdate}, #{coupon_check})
+  </insert>
+  
+  <select id="list_coupon_desc" resultType="CouponVO">
+    SELECT coupon_no, member_no, pay_no, coupon_num, coupon_rdate, coupon_use_rdate, coupon_until_rdate, coupon_check
+    FROM coupon 
+    ORDER BY coupon_no DESC
+  </select>
+  
+  <select id="read" parameterType="int" resultType="CouponVO">
+    SELECT coupon_no, member_no, pay_no, coupon_num, coupon_rdate, coupon_use_rdate, coupon_until_rdate, coupon_check
+    FROM coupon
+    WHERE coupon_no = #{coupon_no}
+  </select>
+
+  <update id="update" parameterType="CouponVO">
+    UPDATE coupon
+    SET coupon_use_rdate = #{coupon_use_rdate}, coupon_check = #{coupon_check}
+    WHERE coupon_no = #{coupon_no}
+  </update>
+  
+  <delete id= "delete" parameterType="int">
+    DELETE coupon
+    WHERE coupon_no = #{coupon_no}
+  </delete>  
+  
+    <select id="read_coupon" parameterType="int" resultType="CouponVO">
+    SELECT coupon_no, member_no, pay_no, coupon_num, coupon_rdate, coupon_use_rdate, coupon_until_rdate, coupon_check
+    FROM coupon
+    WHERE member_no=#{member_no}
+  </select>
+  
+  </mapper>

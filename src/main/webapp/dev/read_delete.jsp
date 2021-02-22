@@ -54,7 +54,7 @@
       <div class="form-group">   
         <div class="col-md-12" style='text-align: center; margin: 30px;'>
           삭제 되는 배송 정보: ${devVO.dev_no }<br><br>
-          주문 삭제하시겠습니까? 삭제하시면 복구 할 수 없습니다.<br><br>
+          배송 정보를 삭제하시겠습니까? 삭제하시면 복구 할 수 없습니다.<br><br>
           
                     
           <button type = "submit" class="btn btn-info">삭제 진행</button>

@@ -25,14 +25,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
  
  <script type="text/javascript">
-   function update_ajax(address_no, address_name, address_member, address_phone, address1, address2) {
-   
-    $('#modal_update_title').html('주소록 수정'); // 제목 
-    $('#modal_update_content').html(""); // 내용
-    $('#update_modal').modal();            // 다이얼로그 출력
+   function update_ajax(member_no, address_no, address_name, address_member, address_phone, address1, address2) {
 
-    var address_no = parseInt(address_no);
-    var params= address_no + address_name + address_member + address_phone + address1 + address2;
+    var member_no = parseInt(member_no);
+    var params= member_no + address_no + address_name + address_member + address_phone + address1 + address2;
     alert('params: ' + params);
     
      // var params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
@@ -40,19 +36,15 @@
      // return;
      
      $.ajax({
-       url: '../address/update.do',
+       url: '../address/v_address.do',
        type: 'get',  // get
        cache: false, // 응답 결과 임시 저장 취소
        async: true,  // true: 비동기 통신
-       dataType: 'html', // 응답 형식: json, html, xml...
+       dataType: 'json', // 응답 형식: json, html, xml...
        data: params,      // 데이터
        success: function(rdata) { // 응답이 온경우
          // alert(rdata);
-
-         alert('params: ' + params);
-         
-         $('#panel').css('text-align', 'left');
-         $('#panel').html(rdata);  // 보통 DIV, SPAN등에 출력, input 태그는 ${'#rname'}.val(rdata);
+   
          
      },
      // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
@@ -64,9 +56,7 @@
      }
    });
    
-     $('#panel').css('text-align', 'center');
-     $('#panel').html("<img src='./images/ani04.gif' style='width: 6%;'>");
-     $('#panel').show(); // 숨겨진 태그의 출력
+
        
   }
 </script>
@@ -76,18 +66,18 @@
 <body>
   
       <!-- Modal 알림창 시작(나의 배송 주소록) -->
-  <div class="modal fade" id="update_modal" role="dialog">
+<!--   <div class="modal fade" id="update_modal" role="dialog">
     <div class="modal-dialog">
-      <!-- Modal content-->
+      Modal content
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">×</button>
           <h4 class="modal-title" id='modal_update_title'></h4>
           <div style="padding-left:80%;">
-          <button type="button" id='address_update' name='address_update' class="btn btn-info">주소록 수정</button></div><!-- 제목 -->
+          <button type="button" id='address_update' name='address_update' class="btn btn-info">주소록 수정</button></div>제목
         </div>
         <div class="modal-body">
-          <p id='modal_update_content'></p>  <!-- 내용 -->
+          <p id='modal_update_content'></p>  내용
               <DIV id='panel' style='display: hidden; margin: 10px auto; text-align: left; width: 90%;'></DIV>
         </div>
         <div class="modal-footer">
@@ -96,7 +86,7 @@
         </div>
       </div>
     </div>
-  </div> <!-- Modal 알림창 종료 -->
+  </div> --> <!-- Modal 알림창 종료 -->
   
   <DIV class='menu_line'></DIV>
   

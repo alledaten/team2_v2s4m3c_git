@@ -1,5 +1,6 @@
 package dev.mvc.address;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,12 @@ public class AddressProc implements AddressProcInter{
   @Override
   public int delete(int address_no) {
     int cnt = this.addressDAO.delete(address_no);
+    return cnt;
+  }
+
+  @Override
+  public int v_address(HashMap hashMap) {
+    int cnt = this.addressDAO.v_address(hashMap);
     return cnt;
   }
 

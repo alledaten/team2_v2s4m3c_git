@@ -53,12 +53,13 @@ public class BuyCont {
     
     int cnt = this.buyProc.create(buyVO); // 등록 처리
     
-    System.out.println("buyVO buy_no: " + buyVO.getBuy_no());    
+    // System.out.println("buyVO buy_no: " + buyVO.getBuy_no());    
     
     mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
     
     mav.addObject("buy_no", buyVO.getBuy_no());
     mav.addObject("pay_count", buyVO.getPay_count());
+    mav.addObject("member_no", buyVO.getMember_no());
     mav.addObject("url", "create_msg");
     mav.setViewName("redirect:/dev/create.do");    
     // mav.setViewName("/buy/create_msg"); // /webapp/buy/create_msg.jsp

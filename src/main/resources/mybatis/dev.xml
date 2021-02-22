@@ -18,18 +18,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   #{name}: public String getName() 자동 호출
    -->
   <insert id="create" parameterType="DevVO">
-    INSERT INTO dev(dev_no, buy_no, dev_member, dev_phone, zipcode, address1, address2, dev_message, dev_rdate, dev_number, dev_check)
-    VALUES (dev_seq.nextval, #{buy_no}, #{dev_member}, #{dev_phone}, #{zipcode}, #{address1}, #{address2}, #{dev_message}, sysdate, #{dev_number}, 'N')
+    INSERT INTO dev(dev_no, member_no, buy_no, dev_member, dev_phone, zipcode, address1, address2, dev_message, dev_rdate, dev_number, dev_check)
+    VALUES (dev_seq.nextval, #{member_no}, #{buy_no}, #{dev_member}, #{dev_phone}, #{zipcode}, #{address1}, #{address2}, #{dev_message}, sysdate, #{dev_number}, 'N')
   </insert>
   
   <select id="list_dev_desc" resultType="DevVO">
-    SELECT dev_no, buy_no, dev_member, dev_phone, zipcode, address1, address2, dev_message, dev_rdate, dev_number, dev_check
+    SELECT dev_no, member_no, buy_no, dev_member, dev_phone, zipcode, address1, address2, dev_message, dev_rdate, dev_number, dev_check
     FROM dev 
     ORDER BY dev_no DESC
   </select>
   
   <select id="read" parameterType="int" resultType="DevVO">
-    SELECT dev_no, buy_no, dev_member, dev_phone, zipcode, address1, address2, dev_message, dev_rdate, dev_number, dev_check
+    SELECT dev_no, member_no, buy_no, dev_member, dev_phone, zipcode, address1, address2, dev_message, dev_rdate, dev_number, dev_check
     FROM dev
     WHERE dev_no = #{dev_no}
   </select>

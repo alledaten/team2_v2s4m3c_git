@@ -2,6 +2,7 @@ package dev.mvc.pay;
 
 /*CREATE TABLE pay(
     pay_no                            NUMERIC(10)    NOT NULL    PRIMARY KEY,
+    member_no                      NUMERIC(10)    NOT NULL,
     buy_no                          NUMERIC(10),
     pay_rdate                        DATE     NOT NULL,
     dev_cost                         NUMERIC(10)    NOT NULL,
@@ -11,12 +12,15 @@ package dev.mvc.pay;
     pay_total                        NUMERIC(10)    NOT NULL,
     pay_way                         VARCHAR2(50)     NOT NULL,
     pay_check                          CHAR(1)           DEFAULT 'N' NOT NULL,
-    FOREIGN KEY (buy_no) REFERENCES buy (buy_no)
+  FOREIGN KEY (member_no) REFERENCES member (member_no),
+  FOREIGN KEY (buy_no) REFERENCES buy (buy_no)
 );*/
 
 public class PayVO {
   /** 결제 번호 */
   public int pay_no;
+  /** 회원 번호 */
+  public int member_no;
   /** 주문 번호 */
   public int buy_no;
   /** 결제 일자 */
@@ -43,6 +47,12 @@ public class PayVO {
   }
   public void setPay_no(int pay_no) {
     this.pay_no = pay_no;
+  }
+  public int getMember_no() {
+    return member_no;
+  }
+  public void setMember_no(int member_no) {
+    this.member_no = member_no;
   }
   public int getBuy_no() {
     return buy_no;
@@ -99,6 +109,9 @@ public class PayVO {
     this.pay_check = pay_check;
   }
   
+  
+  
+ 
   
 
 

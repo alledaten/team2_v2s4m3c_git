@@ -2,8 +2,6 @@ package dev.mvc.buy;
 
 import java.util.List;
 
-import dev.mvc.qna.QnaVO;
-
 public interface BuyDAOInter {
   /**
    * µî·Ï

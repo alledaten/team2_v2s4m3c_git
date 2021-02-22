@@ -40,6 +40,8 @@
                           dev.mvc.dev,
                           dev.mvc.pay,
                           dev.mvc.address,
+                          dev.mvc.point,
+                          dev.mvc.coupon,
                           dev.mvc.productgrp,
                           dev.mvc.notice,
                           dev.mvc.boardgrp,

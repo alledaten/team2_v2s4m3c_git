@@ -13,10 +13,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dev.mvc.buy.BuyProcInter;
 import dev.mvc.buy.BuyVO;
+import dev.mvc.member.MemberProcInter;
 
 
 @Controller
 public class DevCont {
+  @Autowired
+  @Qualifier("dev.mvc.member.MemberProc")
+  private MemberProcInter memberProc;
+  
   @Autowired
   @Qualifier("dev.mvc.buy.BuyProc")
   private BuyProcInter buyProc;

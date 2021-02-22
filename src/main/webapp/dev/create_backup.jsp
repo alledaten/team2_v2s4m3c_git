@@ -147,10 +147,20 @@ form h1{
 <script type="text/javascript">
   $(function(){
     $('#send').on('click', submit);    // form 2개 따로 등록하기 위한 ajax
+
+    // *********************  배송 부분 시작 ***************************
     $('#btn_DaumPostcode').on('click', DaumPostcode); // 다음 우편 번호
     $('#modal_address').on('click', my_address); // 나의 배송 주소록 팝업
-    $('#address_create').on('click', create); // 나의 배송 주소록 등록 
+    $('#address_create').on('click', create); // 나의 배송 주소록 등록
+        
+    // *********************  배송 부분 종료 ***************************
+    
+   // *********************  결제 부분 시작 ***************************
     $('input.num_only').on('keyup', num); // 결제 정보 계산식
+    //$('#coupon_see').on('click', coupon); // 쿠폰 조회
+    //$('#point_see').on('click', point); // 포인트 조회
+
+   // *********************  결제 부분 종료 *************************** 
     
   });
 
@@ -218,7 +228,8 @@ form h1{
     
   }
 
-
+  // *********************  배송 부분 시작 ***************************
+  
   // 주소록 모달창
   function my_address() {
 
@@ -259,7 +270,7 @@ form h1{
   }
 
   
-  //주소록 등록
+  // 주소록 등록
   function create() { 
     var params = $('#frm').serialize(); // 직렬화, 폼의 데이터를 키와 값의 구조로 조합
     // alert('params: ' + params);
@@ -293,6 +304,10 @@ form h1{
   }
 
   
+  // *********************  배송 부분 종료 ***************************
+  
+  // *********************  결제 부분 시작 ***************************
+  
   //결제 폼 계산식
   function num(){ 
     var cnt = $(".exam input.num_sum").length;     
@@ -316,6 +331,34 @@ form h1{
       $("#pay_total").val(sum);
   }
   
+  // 포인트 조회 
+  function point(member_no) { 
+    var params = 'member_no=' + member_no;
+    // return;
+    $.ajax({
+      url: '../point/read_point.do',
+      type: 'get',  // get
+      cache: false, // 응답 결과 임시 저장 취소
+      async: true,  // true: 비동기 통신
+      dataType: 'json', // 응답 형식: json, html, xml...
+      data: params,      // 데이터
+      success: function(rdata) { // 응답이 온경우
+        
+        $('#panel_point').html(rdata.point_num);
+    },
+    // Ajax 통신 에러, 응답 코드가 200이 아닌경우, dataType이 다른경우 
+    error: function(request, status, error) { // callback 함수
+      var msg = 'ERROR<br><br>';
+      msg += '<strong>request.status</strong><br>'+request.status + '<hr>';
+      msg += '<strong>error</strong><br>'+error + '<hr>';
+      console.log(msg);
+    }
+  });
+  
+  }
+  
+  // *********************  결제 부분 종료 ***************************
+  
 </script>
  
 </head> 
@@ -331,7 +374,7 @@ form h1{
     <A href="http://172.16.12.99:9090/team2/"> HOME ></A> 
     <A href="javascript:location.reload();"> 전통주 ></A>
     <A href="./list.do"> 전통주 주문 > </A>
-    배송 정보 등록
+    배송 및 결제 정보 등록
   </ASIDE>
   
   <ASIDE class="aside_right">
@@ -339,6 +382,8 @@ form h1{
   </ASIDE> 
   
   <div class='menu_line'></div>
+ 
+   <!-- **************************** 배송 부분 시작 ************************************ -->
  
    <!-- Modal 알림창 시작(나의 배송 주소록) -->
   <div class="modal fade" id="modal_panel" role="dialog">
@@ -362,15 +407,15 @@ form h1{
         </div>
       </div>
     </div>
-  </div> <!-- Modal 알림창 종료 -->
+  </div> <!-- Modal 알림창 종료(나의 배송 주소록) -->
  
   <div class='dev_label'>
   <FORM name='frm_dev' id='frm_dev' method='POST' action='./create.do' class="form-horizontal">
-    <!-- FK communuity_no 지정 -->
+    <!-- FK member_no 지정 -->
     <input type='hidden' name='member_no' id='member_no' value='1'>
-    <!-- FK member_no 지정 -->
+    <!-- FK product_no 지정 -->
     <input type='hidden' name='product_no' id='product_no' value='1'>
-    <!-- FK member_no 지정 -->
+    <!-- FK buy_no 지정 -->
     <input type='hidden' name='buy_no' id='buy_no' value='${param.buy_no }'>
     
     <input type='hidden' name='dev_number' id='dev_number' value='0000-0000-0000'>
@@ -384,14 +429,14 @@ form h1{
     <div class="form-group" style="padding-left: 50px;">   
       <div class="col-md-12">
         <label>배송 받는분: </label>
-        <input type='text' class="form-control" name='dev_member' value='' placeholder="홍길동" required="required" style='width: 30%;'>
+        <input type='text' class="form-control" name='dev_member' value='${devVO.dev_member }' placeholder="홍길동" required="required" style='width: 30%;'>
       </div>
     </div>
     
     <div class="form-group" style="padding-left: 50px;">   
       <div class="col-md-12">
         <label>배송 받는 분 연락처: </label>
-        <input type='text' class="form-control" name='dev_phone' value='' placeholder="010-1111-2222" required="required" style='width: 40%;'>
+        <input type='text' class="form-control" name='dev_phone' value='${devVO.dev_phone }'  placeholder="010-1111-2222" required="required" style='width: 40%;'>
       </div>
     </div>
     
@@ -400,7 +445,7 @@ form h1{
       <label for="zipcode" class="col-md-2 control-label" style='font-size: 0.9em;'>우편번호</label>    
       <div class="col-md-10" >
         <input type='text' class="form-control" name='zipcode' id='zipcode' 
-                   value='' style='width: 30%;' placeholder="우편번호">
+                   value='${devVO.zipcode }'  style='width: 30%;' placeholder="우편번호">
         <input type="button" id="btn_DaumPostcode" value="우편번호 찾기" class="btn btn-info btn-md">
       </div>
     </div>  
@@ -409,7 +454,7 @@ form h1{
       <label for="address1" class="col-md-2 control-label" style='font-size: 0.9em;'>주소</label>    
       <div class="col-md-10">
         <input type='text' class="form-control" name='address1' id='address1' 
-                   value='' style='width: 80%;' placeholder="주소">
+                   value='${devVO.address1 }'  style='width: 80%;' placeholder="주소">
       </div>
     </div>   
 
@@ -417,7 +462,7 @@ form h1{
       <label for="address2" class="col-md-2 control-label" style='font-size: 0.9em;'>상세 주소</label>    
       <div class="col-md-10">
         <input type='text' class="form-control" name='address2' id='address2' 
-                   value='' style='width: 80%;' placeholder="상세 주소">
+                   value='${devVO.address1 }'  style='width: 80%;' placeholder="상세 주소">
       </div>
     </div>   
 
@@ -504,7 +549,10 @@ form h1{
     
    </div> 
    
+   <!-- **************************** 배송 부분 종료 ************************************ -->
    
+   <!-- **************************** 결제 부분 시작 ************************************ -->
+     
  <FORM name='frm_pay' id='frm_pay' method='POST' action='../pay/create.do' class="form-horizontal">
     <!-- FK pay_count 지정 -->
     <input type='hidden' name='pay_count' id='pay_count' value='${param.pay_count }'>
@@ -565,9 +613,14 @@ form h1{
       </tr>
       <tr>
         <th scope="row" style="background: #FFE13C;">쿠폰 할인 </th>
-        <td style="text-align: left;"><input type="text" class="form-control num_only num_comma num_sum" id="pay_coupon" name="pay_coupon" value="0" placeholder=""></td>
+        <td style="text-align: left;"><input type="text" class="form-control num_only num_comma num_sum" id="pay_coupon" name="pay_coupon" value="0" placeholder=""> / ${couponVO.coupon_num }
+        <button type="button" id="coupon_see" class="btn btn-info">쿠폰 조회</button>
+        </td>
         <th scope="row" style="background: #FFE13C;">포인트 사용 </th>
-        <td style="text-align: left;"><input type="text" class="form-control num_only num_comma num_sum" id="pay_point" name="pay_point" value="0" placeholder=""></td>
+        <td style="text-align: left;"><input type="text" class="form-control num_only num_comma num_sum" id="pay_point" name="pay_point" value="0" placeholder="">
+         /  <DIV id='panel_point'></DIV>
+        <button type="button" id="point_see" onclick="point(${param.member_no});" class="btn btn-info">포인트 조회</button>
+        </td>
       </tr>
       <tr>
         <th scope="row" style="background: #B2FA5C;">배송료 </th>
@@ -586,6 +639,8 @@ form h1{
     </div>
   </FORM>
     
+     <!-- **************************** 결제 부분 종료 ************************************ -->
+    
       <div class="content_bottom_menu" style="padding-right: 20%;">
         <button type="button" id="send" class="btn btn-primary">주문</button>
         <button type="button" onclick="location.href='./list.do'" class="btn btn-primary">주문 취소</button>
@@ -594,7 +649,7 @@ form h1{
      <div style='clear: both;'></div>
     
 
- 
+
  
 <jsp:include page="/menu/bottom.jsp" flush='false' />
 </body>

@@ -22,14 +22,14 @@
 <jsp:include page="/menu/top.jsp" flush='false' />
 
   <DIV class="title_line">
-    전통주 결제 정보
+    포인트
   </DIV>
 
   <ASIDE class="aside_left">
     <A href="http://172.16.12.99:9090/team2/"> HOME ></A> 
     <A href="javascript:location.reload();"> 전통주 목록 ></A>
-    <A href="./list.do"> 전통주 주문 > </A>
-    결제 정보 삭제
+    <A href="./list.do"> 포인트 > </A>
+    포인트 삭제
   </ASIDE>
   
   <ASIDE class="aside_right">
@@ -41,18 +41,18 @@
   <div class='menu_line'></div>
  
   <FORM name='frm' method='POST' action='./delete.do'>
-    <!-- FK communuity_no 지정 -->
-    <input type='hidden' name='member_no' id='member_no' value='1'>
     <!-- FK member_no 지정 -->
-    <input type='hidden' name='product_no' id='product_no' value='1'>
+    <input type='hidden' name='member_no' id='member_no' value='1'>
+    <!-- FK pay_no 지정 -->
+    <input type='hidden' name='pay_no' id='pay_no' value='1'>
+    <!-- FK point_no 지정 -->
+    <input type='hidden' name='point_no' id='point_no' value='${pointVO.point_no }'>
    
-   <input type='hidden' name='buy_no' id='buy_no' value='${buyVO.buy_no }'>   
-   <input type='hidden' name='pay_no' id='pay_no' value='${payVO.pay_no }'>   
-            
+
       <div class="form-group">   
         <div class="col-md-12" style='text-align: center; margin: 30px;'>
-          삭제 되는 결제 정보: ${payVO.pay_no }<br><br>
-          결제 정보를 삭제하시겠습니까? 삭제하시면 복구 할 수 없습니다.<br><br>
+          삭제 되는 포인트 정보: ${pointVO.point_no }<br><br>
+          포인트를 삭제하시겠습니까? 삭제하시면 복구 할 수 없습니다.<br><br>
           
                     
           <button type = "submit" class="btn btn-info">삭제 진행</button>

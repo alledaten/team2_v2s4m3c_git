@@ -1,5 +1,6 @@
 package dev.mvc.address;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONObject;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import dev.mvc.qna.QnaVO;
 
 
 
@@ -42,7 +45,7 @@ public class AddressCont {
     public ModelAndView create(AddressVO addressVO) { // request.setAttribute("devVO", devVO) 자동 실행
     
     ModelAndView mav = new ModelAndView();
-    mav.setViewName("/address/create_msg"); // /webapp/address/create_msg.jsp
+    mav.setViewName("/dev/create"); // /webapp/address/create_msg.jsp
     
     int cnt = this.addressProc.create(addressVO); // 등록 처리
     mav.addObject("cnt", cnt); // request.setAttribute("cnt", cnt)
@@ -201,7 +204,32 @@ public class AddressCont {
     return mav;
   }
   
-  
+  /**
+   * 주소록 값 전송, JSON 출력
+   * @return
+   */
+  @ResponseBody
+  @RequestMapping(value="/address/v_address.do", method=RequestMethod.GET ,
+                              produces = "text/plain;charset=UTF-8" )
+  public String v_address(int member_no, int address_no, String address_name, String address_member, String address_phone, String address1, String address2) {
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
+    hashMap.put("member_no", member_no);
+    hashMap.put("address_no", address_no);
+    hashMap.put("address_name", address_name);
+    hashMap.put("address_member", address_member);
+    hashMap.put("address_phone", address_phone);
+    hashMap.put("address1", address1);
+    hashMap.put("address2", address2);
+    
+    System.out.println("member_no: " + member_no + "address_no: " + address_no + "address_name: " + address_name + "address_member: " + address_member);
+    
+    int cnt = this.addressProc.v_address(hashMap);
+    
+    JSONObject json = new JSONObject();
+    json.put("cnt", cnt);
+    
+    return json.toString(); 
+  }
   
   
 }

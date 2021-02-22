@@ -28,8 +28,8 @@
 
   function send() {
     frm.submit();
-    location.href="../dev/create.do";
   }
+
   
 </script>
  
