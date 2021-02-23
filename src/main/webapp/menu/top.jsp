@@ -91,6 +91,21 @@
             </c:choose>
           </ul>
         </li>
+        <li><a href="#">이벤트</a>
+          <ul class="depth2">  
+          <c:choose>
+              <c:when test="${sessionScope.admin_id != null}"> <!-- 관리자가 로그인된 상태라면 이벤트 목록이 보임 -->
+                <li><a href='${pageContext.request.contextPath}/event_grp/list.do'>이벤트 그룹 목록</a></li>
+              </c:when>
+              <c:otherwise>
+                <!-- 관리자로 로그인하지 않은 상태라면 관련 이벤트만 보임 (★ 이벤트가 수정된다면 링크는 수동으로 수정해야함) -->
+              </c:otherwise>
+            </c:choose>
+         <li><a href="${pageContext.request.contextPath}/event/read.do?event_grp_no=1&event_no=1">1월 이벤트</a></li>
+         <li><a href="${pageContext.request.contextPath}/event/read.do?event_grp_no=2&event_no=2">2월 이벤트</a></li>
+         <li><a href="${pageContext.request.contextPath}/event/read.do?event_grp_no=3&event_no=3">특별 이벤트</a></li>       
+          </ul>
+        </li>
       </ul>
     </div>
   </div>
