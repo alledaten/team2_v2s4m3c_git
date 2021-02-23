@@ -8,15 +8,9 @@
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>전통주 몰</title>
 
-<!-- CSS --> 
-<link href="../css/common.css" rel="stylesheet" type="text/css">
-<link href="../css/menu.css" rel="stylesheet" type="text/css">
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
 
-<!-- jQuery --> 
-<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
- 
-<!-- Bootstrap --> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -50,9 +44,14 @@
       <fieldset class="fieldset">
         <ul>
           <li class="li_none" style='border-bottom: solid 1px #AAAAAA;'>
-            <span>${noticeVO.head} | 등록일 : </span>
+            <span>제목 : ${noticeVO.head} &nbsp;<br></span>
+            <span>글번호 : ${noticeVO.seqno} &nbsp;<br></span> 
+            <span>등록일 : ${noticeVO.rdate.substring(0, 16)} &nbsp;<br></span>
+            <span>조회수 : ${noticeVO.count}</span> 
+
+<%--             <span>${noticeVO.head} | 등록일 : </span> 
             <span>${noticeVO.rdate.substring(0, 16)} | </span>
-            <span>조회수 : ${noticeVO.count}</span>
+            <span>조회수 : ${noticeVO.count}</span> --%>
           </li>
           <li class="li_none">
             <DIV>${noticeVO.content }</DIV>

@@ -5,6 +5,7 @@
 DROP TABLE notice;
 CREATE TABLE notice(
     noticeno           NUMBER(10)        NOT NULL           PRIMARY KEY,
+    seqno              NUMBER(10)		 DEFAULT 0		       NOT NULL,
     head               CLOB              DEFAULT '공지제목'  NOT NULL,
     content            CLOB              DEFAULT '공지내용'  NOT NULL,
     count              NUMBER(10)        DEFAULT 0          NOT NULL ,
@@ -14,7 +15,8 @@ CREATE TABLE notice(
 );
 
 COMMENT ON TABLE notice is '공지사항';
-COMMENT ON COLUMN notice.noticeno is '공지번호';
+COMMENT ON COLUMN notice.noticeno is '등록번호';
+COMMENT ON COLUMN notice.seqno is '순서번호';
 COMMENT ON COLUMN notice.head is '제목';
 COMMENT ON COLUMN notice.content is '내용';
 COMMENT ON COLUMN notice.count is '조회수';
@@ -23,29 +25,27 @@ COMMENT ON COLUMN notice.visible is '출력모드';
 COMMENT ON COLUMN notice.passwd is '패스워드';
 
 DROP SEQUENCE notice_seq;
--- create 등록
+-- create 등록 / notice 글 등록 번호
 CREATE SEQUENCE notice_seq
   START WITH 1        -- 시작 번호
   INCREMENT BY 1      -- 증가값
   MAXVALUE 9999999999 -- 최대값: 9999999 --> NUMBER(7) 대응
   CACHE 2             -- 2번은 메모리에서만 계산
   NOCYCLE;            -- 다시 1부터 생성되는 것을 방지
+  
+INSERT INTO notice(noticeno, seqno ,head, content, passwd, rdate)
+VALUES(notice_seq.nextval, 1, '공지사항1','공지글1','1234', sysdate);
 
+INSERT INTO notice(noticeno, seqno, head, content, passwd, rdate)
+VALUES(notice_seq.nextval,  2, '공지사항2','공지글2','1234', sysdate);
 
-INSERT INTO notice(noticeno, head, content, passwd, rdate)
-VALUES(notice_seq.nextval, '공지사항1','공지글1','1234', sysdate);
-
-INSERT INTO notice(noticeno, head, content, passwd, rdate)
-VALUES(notice_seq.nextval, '공지사항2','공지글2','1234', sysdate);
-
-INSERT INTO notice(noticeno, head, content, passwd, rdate)
-VALUES(notice_seq.nextval, '공지사항3','공지글3','1234', sysdate);
-
+INSERT INTO notice(noticeno ,seqno ,head, content, passwd, rdate)
+VALUES(notice_seq.nextval,  3, '공지사항3','공지글3','1234', sysdate);
 
 SELECT*FROM notice;
 
 --list 목록
-SELECT noticeno, head, content, count, visible,  rdate
+SELECT noticeno, seqno, head, content, count, visible,  rdate
 FROM notice
 ORDER BY noticeno ASC;
  NOTICENO    HEAD                  CONTENT       COUNT       VISIBLE      RDATE              
@@ -57,7 +57,7 @@ ORDER BY noticeno ASC;
 COMMIT;
 
 --read_update 조회, 수정 폼, 삭제 폼
-SELECT noticeno, head, content, rdate, count
+SELECT noticeno, seqno, head, content, rdate, count
 FROM notice
 WHERE noticeno=2;
  NOTICENO   HEAD                           CONTENT                        RDATE                         COUNT                                                                           
@@ -103,14 +103,17 @@ ORDER BY noticeno ASC;
  
 -- 출력 순서 상향, 10 ▷ 1
 UPDATE notice
-SET noticeno = noticeno - 1
-WHERE noticeno=6;
+SET seqno = seqno - 1
+WHERE noticeno=2;
  
 -- 출력순서 하향, 1 ▷ 10
 UPDATE notice
-SET noticeno = noticeno + 1
-WHERE noticeno=1;
+SET seqno = seqno + 1
+WHERE noticeno=2;
 
+SELECT * FROM notice;
+
+commit;
 -- 출력 모드의 변경
 UPDATE notice
 SET visible='Y'

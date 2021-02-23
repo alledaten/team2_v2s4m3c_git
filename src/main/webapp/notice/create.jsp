@@ -7,18 +7,16 @@
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>전통주 리뷰 커뮤니티</title>
  
-<!-- CSS --> 
-<link href="../css/common.css" rel="stylesheet" type="text/css">
-<link href="../css/menu.css" rel="stylesheet" type="text/css">
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
-
-<!-- jQuery --> 
-<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  
-<!-- Bootstrap --> 
+<script type="text/JavaScript"
+          src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.
+
+1/js/bootstrap.min.js"></script>
  
 </head> 
  
@@ -51,6 +49,12 @@
       <div class="form-group">   
         <div class="col-md-12">
           <textarea class="form-control" name='content' id='content' rows='10' placeholder="내용">공지내용</textarea>
+        </div>
+      </div>
+      
+      <div class="form-group">   
+        <div class="col-md-2">
+          <input type='text' class="form-control" name='seqno' id='seqno' placeholder="글번호" required="required" style='width: 80%;'>
         </div>
       </div>
       

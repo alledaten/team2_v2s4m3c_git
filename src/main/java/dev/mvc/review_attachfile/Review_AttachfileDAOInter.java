@@ -52,6 +52,5 @@ public interface Review_AttachfileDAOInter {
    */
   public int count_by_review_no(int review_no);
 
-  
-
+ 
 }

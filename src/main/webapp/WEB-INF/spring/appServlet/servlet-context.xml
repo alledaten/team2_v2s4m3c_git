@@ -50,6 +50,9 @@
   <context:component-scan base-package="dev.mvc.product_reply" /> <!-- DA -->
   <context:component-scan base-package="dev.mvc.cart" /> <!-- DA -->
   <context:component-scan base-package="dev.mvc.notice" /> <!-- CD -->
+  <context:component-scan base-package="dev.mvc.newsgrp" /> <!-- CD -->
+  <context:component-scan base-package="dev.mvc.news" /> <!-- CD -->
+  <context:component-scan base-package="dev.mvc.news_attachfile" /> <!-- CD -->
   <context:component-scan base-package="dev.mvc.boardgrp" /> <!-- WP -->
   <context:component-scan base-package="dev.mvc.forum" /> <!-- WP -->
 	

@@ -78,7 +78,10 @@ public class NoticeCont {
   public ModelAndView read(int noticeno) {
     ModelAndView mav = new ModelAndView();
     mav.setViewName("/notice/read"); // /webapp/notice/read.jsp
-
+    
+    int cnt = this.noticeProc.update_count(noticeno);
+    mav.addObject("cnt", cnt);
+    
     NoticeVO noticeVO = this.noticeProc.read(noticeno);
     mav.addObject("noticeVO", noticeVO);
 
@@ -103,7 +106,7 @@ public class NoticeCont {
 
     List<NoticeVO> list = this.noticeProc.list();
     mav.addObject("list", list);
-
+ 
     return mav; // forward
   } 
   
@@ -180,9 +183,9 @@ public class NoticeCont {
   }
 
   /**
-   * 우선순위 상향 up 10 ▷ 1
+   * 우선순위 상향 up 1 ◁ 10
    * 
-   * @param noticeno 공지사항 번호
+   * @param noticeno 공지사항 글 번호
    * @return
    */
   @RequestMapping(value = "/notice/update_noticeno_up.do", method = RequestMethod.GET)
@@ -201,9 +204,9 @@ public class NoticeCont {
   }
 
   /**
-   * 우선순위 하향 up 10 ▷ 1
+   * 우선순위 하향 down 1 ▷ 10
    * 
-   * @param noticeno 공지사항 번호
+   * @param noticeno 공지사항 글 번호
    * @return
    */
   @RequestMapping(value = "/notice/update_noticeno_down.do", method = RequestMethod.GET)
@@ -234,8 +237,14 @@ public class NoticeCont {
     int cnt = this.noticeProc.update_visible(noticeVO);
     mav.addObject("cnt", cnt); // request에 저장
 
-    mav.setViewName("redirect:/notice/list.do"); // request 객체가 전달이 안됨.
-
+    if (cnt == 1) { 
+      mav.setViewName("redirect:/notice/list.do?noticeno=" + noticeVO.getNoticeno()); // request 객체가 전달이 안됨. 
+    } else {
+      NoticeVO vo = this.noticeProc.read(noticeVO.getNoticeno());
+      String head = vo.getHead();
+      mav.addObject("head", head);
+      mav.setViewName("/notice/update_visible_msg"); // 
+    }
     return mav;
   }
 

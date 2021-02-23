@@ -23,8 +23,8 @@
       <constraint>
         <height>-1</height>
         <width>-1</width>
-        <x>149</x>
-        <y>216</y>
+        <x>160</x>
+        <y>135</y>
       </constraint>
       <sourceConnections/>
       <targetConnections/>
@@ -51,6 +51,22 @@
           <defaultValue></defaultValue>
         </net.java.amateras.db.visual.model.ColumnModel>
         <net.java.amateras.db.visual.model.ColumnModel>
+          <columnName>seqno</columnName>
+          <logicalName>등록번호</logicalName>
+          <columnType class="net.java.amateras.db.dialect.ColumnType">
+            <name>NUMBER</name>
+            <logicalName>Numeric</logicalName>
+            <supportSize>true</supportSize>
+            <type>2</type>
+          </columnType>
+          <size>10</size>
+          <notNull>true</notNull>
+          <primaryKey>false</primaryKey>
+          <description></description>
+          <autoIncrement>false</autoIncrement>
+          <defaultValue></defaultValue>
+        </net.java.amateras.db.visual.model.ColumnModel>
+        <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>head</columnName>
           <logicalName>제목</logicalName>
           <columnType class="net.java.amateras.db.dialect.ColumnType">
@@ -69,7 +85,7 @@
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>content</columnName>
           <logicalName>내용</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[2]/columnType"/>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
           <size>9999</size>
           <notNull>true</notNull>
           <primaryKey>false</primaryKey>
@@ -123,7 +139,7 @@
         <net.java.amateras.db.visual.model.ColumnModel>
           <columnName>passwd</columnName>
           <logicalName>비밀번호</logicalName>
-          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[6]/columnType"/>
+          <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[7]/columnType"/>
           <size>10</size>
           <notNull>false</notNull>
           <primaryKey>false</primaryKey>

@@ -9,15 +9,10 @@
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>전통주 리뷰 커뮤니티</title>
  
-<!-- CSS --> 
-<link href="../css/common.css" rel="stylesheet" type="text/css">
-<link href="../css/menu.css" rel="stylesheet" type="text/css">
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
-
-<!-- jQuery --> 
-<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  
-<!-- Bootstrap --> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -37,6 +32,7 @@
 <TABLE class='table table-striped'>
   <colgroup>
     <col style='width: 10%;'/>
+    <col style='width: 10%;'/>
     <col style='width: 15%;'/>
     <col style='width: 10%;'/>    
     <col style='width: 7%;'/>
@@ -46,7 +42,8 @@
  
   <thead>  
   <TR>
-    <TH class="th_bs">공지번호</TH>
+    <TH class="th_bs">등록번호</TH>
+    <TH class="th_bs">글번호</TH>
     <TH class="th_bs_left">제목</TH>
     <TH class="th_bs">등록일</TH>
     <TH class="th_bs">조회수</TH>
@@ -59,13 +56,14 @@
   <c:forEach var="noticeVO" items="${list }">
     <c:set var="noticeno" value="${noticeVO.noticeno }"/>
     <TR>  
-      <TD class="td_bs">${noticeVO.noticeno }</TD>
+      <TD class="td_bs_center">${noticeVO.noticeno }</TD>
+      <TD class="td_bs_center">${noticeVO.seqno }</TD>
       <TD>
       <a href="./read.do?noticeno=${noticeno }">${noticeVO.head }</a>
       </TD>
-      <TD class="td_bs">${noticeVO.rdate.substring(0,10) }</TD>
-      <TD class="td_bs">${noticeVO.count }</TD>
-      <TD class="td_bs"> 
+      <TD class="td_bs_center">${noticeVO.rdate.substring(0,10) }</TD>
+      <TD class="td_bs_center">${noticeVO.count }</TD>
+      <TD class="td_bs_center"> 
         <c:choose>
           <c:when test="${noticeVO.visible == 'Y'}">
             <A href="./update_visible.do?noticeno=${noticeno }&visible=${noticeVO.visible }"><IMG src="./images/keypressok.png"></A>
@@ -75,7 +73,7 @@
           </c:otherwise>
         </c:choose>
       </TD> 
-      <TD class="td_bs">
+      <TD class="td_bs_center">
        <%--  <A href="./update.do?noticeno=${noticeno }"><span class="glyphicon glyphicon-pencil"></span></A>
         <A href="./read_delete.do?noticeno=${noticeno }"><span class="glyphicon glyphicon-trash"></span></A> --%>
         <A href="./update_noticeno_up.do?noticeno=${noticeno }"><span class="glyphicon glyphicon-arrow-up"></span></A>

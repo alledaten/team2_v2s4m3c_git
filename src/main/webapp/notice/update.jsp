@@ -7,15 +7,11 @@
 <meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, width=device-width" /> 
 <title>전통주 리뷰 커뮤니티</title>
  
-<!-- CSS --> 
-<link href="../css/common.css" rel="stylesheet" type="text/css">
-<link href="../css/menu.css" rel="stylesheet" type="text/css">
 <link href="../css/style.css" rel="Stylesheet" type="text/css">
-
-<!-- jQuery --> 
-<script type="text/JavaScript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  
-<!-- Bootstrap --> 
+<script type="text/JavaScript"
+          src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -40,10 +36,6 @@
   
   <DIV style='width: 100%;'>
     <FORM name='frm' method='POST' action='./update.do' class="form-horizontal">
-      <!-- FK memberno 지정 -->
-      <!-- <input type='hidden' name='memberno' id='memberno' value='1'> -->
-      <!-- FK noticeno 지정 -->
-      <!-- <input type='hidden' name='cateno' id='cateno' value='1'> -->
       
       <input type='hidden' name='noticeno' id='noticeno' value='${noticeVO.noticeno }'>
       
@@ -66,6 +58,13 @@
         </div>
       </div>
       
+      <div class="form-group">   
+        <div class="col-md-2">
+          <input type='text' class="form-control" name='seqno' value="${noticeVO.seqno }" 
+                    placeholder="글 번호" required="required" style='width: 80%;'>
+        </div>
+      </div> 
+      
       <DIV class='content_bottom_menu'>
         <button type="submit" class="btn btn-info">수정</button>
         <button type="button" 
@@ -73,12 +72,8 @@
                     class="btn btn-info">취소[목록]</button>
       </DIV>
        
-      <label>출력모드</label>
-      <select name='visible'>
-        <option value='Y' ${noticeVO.visible == 'Y' ? "selected='selected'":"" }>Y</option>
-        <option value='N' ${noticeVO.visible == 'N' ? "selected='selected'":""}>N</option>
-      </select>
-       
+     
+      
     </FORM>
   </DIV>
 
