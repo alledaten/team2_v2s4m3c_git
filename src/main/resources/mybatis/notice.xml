@@ -18,8 +18,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   #{name}: public String getName() 자동 호출
    --> 
   <insert id="create" parameterType="NoticeVO">
-   INSERT INTO notice(noticeno, head, content,passwd, rdate)
-   VALUES(notice_seq.nextval,#{head}, #{content},#{passwd}, sysdate)
+   INSERT INTO notice(noticeno, seqno, head, content, passwd, rdate)
+   VALUES(notice_seq.nextval, #{seqno}, #{head}, #{content},#{passwd}, sysdate)
   </insert> 
    
   <!-- 
@@ -27,14 +27,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   List<NoticeVO> list = new ArrayList<NoticeVO>(); 
   -->
   <select id="list" resultType="NoticeVO">
-    SELECT noticeno, head, content, visible, rdate 
+    SELECT noticeno, seqno, head, content, count, visible, rdate 
     FROM notice
     ORDER BY noticeno ASC
   </select>
   
   <!-- 조회 id:read, 입력: noticeno, 리턴: NoticeVO -->
   <select id="read" parameterType="int" resultType="NoticeVO">
-    SELECT noticeno, head, content, rdate, count, passwd
+    SELECT noticeno, seqno, head, content, rdate, count, passwd
     FROM notice
     WHERE noticeno=#{noticeno}
   </select>
@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   <!-- 수정, id: update, 입력: NoticeVO, 리턴: int -->
   <update id="update" parameterType="NoticeVO">
     UPDATE notice
-    SET head=#{head}, content = #{content}, visible=#{visible}
+    SET head=#{head}, content = #{content}, seqno=#{seqno}
     WHERE noticeno = #{noticeno}
   </update>
    
@@ -58,21 +58,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     WHERE noticeno=#{noticeno} AND passwd=#{passwd}
   </select>
   
-  <!-- 우선순위 상향 up 10 ▷ 1 -->
+  <!-- 우선순위 상향 up 1 ◁ 10 -->
   <update id="update_noticeno_up" parameterType="int">
     UPDATE notice
-    SET noticeno = noticeno - 1
+    SET seqno = seqno - 1
     WHERE noticeno = #{noticeno}
   </update>
   
-  <!-- 우선순위 하향 up 10 ▷ 1 -->
+  <!-- 우선순위 하향 down 1 ▷ 10 -->
   <update id="update_noticeno_down" parameterType="int">
     UPDATE notice
-    SET noticeno = noticeno + 1
+    SET seqno = seqno + 1
     WHERE noticeno = #{noticeno}
   </update>
   
-  <!-- 수정, id: update_visible, 입력: NoticeVO, 리턴: int -->
+  <!-- 출력모드 변경, id: update_visible, 입력: NoticeVO, 리턴: int -->
   <update id="update_visible" parameterType="NoticeVO">
     UPDATE notice
     SET visible=#{visible}

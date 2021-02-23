@@ -39,7 +39,7 @@
         <li><a href="#">공지사항</a>
           <ul class="depth2">
             <li><a href="${pageContext.request.contextPath}/notice/list.do">공지사항</a></li>
-            <li><a href="#">전통주 뉴스</a></li>
+            <li><a href="${pageContext.request.contextPath}/newsgrp/list_ajax.do">전통주 뉴스</a></li>
             <li><a href="#">관련 사이트</a></li>
           </ul>
         </li>
