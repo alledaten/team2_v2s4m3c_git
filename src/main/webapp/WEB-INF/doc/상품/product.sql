@@ -30,6 +30,7 @@ CREATE TABLE product(
   FOREIGN KEY (productgrp_no) REFERENCES productgrp (productgrp_no)
 );
 
+
 COMMENT ON TABLE product is '상품';
 COMMENT ON COLUMN product.product_no is '상품 번호';
 COMMENT ON COLUMN product.member_no is '회원 번호';

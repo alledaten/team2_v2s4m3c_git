@@ -12,6 +12,7 @@ CREATE TABLE cart(
     FOREIGN KEY (product_no) REFERENCES product (product_no)
 );
 
+
 COMMENT ON TABLE cart is '쇼핑카트';
 COMMENT ON COLUMN cart.cart_no is '카트번호';
 COMMENT ON COLUMN cart.product_no is '상품번호';
