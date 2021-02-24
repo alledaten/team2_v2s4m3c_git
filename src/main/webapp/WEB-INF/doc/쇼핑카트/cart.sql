@@ -1,31 +1,31 @@
 /***********************************/
-/* Table Name: ì‡¼í•‘ì¹´íŠ¸ */
+/* Table Name: ¼îÇÎÄ«Æ® */
 /***********************************/
 DROP TABLE cart;
 CREATE TABLE cart(
-		cart_no                       		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
+    cart_no                           NUMBER(10)     NOT NULL    PRIMARY KEY,
     product_no                             NUMBER(10)     NOT NULL ,
     member_no                             NUMBER(10)     NOT NULL ,
-    cart_cnt                      		NUMBER(10)		 NULL ,
-    cart_rdate                    		DATE		 NOT NULL,
+    cart_cnt                          NUMBER(10)     NULL ,
+    cart_rdate                        DATE     NOT NULL,
     FOREIGN KEY (member_no) REFERENCES member (member_no),
     FOREIGN KEY (product_no) REFERENCES product (product_no)
 );
 
 
-COMMENT ON TABLE cart is 'ì‡¼í•‘ì¹´íŠ¸';
-COMMENT ON COLUMN cart.cart_no is 'ì¹´íŠ¸ë²ˆí˜¸';
-COMMENT ON COLUMN cart.product_no is 'ìƒí’ˆë²ˆí˜¸';
-COMMENT ON COLUMN product.member_no is 'íšŒì› ë²ˆí˜¸';
-COMMENT ON COLUMN cart.cart_cnt is 'ìˆ˜ëŸ‰';
-COMMENT ON COLUMN cart.cart_rdate is 'ë‚ ì§œ';
+COMMENT ON TABLE cart is '¼îÇÎÄ«Æ®';
+COMMENT ON COLUMN cart.cart_no is 'Ä«Æ®¹øÈ£';
+COMMENT ON COLUMN cart.product_no is '»óÇ°¹øÈ£';
+COMMENT ON COLUMN product.member_no is 'È¸¿ø ¹øÈ£';
+COMMENT ON COLUMN cart.cart_cnt is '¼ö·®';
+COMMENT ON COLUMN cart.cart_rdate is '³¯Â¥';
 
 DROP SEQUENCE cart_seq;
 CREATE SEQUENCE cart_seq
-  START WITH 1              -- ì‹œìž‘ ë²ˆí˜¸
-  INCREMENT BY 1          -- ì¦ê°€ê°’
-  MAXVALUE 9999999999 -- ìµœëŒ€ê°’: 9999999 --> NUMBER(7) ëŒ€ì‘
-  CACHE 2                       -- 2ë²ˆì€ ë©”ëª¨ë¦¬ì—ì„œë§Œ ê³„ì‚°
+  START WITH 1              -- ½ÃÀÛ ¹øÈ£
+  INCREMENT BY 1          -- Áõ°¡°ª
+  MAXVALUE 9999999999 -- ÃÖ´ë°ª: 9999999 --> NUMBER(7) ´ëÀÀ
+  CACHE 2                       -- 2¹øÀº ¸Þ¸ð¸®¿¡¼­¸¸ °è»ê
   NOCYCLE;   
   
 COMMIT;
@@ -53,15 +53,3 @@ FROM cart;
 
 
 commit;
-
-
-
-
-
-
-
-
-
-
-
-
