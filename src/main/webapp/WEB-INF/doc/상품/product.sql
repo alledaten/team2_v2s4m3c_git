@@ -1,8 +1,8 @@
 
-/**********************************/
+/***********************************/
 /* Table Name: ªÛ«∞ */
-/**********************************/
-DROP TABLE product;
+/***********************************/
+DROP TABLE product; 
 CREATE TABLE product(
 		product_no                    		NUMBER(10)		 NOT NULL    PRIMARY KEY,
     member_no                              NUMBER(10)     NOT NULL ,
