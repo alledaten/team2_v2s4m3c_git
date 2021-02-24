@@ -1,43 +1,43 @@
 /**********************************/
-/* Table Name: ªÛ«∞ ¡æ∑˘ */
+/* Table Name: ÏÉÅÌíà Ï¢ÖÎ•ò */
 /**********************************/
 DROP TABLE productgrp;
 CREATE TABLE productgrp(
-		productgrp_no                 		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
-		productgrp_name               		VARCHAR2(20)		 NOT NULL,
+        productgrp_no                 		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
+	productgrp_name               		VARCHAR2(20)		 NOT NULL,
         productgrp_seqno                  NUMBER(10)		 DEFAULT 0		 NOT NULL,
         productgrp_visible           		CHAR(1)		 DEFAULT 'Y'		 NOT NULL,
         productgrp_rdate                         		DATE		 NOT NULL,
         productgrp_cnt                           		NUMBER(10)		 DEFAULT 0		 NOT NULL
 );
 
-COMMENT ON TABLE productgrp is 'ªÛ«∞ ¡æ∑˘';
-COMMENT ON COLUMN productgrp.productgrp_no is 'ªÛ«∞ ¡æ∑˘ π¯»£';
-COMMENT ON COLUMN productgrp.productgrp_name is 'ªÛ«∞ ¡æ∑˘';
-COMMENT ON COLUMN productgrp.productgrp_seqno is '√‚∑¬ º¯º≠';
-COMMENT ON COLUMN productgrp.productgrp_visible is '√‚∑¬ ∏µÂ';
-COMMENT ON COLUMN productgrp.productgrp_rdate is '±◊∑Ï ª˝º∫¿œ';
-COMMENT ON COLUMN productgrp.productgrp_cnt is 'µÓ∑œµ» ±€ ºˆ';
+COMMENT ON TABLE productgrp is 'ÏÉÅÌíà Ï¢ÖÎ•ò';
+COMMENT ON COLUMN productgrp.productgrp_no is 'ÏÉÅÌíà Ï¢ÖÎ•ò Î≤àÌò∏';
+COMMENT ON COLUMN productgrp.productgrp_name is 'ÏÉÅÌíà Ï¢ÖÎ•ò';
+COMMENT ON COLUMN productgrp.productgrp_seqno is 'Ï∂úÎ†• ÏàúÏÑú';
+COMMENT ON COLUMN productgrp.productgrp_visible is 'Ï∂úÎ†• Î™®Îìú';
+COMMENT ON COLUMN productgrp.productgrp_rdate is 'Í∑∏Î£π ÏÉùÏÑ±Ïùº';
+COMMENT ON COLUMN productgrp.productgrp_cnt is 'Îì±Î°ùÎêú Í∏Ä Ïàò';
 
 DROP SEQUENCE productgrp_seq;
 CREATE SEQUENCE productgrp_seq
-  START WITH 1              -- Ω√¿€ π¯»£
-  INCREMENT BY 1          -- ¡ı∞°∞™
-  MAXVALUE 9999999999 -- √÷¥Î∞™: 9999999 --> NUMBER(7) ¥Î¿¿
-  CACHE 2                       -- 2π¯¿∫ ∏ﬁ∏∏Æø°º≠∏∏ ∞ËªÍ
+  START WITH 1              -- ÏãúÏûë Î≤àÌò∏
+  INCREMENT BY 1          -- Ï¶ùÍ∞ÄÍ∞í
+  MAXVALUE 9999999999 -- ÏµúÎåÄÍ∞í: 9999999 --> NUMBER(7) ÎåÄÏùë
+  CACHE 2                       -- 2Î≤àÏùÄ Î©îÎ™®Î¶¨ÏóêÏÑúÎßå Í≥ÑÏÇ∞
   NOCYCLE;    
 
 -- insert
 INSERT INTO productgrp(productgrp_no, productgrp_name, productgrp_seqno, productgrp_visible, productgrp_rdate)
-VALUES(productgrp_seq.nextval, '≈π¡÷', 1, 'Y', sysdate);
+VALUES(productgrp_seq.nextval, 'ÌÉÅÏ£º', 1, 'Y', sysdate);
 INSERT INTO productgrp(productgrp_no, productgrp_name, productgrp_seqno, productgrp_visible, productgrp_rdate)
-VALUES(productgrp_seq.nextval, 'æ‡¡÷', 2, 'Y', sysdate);
+VALUES(productgrp_seq.nextval, 'ÏïΩÏ£º', 2, 'Y', sysdate);
 INSERT INTO productgrp(productgrp_no, productgrp_name, productgrp_seqno, productgrp_visible, productgrp_rdate)
-VALUES(productgrp_seq.nextval, '∞˙Ω«¡÷', 3, 'Y', sysdate);
+VALUES(productgrp_seq.nextval, 'Í≥ºÏã§Ï£º', 3, 'Y', sysdate);
 INSERT INTO productgrp(productgrp_no, productgrp_name, productgrp_seqno, productgrp_visible, productgrp_rdate)
-VALUES(productgrp_seq.nextval, '¡ı∑˘¡÷', 4, 'Y', sysdate);
+VALUES(productgrp_seq.nextval, 'Ï¶ùÎ•òÏ£º', 4, 'Y', sysdate);
 INSERT INTO productgrp(productgrp_no, productgrp_name, productgrp_seqno, productgrp_visible, productgrp_rdate)
-VALUES(productgrp_seq.nextval, '±‚≈∏', 5, 'Y', sysdate);
+VALUES(productgrp_seq.nextval, 'Í∏∞ÌÉÄ', 5, 'Y', sysdate);
 
 COMMIT;
 
@@ -48,31 +48,31 @@ ORDER BY productgrp_seqno ASC;
 
 PRODUCTTYPE_NO PRODUCTTYPE_NAME    
 -------------- --------------------
-             1 ≈π¡÷                
-             2 æ‡¡÷                
-             3 ∞˙Ω«¡÷              
-             4 ¡ı∑˘¡÷              
-             5 ±‚≈∏         
+             1 ÌÉÅÏ£º                
+             2 ÏïΩÏ£º                
+             3 Í≥ºÏã§Ï£º              
+             4 Ï¶ùÎ•òÏ£º              
+             5 Í∏∞ÌÉÄ         
              
--- ¡∂»∏
+-- Ï°∞Ìöå
 SELECT productgrp_no, productgrp_name, productgrp_visible
 FROM productgrp
 WHERE productgrp_no = 1;
 
 PRODUCTTYPE_NO PRODUCTTYPE_NAME    
 -------------- --------------------
-             1 ≈π¡÷          
+             1 ÌÉÅÏ£º          
 
--- ºˆ¡§
+-- ÏàòÏ†ï
 UPDATE productgrp
-SET productgrp_name='≈π¡÷¡÷', productgrp_seqno = 2, productgrp_visible='N'
+SET productgrp_name='ÌÉÅÏ£ºÏ£º', productgrp_seqno = 2, productgrp_visible='N'
 WHERE productgrp_no = 1;
 
 UPDATE categrp
-SET name='æ˜π´ æÁΩƒ', seqno = 3, visible='N'
+SET name='ÏóÖÎ¨¥ ÏñëÏãù', seqno = 3, visible='N'
 WHERE categrpno = 3;
 
--- ªË¡¶  
+-- ÏÇ≠Ï†ú  
 DELETE FROM productgrp
 WHERE productgrp_no = 1;
 
