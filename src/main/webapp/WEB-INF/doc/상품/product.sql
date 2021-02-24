@@ -5,7 +5,7 @@
 DROP TABLE product;
 CREATE TABLE product(
 		product_no                    		NUMBER(10)		 NOT NULL    PRIMARY KEY,
-        member_no                              NUMBER(10)     NOT NULL ,
+    member_no                              NUMBER(10)     NOT NULL ,
 		product_name                  		VARCHAR2(100)		 NOT NULL,
 		product_brand                 		VARCHAR2(100)		 NOT NULL,
 		product_origin                		VARCHAR2(100)		 NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE product(
 		product_description           		VARCHAR2(2000)		 NOT NULL,
 		product_cost                  		VARCHAR2(100)		 NOT NULL,
 		product_ml                    		VARCHAR2(100)		 NOT NULL,
-        product_word                       VARCHAR2(300)         NULL ,
+    product_word                       VARCHAR2(300)         NULL ,
 		product_passwd                		NUMBER(20)		 NOT NULL,
 		product_replycnt              		NUMBER(7)		 DEFAULT 0		 NOT NULL,
 		product_file1                 		VARCHAR2(100)		 NULL ,
@@ -25,7 +25,7 @@ CREATE TABLE product(
 		product_cnt                   		NUMBER(7)		 DEFAULT 0		 NOT NULL,
 		product_recom                 		NUMBER(7)		 DEFAULT 0		 NOT NULL,
 		product_rdate                  		DATE		 NOT NULL,
-        productgrp_no                 		NUMBER(10)		 NOT NULL,
+    productgrp_no                 		NUMBER(10)		 NOT NULL,
   FOREIGN KEY (member_no) REFERENCES member (member_no),
   FOREIGN KEY (productgrp_no) REFERENCES productgrp (productgrp_no)
 );
