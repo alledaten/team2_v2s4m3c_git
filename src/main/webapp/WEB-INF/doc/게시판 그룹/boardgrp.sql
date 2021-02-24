@@ -1,6 +1,7 @@
 /**********************************/
 /* Table Name: 게시판 그룹 */
 /**********************************/
+-- DROP TABLE boardgrp CASCADE CONSTRAINTS; 
 DROP TABLE boardgrp;
 CREATE TABLE boardgrp(
 		boardgrp_no                     		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
