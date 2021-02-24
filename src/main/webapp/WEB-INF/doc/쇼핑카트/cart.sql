@@ -1,31 +1,31 @@
 /***********************************/
-/* Table Name: ����īƮ */
+/* Table Name: 쇼핑카트 */
 /***********************************/
 DROP TABLE cart;
 CREATE TABLE cart(
 		cart_no                       		NUMBER(10)		 NOT NULL		 PRIMARY KEY,
     product_no                             NUMBER(10)     NOT NULL ,
     member_no                             NUMBER(10)     NOT NULL ,
-		cart_cnt                      		NUMBER(10)		 NULL ,
-		cart_rdate                    		DATE		 NOT NULL,
+    cart_cnt                      		NUMBER(10)		 NULL ,
+    cart_rdate                    		DATE		 NOT NULL,
     FOREIGN KEY (member_no) REFERENCES member (member_no),
     FOREIGN KEY (product_no) REFERENCES product (product_no)
 );
 
 
-COMMENT ON TABLE cart is '����īƮ';
-COMMENT ON COLUMN cart.cart_no is 'īƮ��ȣ';
-COMMENT ON COLUMN cart.product_no is '��ǰ��ȣ';
-COMMENT ON COLUMN product.member_no is 'ȸ�� ��ȣ';
-COMMENT ON COLUMN cart.cart_cnt is '����';
-COMMENT ON COLUMN cart.cart_rdate is '��¥';
+COMMENT ON TABLE cart is '쇼핑카트';
+COMMENT ON COLUMN cart.cart_no is '카트번호';
+COMMENT ON COLUMN cart.product_no is '상품번호';
+COMMENT ON COLUMN product.member_no is '회원 번호';
+COMMENT ON COLUMN cart.cart_cnt is '수량';
+COMMENT ON COLUMN cart.cart_rdate is '날짜';
 
 DROP SEQUENCE cart_seq;
 CREATE SEQUENCE cart_seq
-  START WITH 1              -- ���� ��ȣ
-  INCREMENT BY 1          -- ������
-  MAXVALUE 9999999999 -- �ִ밪: 9999999 --> NUMBER(7) ����
-  CACHE 2                       -- 2���� �޸𸮿����� ���
+  START WITH 1              -- 시작 번호
+  INCREMENT BY 1          -- 증가값
+  MAXVALUE 9999999999 -- 최대값: 9999999 --> NUMBER(7) 대응
+  CACHE 2                       -- 2번은 메모리에서만 계산
   NOCYCLE;   
   
 COMMIT;
